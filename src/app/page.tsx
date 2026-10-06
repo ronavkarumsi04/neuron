@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BrainMap } from "@/components/brain-map";
 import { MapCaption } from "@/components/map-caption";
 import { modules, totalLessons } from "@/content/curriculum";
+import { labs, labsFor } from "@/content/labs";
 
 const TONE_TEXT: Record<string, string> = {
   cobalt: "text-cobalt",
@@ -41,7 +42,7 @@ export default function Home() {
           <dl className="mt-10 grid max-w-md grid-cols-3 border-t border-rule pt-5">
             {[
               [String(totalLessons), "lessons"],
-              ["4", "hands-on labs"],
+              [String(labs.length), "hands-on labs"],
               ["0", "accounts needed"],
             ].map(([n, l]) => (
               <div key={l}>
@@ -87,7 +88,7 @@ export default function Home() {
                   <span className="mt-2 block max-w-2xl text-ink-2">{m.summary}</span>
                 </span>
                 <span className="col-start-2 mt-2 text-sm text-ink-3 sm:col-start-3 sm:mt-0 sm:text-right">
-                  {m.lessons.length} lessons · Lab: {m.lab.title}
+                  {m.lessons.length} lessons · {labsFor(m.id).length > 1 ? "Labs" : "Lab"}: {labsFor(m.id).map((l) => l.title).join(", ")}
                 </span>
               </Link>
             </li>

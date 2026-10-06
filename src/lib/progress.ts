@@ -11,7 +11,7 @@ export function useModuleLocked(moduleId: ModuleId) {
   return useProgress((s) => !!getModule(moduleId)?.bonus && !coreComplete(s.completed));
 }
 
-export const XP = { lesson: 50, perfectQuiz: 20 } as const;
+export const XP = { lesson: 50, perfectQuiz: 20, lab: 100 } as const;
 
 export const LEVELS = [
   { name: "Novice Node", xp: 0 },
@@ -49,6 +49,12 @@ export const BADGES: Badge[] = [
   { id: "ethics-master", name: "Ethics Master", hint: "Finish every lesson in Module 03" },
   { id: "on-fire", name: "On Fire", hint: "Keep a 7-day streak" },
   { id: "sharp-mind", name: "Sharp Mind", hint: "Ace five checkpoint quizzes on the first try" },
+  { id: "teach-the-machine", name: "Machine Teacher", hint: "Train and test your own classifier" },
+  { id: "prompt-lab", name: "Prompt Smith", hint: "Score 4/5 or better on three Prompt Lab briefs" },
+  { id: "spot-the-hallucination", name: "Fact Checker", hint: "Catch the hallucinations in Spot the Hallucination" },
+  { id: "bias-lab", name: "Bias Buster", hint: "Close the fairness gap in the Bias Lab" },
+  { id: "integrity-sim", name: "Straight Shooter", hint: "Finish every Integrity Simulator scenario" },
+  { id: "capstone", name: "Neural Architect", hint: "Pass the Capstone challenge" },
 ];
 
 export interface Award {
@@ -72,6 +78,8 @@ interface ProgressState {
   streak: { count: number; lastDay: string | null };
   awards: Award[];
   quizzes: Record<string, QuizResult>;
+  labs: string[];
+  completeLab: (labId: string) => void;
   recordQuiz: (moduleId: ModuleId, lessonSlug: string, correct: number, total: number, passed: boolean) => void;
   completeLesson: (moduleId: ModuleId, lessonSlug: string) => void;
   dismissAward: (id: number) => void;
@@ -93,6 +101,23 @@ export const useProgress = create<ProgressState>()(
       streak: { count: 0, lastDay: null },
       awards: [],
       quizzes: {},
+      labs: [],
+      completeLab: (labId) => {
+        const state = get();
+        if (state.labs.includes(labId)) return;
+        const xp = state.xp + XP.lab;
+        const before = levelFor(state.xp).level;
+        const after = levelFor(xp);
+        const badge = BADGES.find((b) => b.id === labId);
+        const awards: Award[] = [{ id: ++awardId, xp: XP.lab, levelUp: after.level > before ? after.name : undefined }];
+        if (badge) awards.push({ id: ++awardId, xp: 0, badge });
+        set({
+          labs: [...state.labs, labId],
+          xp,
+          badges: badge && !state.badges.includes(badge.id) ? [...state.badges, badge.id] : state.badges,
+          awards: [...state.awards, ...awards],
+        });
+      },
       recordQuiz: (moduleId, lessonSlug, correct, total, passed) => {
         const key = lessonKey(moduleId, lessonSlug);
         const state = get();
@@ -161,19 +186,19 @@ export const useProgress = create<ProgressState>()(
         });
       },
       dismissAward: (id) => set((s) => ({ awards: s.awards.filter((a) => a.id !== id) })),
-      reset: () => set({ completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {} }),
+      reset: () => set({ completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {}, labs: [] }),
     }),
     {
       name: "neuron-progress",
-      version: 2,
+      version: 3,
       skipHydration: true,
       migrate: (persisted) => {
         const s = persisted as Partial<ProgressState>;
         const quizzes: Record<string, QuizResult> = { ...(s.quizzes ?? {}) };
         for (const key of s.completed ?? []) quizzes[key] ??= { best: 0, total: 0, attempts: 0, passed: true };
-        return { ...s, quizzes } as ProgressState;
+        return { ...s, quizzes, labs: s.labs ?? [] } as ProgressState;
       },
-      partialize: ({ completed, xp, badges, streak, quizzes }) => ({ completed, xp, badges, streak, quizzes }),
+      partialize: ({ completed, xp, badges, streak, quizzes, labs }) => ({ completed, xp, badges, streak, quizzes, labs }),
     },
   ),
 );
