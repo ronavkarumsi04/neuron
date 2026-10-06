@@ -39,7 +39,13 @@ export default function Home() {
               Open the brain map
             </Link>
           </div>
-          <dl className="mt-10 grid max-w-md grid-cols-3 border-t border-rule pt-5">
+          <p className="mt-5 text-sm text-ink-3">
+            New here?{" "}
+            <Link href="/assessment" className="text-ink-2 underline underline-offset-4 hover:text-ink">Take the 5-minute baseline check</Link>
+            {" "}· Judging?{" "}
+            <Link href="/judge" className="text-ink-2 underline underline-offset-4 hover:text-ink">Start the guided tour</Link>
+          </p>
+          <dl className="mt-8 grid max-w-md grid-cols-3 border-t border-rule pt-5">
             {[
               [String(totalLessons), "lessons"],
               [String(labs.length), "hands-on labs"],
