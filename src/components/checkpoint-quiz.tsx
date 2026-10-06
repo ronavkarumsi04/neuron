@@ -7,19 +7,30 @@ import { useProgress, XP } from "@/lib/progress";
 
 const LETTERS = "ABCD";
 
-export function CheckpointQuiz({ moduleId, slug, questions }: { moduleId: ModuleId; slug: string; questions: Question[] }) {
+interface Props {
+  moduleId: ModuleId;
+  slug: string;
+  questions: Question[];
+  title?: string;
+  need?: number;
+  note?: string;
+  onResult?: (score: number, passed: boolean) => void;
+}
+
+export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint", need: needOverride, note, onResult }: Props) {
   const [picks, setPicks] = useState<(number | null)[]>(() => questions.map(() => null));
   const [checked, setChecked] = useState(false);
   const record = useProgress((s) => s.recordQuiz);
   const prior = useProgress((s) => s.quizzes[lessonKey(moduleId, slug)]);
-  const need = passMark(questions.length);
+  const need = needOverride ?? passMark(questions.length);
   const score = picks.filter((p, i) => p === questions[i].answer).length;
   const passed = score >= need;
   const ready = picks.every((p) => p !== null);
 
   const check = () => {
     setChecked(true);
-    record(moduleId, slug, score, questions.length, passed);
+    if (onResult) onResult(score, passed);
+    else record(moduleId, slug, score, questions.length, passed);
   };
   const retry = () => {
     setPicks(questions.map(() => null));
@@ -29,12 +40,18 @@ export function CheckpointQuiz({ moduleId, slug, questions }: { moduleId: Module
   return (
     <section aria-labelledby={`${slug}-quiz`} className="mt-14 rounded-md border border-rule-strong bg-paper-raised p-5 sm:p-7">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id={`${slug}-quiz`} className="font-display text-3xl">Checkpoint</h2>
+        <h2 id={`${slug}-quiz`} className="font-display text-3xl">{title}</h2>
         <p className="label">
-          {need} of {questions.length} to pass · ace it first try <span className="text-signal-ink">+{XP.perfectQuiz} XP</span>
+          {need} of {questions.length} to pass
+          {!onResult && (
+            <>
+              {" "}· ace it first try <span className="text-signal-ink">+{XP.perfectQuiz} XP</span>
+            </>
+          )}
         </p>
       </div>
-      {prior?.passed && !checked && prior.total > 0 && (
+      {note && !checked && <p className="mt-2 text-sm text-ink-3">{note}</p>}
+      {!onResult && prior?.passed && !checked && prior.total > 0 && (
         <p className="mt-2 text-sm text-ink-3">Already passed. Best score {prior.best}/{prior.total}. Retake it any time.</p>
       )}
 
