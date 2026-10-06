@@ -50,7 +50,7 @@ export function ProfileView() {
                 <li key={m.id} className="flex items-center gap-4 border-b border-rule py-3">
                   <span className="w-6 font-mono text-xs" style={{ color: TONE[m.tone] }}>{m.number}</span>
                   <span className="flex-1">{m.title}</span>
-                  <span className="flex gap-1" aria-label={`${n} of ${m.lessons.length} complete`}>
+                  <span className="flex gap-1" role="img" aria-label={`${n} of ${m.lessons.length} complete`}>
                     {m.lessons.map((l, i) => (
                       <span key={l.slug} className="size-2.5 rounded-full border" style={{ borderColor: TONE[m.tone], background: i < n ? TONE[m.tone] : "transparent" }} />
                     ))}

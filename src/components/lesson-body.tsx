@@ -27,11 +27,11 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
           }
           case "note":
             return (
-              <aside key={i} className={`not-prose my-8 border-l-2 ${NOTE[b.kind].cls} bg-paper-raised py-4 pl-5 pr-4`}>
+              <div role="note" key={i} className={`not-prose my-8 border-l-2 ${NOTE[b.kind].cls} bg-paper-raised py-4 pl-5 pr-4`}>
                 <p className="label">{NOTE[b.kind].label}</p>
                 <p className="mt-1 font-medium text-ink">{b.title}</p>
                 <p className="mt-1 leading-relaxed text-ink-2"><RichText text={b.text} /></p>
-              </aside>
+              </div>
             );
           case "example":
             return (
