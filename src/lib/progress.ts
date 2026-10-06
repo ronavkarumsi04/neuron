@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { getModule, lessonKey, modules, type ModuleId } from "@/content/curriculum";
 import { BADGES, levelFor, XP, type Badge } from "./gamification";
+import { INTERVALS, today, type Memory } from "./memory";
 
 export const coreComplete = (completed: string[]) =>
   modules.filter((m) => !m.bonus).every((m) => m.lessons.every((l) => completed.includes(lessonKey(m.id, l.slug))));
@@ -44,6 +45,9 @@ export interface ProgressState {
   quizzes: Record<string, QuizResult>;
   labs: string[];
   assessment: { pre?: Attempt; post?: Attempt };
+  memory: Record<string, Memory>;
+  reviewsCorrect: number;
+  reviewLesson: (key: string, correct: boolean) => void;
   recordAssessment: (kind: "pre" | "post", attempt: Attempt) => void;
   completeLab: (labId: string) => void;
   recordQuiz: (moduleId: ModuleId, lessonSlug: string, correct: number, total: number, passed: boolean) => void;
@@ -52,7 +56,6 @@ export interface ProgressState {
   reset: () => void;
 }
 
-const today = () => new Date().toISOString().slice(0, 10);
 const dayDiff = (a: string, b: string) =>
   Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 
@@ -69,6 +72,26 @@ export const useProgress = create<ProgressState>()(
       quizzes: {},
       labs: [],
       assessment: {},
+      memory: {},
+      reviewsCorrect: 0,
+      reviewLesson: (key, correct) => {
+        const state = get();
+        const prev = state.memory[key];
+        if (!prev) return;
+        const memory = { ...state.memory, [key]: { last: today(), step: correct ? Math.min(prev.step + 1, INTERVALS.length - 1) : 0 } };
+        if (!correct) return set({ memory });
+        const xp = state.xp + XP.review;
+        const reviewsCorrect = state.reviewsCorrect + 1;
+        const before = levelFor(state.xp).level;
+        const after = levelFor(xp);
+        const awards: Award[] = [{ id: ++awardId, xp: XP.review, levelUp: after.level > before ? after.name : undefined }];
+        const badges = [...state.badges];
+        if (reviewsCorrect >= 10 && !badges.includes("memory-keeper")) {
+          badges.push("memory-keeper");
+          awards.push({ id: ++awardId, xp: 0, badge: BADGES.find((b) => b.id === "memory-keeper") });
+        }
+        set({ memory, xp, reviewsCorrect, badges, awards: [...state.awards, ...awards] });
+      },
       recordAssessment: (kind, attempt) => {
         const state = get();
         const assessment = { ...state.assessment, [kind]: attempt };
@@ -159,6 +182,7 @@ export const useProgress = create<ProgressState>()(
 
         set({
           completed,
+          memory: { ...state.memory, [key]: { last: day, step: 0 } },
           xp,
           badges: [...earned],
           streak: { count, lastDay: day },
@@ -166,19 +190,23 @@ export const useProgress = create<ProgressState>()(
         });
       },
       dismissAward: (id) => set((s) => ({ awards: s.awards.filter((a) => a.id !== id) })),
-      reset: () => set({ completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {}, labs: [], assessment: {} }),
+      reset: () => set({ completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {}, labs: [], assessment: {}, memory: {}, reviewsCorrect: 0 }),
     }),
     {
       name: "neuron-progress",
-      version: 4,
+      version: 5,
       skipHydration: true,
       migrate: (persisted) => {
         const s = persisted as Partial<ProgressState>;
         const quizzes: Record<string, QuizResult> = { ...(s.quizzes ?? {}) };
         for (const key of s.completed ?? []) quizzes[key] ??= { best: 0, total: 0, attempts: 0, passed: true };
-        return { ...s, quizzes, labs: s.labs ?? [], assessment: s.assessment ?? {} } as ProgressState;
+        const memory: Record<string, Memory> = { ...(s.memory ?? {}) };
+        for (const key of s.completed ?? []) memory[key] ??= { last: s.streak?.lastDay ?? today(), step: 0 };
+        return { ...s, quizzes, memory, reviewsCorrect: s.reviewsCorrect ?? 0, labs: s.labs ?? [], assessment: s.assessment ?? {} } as ProgressState;
       },
-      partialize: ({ completed, xp, badges, streak, quizzes, labs, assessment }) => ({ completed, xp, badges, streak, quizzes, labs, assessment }),
+      partialize: ({ completed, xp, badges, streak, quizzes, labs, assessment, memory, reviewsCorrect }) => ({
+        completed, xp, badges, streak, quizzes, labs, assessment, memory, reviewsCorrect,
+      }),
     },
   ),
 );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { lessonKey, modules } from "@/content/curriculum";
 import { BRIDGES, buildMap, MAP_VIEWBOX, type MapNode } from "@/lib/map-layout";
+import { strengthOf, type Strength } from "@/lib/memory";
 import { coreComplete, useProgress } from "@/lib/progress";
 
 type NodeState = "done" | "next" | "open" | "locked";
@@ -17,6 +18,7 @@ const TONE: Record<string, string> = {
 
 export function useNodeStates() {
   const completed = useProgress((s) => s.completed);
+  const memory = useProgress((s) => s.memory);
   return useMemo(() => {
     const done = new Set(completed);
     const coreDone = coreComplete(completed);
@@ -34,17 +36,23 @@ export function useNodeStates() {
         } else states.set(key, "open");
       });
     }
-    return { states, doneCount: done.size };
-  }, [completed]);
+    const strength = new Map<string, Strength>();
+    for (const key of completed) strength.set(key, strengthOf(memory[key]));
+    const due = [...strength.values()].filter((v) => v !== "fresh").length;
+    return { states, strength, doneCount: done.size, due };
+  }, [completed, memory]);
 }
 
-function Neuron({ node, state }: { node: MapNode; state: NodeState }) {
+const FADE: Record<Strength, number> = { fresh: 1, fading: 0.55, faded: 0.28 };
+
+function Neuron({ node, state, strength = "fresh" }: { node: MapNode; state: NodeState; strength?: Strength }) {
   const lesson = node.module.lessons[node.lessonIndex];
   const color = TONE[node.module.tone];
   const r = 9;
   const label = `${lesson.title}, module ${node.module.number}. ${
     { done: "Completed", next: "Up next", open: "Not started", locked: "Locked" }[state]
-  }`;
+  }${state === "done" && strength !== "fresh" ? `, ${strength}: review due` : ""}`;
+  const fade = state === "done" ? FADE[strength] : 1;
 
   const body = (
     <g className="group">
@@ -57,12 +65,16 @@ function Neuron({ node, state }: { node: MapNode; state: NodeState }) {
         cy={node.y}
         r={r}
         fill={state === "done" ? color : "var(--paper-raised)"}
+        fillOpacity={fade}
         stroke={state === "next" ? "var(--signal)" : state === "locked" ? "var(--rule-strong)" : color}
         strokeWidth={state === "next" ? 2.5 : 1.5}
         strokeDasharray={state === "locked" ? "2 3" : undefined}
         className="transition-[r] duration-200 group-hover:[r:11px] group-focus-visible:[r:11px]"
       />
       {state === "done" && <circle cx={node.x} cy={node.y} r={3} fill="var(--paper-raised)" />}
+      {state === "done" && strength !== "fresh" && (
+        <circle cx={node.x} cy={node.y} r={r + 4} fill="none" stroke={color} strokeOpacity="0.6" strokeWidth="1" strokeDasharray="2 3" />
+      )}
     </g>
   );
 
@@ -84,7 +96,7 @@ function Neuron({ node, state }: { node: MapNode; state: NodeState }) {
 
 export function BrainMap({ className, showLabels = true }: { className?: string; showLabels?: boolean }) {
   const clusters = useMemo(buildMap, []);
-  const { states } = useNodeStates();
+  const { states, strength } = useNodeStates();
   const hub = (id: string) => clusters.find((c) => c.module.id === id)!;
 
   return (
@@ -92,7 +104,7 @@ export function BrainMap({ className, showLabels = true }: { className?: string;
       viewBox={`0 0 ${MAP_VIEWBOX.w} ${MAP_VIEWBOX.h}`}
       className={className}
       role="group"
-      aria-label="Brain map of every lesson. Each circle is a lesson; filled circles are complete."
+      aria-label="Brain map of every lesson. Each circle is a lesson; filled circles are complete, and pale ones are fading and due for review."
     >
       <g stroke="var(--rule-strong)" strokeWidth="1" fill="none">
         {BRIDGES.map(([a, b]) => {
@@ -113,9 +125,10 @@ export function BrainMap({ className, showLabels = true }: { className?: string;
               const prev = nodes[(i - 1 + nodes.length) % nodes.length];
               const prevDone = states.get(prev.key) === "done";
               const live = s === "done";
+              const op = live ? FADE[strength.get(n.key) ?? "fresh"] : 1;
               return (
                 <g key={`e-${n.key}`}>
-                  <line x1={cx} y1={cy} x2={n.x} y2={n.y} stroke={live ? color : "var(--rule)"} strokeWidth={live ? 1.5 : 1} className={live ? "synapse-live" : undefined} />
+                  <line x1={cx} y1={cy} x2={n.x} y2={n.y} stroke={live ? color : "var(--rule)"} strokeOpacity={op} strokeWidth={live ? 1.5 : 1} className={live ? "synapse-live" : undefined} />
                   {i > 0 && (
                     <line x1={prev.x} y1={prev.y} x2={n.x} y2={n.y} stroke={live && prevDone ? color : "var(--rule)"} strokeWidth="1" />
                   )}
@@ -131,7 +144,7 @@ export function BrainMap({ className, showLabels = true }: { className?: string;
               </g>
             )}
             {nodes.map((n) => (
-              <Neuron key={n.key} node={n} state={states.get(n.key) ?? "open"} />
+              <Neuron key={n.key} node={n} state={states.get(n.key) ?? "open"} strength={strength.get(n.key)} />
             ))}
           </g>
         );

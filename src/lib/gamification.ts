@@ -1,4 +1,4 @@
-export const XP = { lesson: 50, perfectQuiz: 20, lab: 100, assessment: 25 } as const;
+export const XP = { lesson: 50, perfectQuiz: 20, lab: 100, assessment: 25, review: 10 } as const;
 
 export const LEVELS = [
   { name: "Novice Node", xp: 0 },
@@ -36,6 +36,7 @@ export const BADGES: Badge[] = [
   { id: "ethics-master", name: "Ethics Master", hint: "Finish every lesson in Module 03" },
   { id: "on-fire", name: "On Fire", hint: "Keep a 7-day streak" },
   { id: "sharp-mind", name: "Sharp Mind", hint: "Ace five checkpoint quizzes on the first try" },
+  { id: "memory-keeper", name: "Memory Keeper", hint: "Answer 10 spaced-review questions correctly" },
   { id: "teach-the-machine", name: "Machine Teacher", hint: "Train and test your own classifier" },
   { id: "prompt-lab", name: "Prompt Smith", hint: "Score 4/5 or better on three Prompt Lab briefs" },
   { id: "spot-the-hallucination", name: "Fact Checker", hint: "Catch the hallucinations in Spot the Hallucination" },
