@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { lessonKey, modules } from "@/content/curriculum";
 import { BRIDGES, buildMap, MAP_VIEWBOX, type MapNode } from "@/lib/map-layout";
-import { useProgress } from "@/lib/progress";
+import { coreComplete, useProgress } from "@/lib/progress";
 
 type NodeState = "done" | "next" | "open" | "locked";
 
@@ -19,7 +19,7 @@ export function useNodeStates() {
   const completed = useProgress((s) => s.completed);
   return useMemo(() => {
     const done = new Set(completed);
-    const coreDone = modules.filter((m) => !m.bonus).every((m) => m.lessons.every((l) => done.has(lessonKey(m.id, l.slug))));
+    const coreDone = coreComplete(completed);
     const states = new Map<string, NodeState>();
     let nextAssigned = false;
     for (const m of modules) {
@@ -28,7 +28,7 @@ export function useNodeStates() {
         const key = lessonKey(m.id, l.slug);
         if (done.has(key)) states.set(key, "done");
         else if (locked) states.set(key, "locked");
-        else if (!nextAssigned && (i === 0 || done.has(lessonKey(m.id, m.lessons[i - 1].slug)) || i === 0)) {
+        else if (!nextAssigned && (i === 0 || done.has(lessonKey(m.id, m.lessons[i - 1].slug)))) {
           states.set(key, "next");
           nextAssigned = true;
         } else states.set(key, "open");

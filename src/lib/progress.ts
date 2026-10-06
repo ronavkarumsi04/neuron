@@ -2,7 +2,14 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { lessonKey, modules, type ModuleId } from "@/content/curriculum";
+import { getModule, lessonKey, modules, type ModuleId } from "@/content/curriculum";
+
+export const coreComplete = (completed: string[]) =>
+  modules.filter((m) => !m.bonus).every((m) => m.lessons.every((l) => completed.includes(lessonKey(m.id, l.slug))));
+
+export function useModuleLocked(moduleId: ModuleId) {
+  return useProgress((s) => !!getModule(moduleId)?.bonus && !coreComplete(s.completed));
+}
 
 export const XP = { lesson: 50 } as const;
 
@@ -79,6 +86,7 @@ export const useProgress = create<ProgressState>()(
         const key = lessonKey(moduleId, lessonSlug);
         const state = get();
         if (state.completed.includes(key)) return;
+        if (getModule(moduleId)?.bonus && !coreComplete(state.completed)) return;
 
         const completed = [...state.completed, key];
         const xp = state.xp + XP.lesson;

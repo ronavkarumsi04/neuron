@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { BrainMap } from "@/components/brain-map";
+import { LessonListLink } from "@/components/lesson-list-link";
 import { MapCaption } from "@/components/map-caption";
 import { modules } from "@/content/curriculum";
 
@@ -23,9 +23,7 @@ export default function MapPage() {
             <ol className="mt-3 space-y-1.5 text-sm">
               {m.lessons.map((l) => (
                 <li key={l.slug}>
-                  <Link className="text-ink-2 underline-offset-4 hover:text-ink hover:underline" href={`/modules/${m.id}/${l.slug}`}>
-                    {l.title}
-                  </Link>
+                  <LessonListLink moduleId={m.id} slug={l.slug} title={l.title} />
                 </li>
               ))}
             </ol>
