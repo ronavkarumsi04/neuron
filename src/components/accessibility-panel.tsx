@@ -81,7 +81,14 @@ export function AccessibilityPanel() {
         setOpen(false);
         buttonRef.current?.focus();
       } else if (e.key === "Tab" && panelRef.current) {
-        const items = panelRef.current.querySelectorAll<HTMLElement>("button, input, [tabindex]:not([tabindex='-1'])");
+        const items = Array.from(
+          panelRef.current.querySelectorAll<HTMLElement>("button, input, [tabindex]:not([tabindex='-1'])"),
+        ).filter((el) => {
+          if (!(el instanceof HTMLInputElement) || el.type !== "radio") return true;
+          const group = panelRef.current!.querySelectorAll<HTMLInputElement>(`input[type="radio"][name="${el.name}"]`);
+          const checked = Array.from(group).find((r) => r.checked);
+          return checked ? el === checked : el === group[0];
+        });
         const first = items[0];
         const last = items[items.length - 1];
         if (e.shiftKey && document.activeElement === first) {
