@@ -14,6 +14,9 @@ export function SiteFooter() {
           <li><Link className="hover:text-ink" href="/profile">Progress</Link></li>
           <li><Link className="hover:text-ink" href="/review">Review</Link></li>
           <li><Link className="hover:text-ink" href="/assessment">Skill check</Link></li>
+          <li><Link className="hover:text-ink" href="/glossary">Glossary</Link></li>
+          <li><Link className="hover:text-ink" href="/educators">Educators</Link></li>
+          <li><Link className="hover:text-ink" href="/about">About & privacy</Link></li>
           <li><Link className="hover:text-ink" href="/judge">For judges</Link></li>
         </ul>
       </div>

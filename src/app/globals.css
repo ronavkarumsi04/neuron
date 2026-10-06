@@ -155,3 +155,10 @@ p, li { text-wrap: pretty; }
 .lesson-prose > ol { list-style: decimal; }
 .lesson-prose > ol > li::marker { font-family: var(--font-mono); font-size: 0.8em; color: var(--ink-3); }
 .lesson-prose li + li { margin-top: 0.5rem; }
+
+@media print {
+  @page { size: landscape; margin: 0.4in; }
+  body > a, header, footer { display: none !important; }
+  body { background: #fff !important; }
+  .certificate { box-shadow: none !important; break-inside: avoid; }
+}

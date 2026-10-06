@@ -1,7 +1,8 @@
 "use client";
 
 import { modules, lessonKey, totalLessons } from "@/content/curriculum";
-import { BADGES, LEVELS, levelFor, useProgress } from "@/lib/progress";
+import Link from "next/link";
+import { BADGES, coreComplete, LEVELS, levelFor, useProgress } from "@/lib/progress";
 
 const TONE: Record<string, string> = { cobalt: "var(--cobalt)", green: "var(--green)", plum: "var(--plum)", gold: "var(--gold)" };
 
@@ -90,7 +91,15 @@ export function ProfileView() {
         </ol>
       </section>
 
-      <div className="mt-14 flex items-center justify-between border-t border-rule pt-5 text-sm text-ink-3">
+      <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-rule pt-5 text-sm">
+        <Link href="/certificate" className="text-ink underline underline-offset-4">
+          {coreComplete(completed) ? "Get your certificate" : "Certificate: finish Modules 01–03"}
+        </Link>
+        <Link href="/review" className="text-ink underline underline-offset-4">Spaced review</Link>
+        <Link href="/assessment" className="text-ink underline underline-offset-4">Skill check</Link>
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-5 text-sm text-ink-3">
         <p>Progress is stored only in this browser. Nothing is sent to a server.</p>
         <button
           type="button"

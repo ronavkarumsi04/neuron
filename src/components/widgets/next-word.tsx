@@ -25,10 +25,14 @@ a student learns more by writing the answer first .`;
 function buildModel() {
   const words = CORPUS.replace(/\n/g, " ").split(/\s+/).filter(Boolean);
   const table = new Map<string, Map<string, number>>();
+  const add = (ctx: string, next: string) => {
+    const row = table.get(ctx) ?? new Map<string, number>();
+    row.set(next, (row.get(next) ?? 0) + 1);
+    table.set(ctx, row);
+  };
   for (let i = 0; i < words.length - 1; i++) {
-    const row = table.get(words[i]) ?? new Map<string, number>();
-    row.set(words[i + 1], (row.get(words[i + 1]) ?? 0) + 1);
-    table.set(words[i], row);
+    add(words[i], words[i + 1]);
+    if (i > 0 && words[i - 1] !== ".") add(`${words[i - 1]} ${words[i]}`, words[i + 1]);
   }
   return { table, size: words.length };
 }
@@ -47,8 +51,12 @@ export function NextWord() {
   const { table, size } = useMemo(buildModel, []);
   const [text, setText] = useState(["the", "student"]);
   const [temp, setTemp] = useState(1);
+  const [ctx, setCtx] = useState<1 | 2>(1);
   const last = text[text.length - 1];
-  const dist = distribution(table.get(last), temp);
+  const pair = text.length > 1 ? `${text[text.length - 2]} ${last}` : "";
+  const usePair = ctx === 2 && table.has(pair);
+  const seen = usePair ? pair : last;
+  const dist = distribution(table.get(seen), temp);
   const ended = last === "." || dist.length === 0;
 
   const sample = () => {
@@ -69,7 +77,8 @@ export function NextWord() {
 
       <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1fr)_14rem]">
         <div>
-          <p className="label">After “{last}”, the model thinks the next word is…</p>
+          <p className="label">After “{seen}”, the model thinks the next word is…</p>
+          {ctx === 2 && !usePair && !ended && <p className="mt-1 text-xs text-ink-3">Never saw “{pair}” in training, so it falls back to one word.</p>}
           {ended ? (
             <p className="mt-3 text-sm text-ink-2">Sentence finished. Start over to try again.</p>
           ) : (
@@ -92,11 +101,23 @@ export function NextWord() {
             <input type="range" min={0.2} max={3} step={0.1} value={temp} onChange={(e) => setTemp(+e.target.value)} className="mt-1 w-full accent-[var(--signal)]" />
             <span className="mt-1 block text-xs text-ink-3">Low = safe, predictable. High = surprising, more mistakes.</span>
           </label>
+          <fieldset>
+            <legend className="text-ink-2">Looks back</legend>
+            <div className="mt-1 grid grid-cols-2 gap-1 rounded-sm border border-rule p-1">
+              {([1, 2] as const).map((n) => (
+                <label key={n} className={`flex min-h-9 cursor-pointer items-center justify-center rounded-[2px] text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal ${ctx === n ? "bg-ink text-paper" : "hover:bg-paper-sunk"}`}>
+                  <input type="radio" name="ctx" className="sr-only" checked={ctx === n} onChange={() => setCtx(n)} />
+                  {n} word{n > 1 ? "s" : ""}
+                </label>
+              ))}
+            </div>
+            <span className="mt-1 block text-xs text-ink-3">More context = sharper guesses, but it needs more training data.</span>
+          </fieldset>
           <div className="flex flex-wrap gap-2">
             <button type="button" disabled={ended} onClick={sample} className="min-h-10 rounded-sm bg-ink px-3 font-medium text-paper disabled:opacity-40">Sample next word</button>
             <button type="button" onClick={() => setText(["the"])} className="min-h-10 rounded-sm border border-rule-strong px-3 hover:bg-paper-sunk">Start over</button>
           </div>
-          <p className="leading-relaxed text-ink-2">Click a word to pick it yourself, or let the model roll the dice. It only counts which word followed which. Real LLMs look at thousands of previous words, not just one.</p>
+          <p className="leading-relaxed text-ink-2">Click a word to pick it yourself, or let the model roll the dice. It only counts which word followed which. Switch to 2 words and watch the guesses get more confident. Real LLMs look back over thousands of words.</p>
         </div>
       </div>
     </Figure>
