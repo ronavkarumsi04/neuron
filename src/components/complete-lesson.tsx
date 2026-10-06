@@ -7,6 +7,7 @@ export function CompleteLesson({ moduleId, slug }: { moduleId: ModuleId; slug: s
   const done = useProgress((s) => s.completed.includes(lessonKey(moduleId, slug)));
   const complete = useProgress((s) => s.completeLesson);
   const locked = useModuleLocked(moduleId);
+  const passed = useProgress((s) => !!s.quizzes[lessonKey(moduleId, slug)]?.passed);
 
   if (done) {
     return (
@@ -25,13 +26,18 @@ export function CompleteLesson({ moduleId, slug }: { moduleId: ModuleId; slug: s
     );
   }
   return (
+    <div className="flex flex-wrap items-center gap-3">
     <button
       type="button"
       onClick={() => complete(moduleId, slug)}
-      className="inline-flex h-11 items-center gap-3 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
+      disabled={!passed}
+      aria-describedby={passed ? undefined : `${slug}-gate`}
+      className="inline-flex h-11 items-center gap-3 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100"
     >
       Mark complete
       <span className="font-mono text-xs text-signal tabular">+{XP.lesson} XP</span>
     </button>
+    {!passed && <span id={`${slug}-gate`} className="text-sm text-ink-3">Pass the checkpoint above to fire this neuron.</span>}
+    </div>
   );
 }
