@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { lessonKey, modules } from "@/content/curriculum";
+import { shiftDay, type Memory } from "./memory";
 import { useProgress, XP, type ProgressState, type QuizResult } from "./progress";
 
 export interface Stop {
@@ -14,7 +15,8 @@ export interface Stop {
 
 export const TOUR: Stop[] = [
   { href: "/", title: "One idea: every lesson is a neuron", text: "Neuron teaches AI by letting students build and break it. Finishing a lesson lights a neuron on their brain map, so progress is the network itself.", meets: "Theme" },
-  { href: "/map", title: "The brain map is the progress dashboard", text: "This sample student finished Modules 01–03, so 15 neurons are lit and connected and the bonus module has unlocked. Hover or tab through any node.", meets: "Progress tracking" },
+  { href: "/map", title: "The brain map is the progress dashboard", text: "This sample student finished Modules 01–03, so 15 neurons are lit and the bonus module has unlocked. Pale neurons with dashed rings are fading: the student hasn't reviewed them in a while.", meets: "Progress tracking" },
+  { href: "/review", title: "Neurons fade unless you review", text: "Finished lessons dim over days, like real memories. One correct answer relights a neuron and pushes its next review further out (3, 7, 14, 30, 60 days). It's spaced repetition, built into the map.", meets: "Engagement" },
   { href: "/modules/foundations/neural-networks", title: "Every lesson: read, try, prove it", text: "Each of the 18 lessons has a hook, a short explanation, a hands-on widget, takeaways, and a checkpoint quiz. The neuron only lights after you pass it. Try the perceptron below.", meets: "Fundamental concepts" },
   { href: "/labs/teach-the-machine", title: "Train a real neural network", text: "Press “Add 8 sample drawings each,” then “Train network.” That's a real 256→32→3 network learning on this device. Then draw a shape and see if it guesses right.", meets: "Fundamental concepts" },
   { href: "/labs/prompt-lab", title: "Practical prompting, scored", text: "Students write prompts for real school tasks and get a CRAFT score with specific fixes. The checker is honest that it's a pattern checker, not an AI.", meets: "Tools & techniques" },
@@ -43,6 +45,10 @@ function demoProgress(): Partial<ProgressState> {
   const quizzes: Record<string, QuizResult> = {};
   for (const key of completed) quizzes[key] = { best: 0, total: 0, attempts: 1, passed: true };
   const day = new Date().toISOString().slice(0, 10);
+  const memory: Record<string, Memory> = {};
+  completed.forEach((key, i) => {
+    memory[key] = i < 3 ? { last: shiftDay(day, -8), step: 0 } : i < 6 ? { last: shiftDay(day, -4), step: 0 } : { last: shiftDay(day, -2), step: 1 };
+  });
   const xp = completed.length * XP.lesson + 5 * XP.perfectQuiz + DEMO_LABS.length * XP.lab + 2 * XP.assessment;
   return {
     completed,
@@ -52,6 +58,8 @@ function demoProgress(): Partial<ProgressState> {
     badges: ["first-spark", "foundations-master", "toolkit-master", "ethics-master", "sharp-mind", ...DEMO_LABS],
     streak: { count: 6, lastDay: day },
     awards: [],
+    memory,
+    reviewsCorrect: 4,
     assessment: {
       pre: { score: 5, total: 12, byTopic: { foundations: [2, 4], toolkit: [2, 4], ethics: [1, 4] }, at: day },
       post: { score: 11, total: 12, byTopic: { foundations: [4, 4], toolkit: [3, 4], ethics: [4, 4] }, at: day },
@@ -59,7 +67,7 @@ function demoProgress(): Partial<ProgressState> {
   };
 }
 
-const EMPTY: Partial<ProgressState> = { completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {}, labs: [], assessment: {} };
+const EMPTY: Partial<ProgressState> = { completed: [], xp: 0, badges: [], streak: { count: 0, lastDay: null }, awards: [], quizzes: {}, labs: [], assessment: {}, memory: {}, reviewsCorrect: 0 };
 
 export const useJudge = create<JudgeState>()(
   persist(

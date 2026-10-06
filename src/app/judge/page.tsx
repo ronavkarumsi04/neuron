@@ -13,7 +13,7 @@ const ROWS: { req: string; where: { label: string; href: string }[]; how: string
   { req: "Practical AI tools & techniques", how: "Choosing tools, the CRAFT prompting method, studying with AI, checking outputs, project workflows.", where: [{ label: "AI Tools & Techniques", href: "/modules/toolkit" }, { label: "Prompt Lab", href: "/labs/prompt-lab" }, { label: "Spot the Hallucination", href: "/labs/spot-the-hallucination" }] },
   { req: "Ethical AI usage in school", how: "Bias, hallucinations and deepfakes, academic integrity, MLA/APA AI citations, privacy.", where: [{ label: "Ethical AI", href: "/modules/ethics" }, { label: "Bias Lab", href: "/labs/bias-lab" }, { label: "Integrity Simulator", href: "/labs/integrity-sim" }] },
   { req: "Gamified interface", how: `XP for lessons, perfect quizzes, labs, and skill checks. ${LEVELS.length} levels named after AI concepts, ${BADGES.length} badges, daily streaks, and a bonus module to unlock.`, where: [{ label: "Progress", href: "/profile" }] },
-  { req: "Visual progress tracking", how: "The brain map is the dashboard: each finished lesson lights a neuron and connects it to the rest.", where: [{ label: "Brain map", href: "/map" }] },
+  { req: "Visual progress tracking", how: "The brain map is the dashboard: each finished lesson lights a neuron and connects it to the rest. Neurons fade over days until reviewed, so the map shows what the student still remembers, not just what they clicked through.", where: [{ label: "Brain map", href: "/map" }, { label: "Spaced review", href: "/review" }] },
   { req: "Evidence of learning", how: "The same 12-question check before Module 01 and after Module 03, broken down by topic.", where: [{ label: "Skill check", href: "/assessment" }] },
 ];
 
@@ -23,7 +23,7 @@ export default function JudgePage() {
       <p className="label">For judges</p>
       <h1 className="mt-2 max-w-3xl font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">See all of Neuron in three minutes.</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
-        The tour loads a sample student who has finished Modules 01–03, then walks you through nine stops. Ending the tour puts back whatever progress was on this device before.
+        The tour loads a sample student who has finished Modules 01–03, then walks you through ten stops. Ending the tour puts back whatever progress was on this device before.
       </p>
       <div className="mt-7 flex flex-wrap items-center gap-3">
         <StartTour className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]" />

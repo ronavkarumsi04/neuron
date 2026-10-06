@@ -12,6 +12,7 @@ export function SiteFooter() {
         <ul className="flex flex-wrap gap-x-5 gap-y-2">
           <li><Link className="hover:text-ink" href="/map">Brain map</Link></li>
           <li><Link className="hover:text-ink" href="/profile">Progress</Link></li>
+          <li><Link className="hover:text-ink" href="/review">Review</Link></li>
           <li><Link className="hover:text-ink" href="/assessment">Skill check</Link></li>
           <li><Link className="hover:text-ink" href="/judge">For judges</Link></li>
         </ul>
