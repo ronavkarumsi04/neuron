@@ -3,6 +3,8 @@
 import { MotionConfig } from "framer-motion";
 import { useEffect } from "react";
 import { AwardToasts } from "@/components/award-toasts";
+import { TourBar } from "@/components/judge/tour-bar";
+import { useJudge } from "@/lib/judge";
 import { useProgress } from "@/lib/progress";
 import { useSettings } from "@/lib/settings";
 
@@ -37,6 +39,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     void useSettings.persist.rehydrate();
     void useProgress.persist.rehydrate();
+    void useJudge.persist.rehydrate();
   }, []);
   useApplySettings();
   const reduceMotion = useSettings((s) => s.reduceMotion);
@@ -45,6 +48,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
       {children}
       <AwardToasts />
+      <TourBar />
     </MotionConfig>
   );
 }
