@@ -66,6 +66,19 @@ function Toggle({ label, hint, checked, onChange }: { label: string; hint: strin
   );
 }
 
+function tabbables(root: HTMLElement) {
+  return Array.from(
+    root.querySelectorAll<HTMLElement>("button, input, [tabindex]:not([tabindex='-1'])"),
+  ).filter((el) => {
+    if (!(el instanceof HTMLInputElement) || el.type !== "radio") return true;
+    const group = Array.from(
+      root.querySelectorAll<HTMLInputElement>(`input[type="radio"][name="${el.name}"]`),
+    );
+    const checked = group.find((r) => r.checked);
+    return checked ? el === checked : el === group[0];
+  });
+}
+
 export function AccessibilityPanel() {
   const [open, setOpen] = useState(false);
   const settings = useSettings();
@@ -75,20 +88,13 @@ export function AccessibilityPanel() {
 
   useEffect(() => {
     if (!open) return;
-    panelRef.current?.querySelector<HTMLElement>("input, button")?.focus();
+    if (panelRef.current) tabbables(panelRef.current)[0]?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
         buttonRef.current?.focus();
       } else if (e.key === "Tab" && panelRef.current) {
-        const items = Array.from(
-          panelRef.current.querySelectorAll<HTMLElement>("button, input, [tabindex]:not([tabindex='-1'])"),
-        ).filter((el) => {
-          if (!(el instanceof HTMLInputElement) || el.type !== "radio") return true;
-          const group = panelRef.current!.querySelectorAll<HTMLInputElement>(`input[type="radio"][name="${el.name}"]`);
-          const checked = Array.from(group).find((r) => r.checked);
-          return checked ? el === checked : el === group[0];
-        });
+        const items = tabbables(panelRef.current);
         const first = items[0];
         const last = items[items.length - 1];
         if (e.shiftKey && document.activeElement === first) {
