@@ -1,103 +1,99 @@
-import Image from "next/image";
+import Link from "next/link";
+import { BrainMap } from "@/components/brain-map";
+import { MapCaption } from "@/components/map-caption";
+import { modules, totalLessons } from "@/content/curriculum";
+
+const TONE_TEXT: Record<string, string> = {
+  cobalt: "text-cobalt",
+  green: "text-green",
+  plum: "text-plum",
+  gold: "text-gold",
+};
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 pt-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center md:pt-20">
+        <div>
+          <p className="label">An AI learning portal · Grades 9–12</p>
+          <h1 className="mt-5 font-display text-[clamp(2.75rem,6vw,4.75rem)] leading-[0.95] tracking-tight">
+            Learn how AI thinks <em className="text-signal-ink">by building one.</em>
+          </h1>
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-2">
+            Train a real model in your browser, write prompts that work, and learn where the ethical lines are.
+            Every lesson you finish lights up a neuron.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/modules/foundations/what-is-ai"
+              className="inline-flex h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
+            >
+              Start Module 01
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/map"
+              className="inline-flex h-11 items-center rounded-sm border border-rule-strong px-5 font-medium transition-colors duration-150 hover:bg-paper-sunk"
+            >
+              Open the brain map
+            </Link>
+          </div>
+          <dl className="mt-10 grid max-w-md grid-cols-3 border-t border-rule pt-5">
+            {[
+              [String(totalLessons), "lessons"],
+              ["4", "hands-on labs"],
+              ["0", "accounts needed"],
+            ].map(([n, l]) => (
+              <div key={l}>
+                <dt className="sr-only">{l}</dt>
+                <dd className="font-display text-4xl leading-none tabular">{n}</dd>
+                <dd className="mt-1 text-sm text-ink-3">{l}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <figure className="relative rounded-md border border-rule bg-paper-raised/70 p-3 sm:p-5">
+          <div className="flex items-center justify-between pb-2">
+            <span className="label">Fig. 1 — Your brain map</span>
+            <span className="label">Live</span>
+          </div>
+          <BrainMap className="w-full" />
+          <MapCaption />
+        </figure>
+      </section>
+
+      <section aria-labelledby="modules-heading" className="mx-auto max-w-6xl px-5">
+        <div className="flex items-end justify-between border-b border-ink pb-3">
+          <h2 id="modules-heading" className="font-display text-3xl">
+            The curriculum
+          </h2>
+          <span className="label">{modules.length} modules</span>
+        </div>
+        <ol>
+          {modules.map((m) => (
+            <li key={m.id} className="border-b border-rule">
+              <Link
+                href={`/modules/${m.id}`}
+                className="group grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-6 transition-colors duration-150 hover:bg-paper-sunk/60 sm:grid-cols-[4.5rem_minmax(0,1fr)_14rem] sm:px-2"
+              >
+                <span className={`font-mono text-sm ${TONE_TEXT[m.tone]}`}>{m.number}</span>
+                <span>
+                  <span className="label">{m.kicker}</span>
+                  <span className="mt-1 block font-display text-2xl leading-tight sm:text-[1.75rem]">
+                    {m.title}
+                    <span aria-hidden className="ml-2 inline-block text-ink-3 transition-transform duration-150 group-hover:translate-x-1">→</span>
+                  </span>
+                  <span className="mt-2 block max-w-2xl text-ink-2">{m.summary}</span>
+                </span>
+                <span className="col-start-2 mt-2 text-sm text-ink-3 sm:col-start-3 sm:mt-0 sm:text-right">
+                  {m.lessons.length} lessons · Lab: {m.lab.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </>
   );
 }
