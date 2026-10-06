@@ -80,6 +80,17 @@ export function AccessibilityPanel() {
       if (e.key === "Escape") {
         setOpen(false);
         buttonRef.current?.focus();
+      } else if (e.key === "Tab" && panelRef.current) {
+        const items = panelRef.current.querySelectorAll<HTMLElement>("button, input, [tabindex]:not([tabindex='-1'])");
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
       }
     };
     const onClick = (e: MouseEvent) => {
@@ -121,7 +132,7 @@ export function AccessibilityPanel() {
             exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
             transition={{ type: "spring", stiffness: 500, damping: 34 }}
             style={{ transformOrigin: "top right" }}
-            className="absolute right-0 top-12 z-50 w-80 space-y-5 rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
+            className="absolute right-0 top-12 z-50 w-80 max-w-[calc(100vw-2.5rem)] space-y-5 rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
           >
             <div className="flex items-baseline justify-between">
               <h2 id={titleId} className="font-display text-2xl leading-none">
