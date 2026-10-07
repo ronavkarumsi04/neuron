@@ -47,18 +47,18 @@ export function ModelBuilder() {
             <input type="range" min={0} max={DS.length - 1} value={Math.max(0, DS.indexOf(d))} onChange={(e) => set("d", DS[+e.target.value])} className="mt-1 w-full accent-[var(--signal)]" /></label>
           <label className="block"><span className="text-ink-2">Vocabulary size</span>
             <select value={V} onChange={(e) => set("vocab", +e.target.value)} className="mt-1 h-10 w-full rounded-sm border border-rule-strong bg-paper px-2 font-mono">
-              {[8000, 32000, 50257, 128000, 200000].map((v) => <option key={v} value={v}>{v.toLocaleString()}</option>)}
+              {[8000, 32000, 50257, 128000, 200000].map((v) => <option key={v} value={v}>{v.toLocaleString("en-US")}</option>)}
             </select></label>
           <label className="block"><span className="text-ink-2">Context length</span>
             <select value={ctx} onChange={(e) => set("ctx", +e.target.value)} className="mt-1 h-10 w-full rounded-sm border border-rule-strong bg-paper px-2 font-mono">
-              {[512, 1024, 2048, 4096, 8192].map((v) => <option key={v} value={v}>{v.toLocaleString()}</option>)}
+              {[512, 1024, 2048, 4096, 8192].map((v) => <option key={v} value={v}>{v.toLocaleString("en-US")}</option>)}
             </select></label>
           <p className="text-xs leading-relaxed text-ink-3">Includes biases, LayerNorms, learned positions, and a tied LM head, the GPT-2 layout. MLP is 4× wide.</p>
         </div>
         <div>
           <p className="label">Parameters</p>
           <p aria-live="polite" className="font-display text-5xl tabular tracking-tight">{human(total)}</p>
-          <p className="font-mono text-xs text-ink-3">{Math.round(total).toLocaleString()}</p>
+          <p className="font-mono text-xs text-ink-3">{Math.round(total).toLocaleString("en-US")}</p>
           <div className="mt-4 flex h-3 overflow-hidden rounded-[2px]" aria-hidden>
             {parts.map((p) => <span key={p.name} style={{ width: `${(p.n / total) * 100}%`, background: p.color }} />)}
           </div>

@@ -76,7 +76,7 @@ export function Attention() {
               {tokens.map((t, i) => (
                 <tr key={i}>
                   <th scope="row" className="pr-2 text-right font-normal">
-                    <button type="button" onClick={() => setFocus(i)} aria-pressed={focus === i} className={`min-h-7 rounded-[2px] px-1 ${focus === i ? "bg-signal text-white" : "text-ink-2 hover:bg-paper-sunk"}`}>{t}</button>
+                    <button type="button" onClick={() => setFocus(i)} aria-pressed={focus === i} className={`min-h-7 rounded-[2px] px-1 ${focus === i ? "bg-signal-ink text-paper" : "text-ink-2 hover:bg-paper-sunk"}`}>{t}</button>
                   </th>
                   {weights[i].map((p, j) => (
                     <td key={j} className="p-px">

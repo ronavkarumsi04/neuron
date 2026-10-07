@@ -15,7 +15,7 @@ export interface Stop {
 }
 
 export const TOUR: Stop[] = [
-  { href: "/", title: "One idea: every lesson is a neuron", text: "Neuron teaches AI by letting students build and break it. Finishing a lesson lights a neuron on their brain map, so progress is the network itself.", meets: "Theme" },
+  { href: "/", title: "From one neuron to an AI agent", text: "Scroll down. One drawing grows from a single neuron into a training network, attention, a model file, and an agent loop: the whole course, beginner to expert, in seven scenes. It ends on the brain map, where every finished lesson is a lit neuron.", meets: "Theme" },
   { href: "/map", title: "The brain map is the progress dashboard", text: "This sample student finished Modules 01–03, so 15 neurons are lit and the bonus module has unlocked. Pale neurons with dashed rings are fading: the student hasn't reviewed them in a while.", meets: "Progress tracking" },
   { href: "/review", title: "Neurons fade unless you review", text: "Finished lessons dim over days, like real memories. One correct answer relights a neuron and pushes its next review further out (3, 7, 14, 30, 60 days). It's spaced repetition, built into the map.", meets: "Engagement" },
   { href: "/modules/foundations/neural-networks", title: "Every lesson: read, try, prove it", text: `Each of the ${totalLessons} lessons has a hook, a short explanation, a hands-on widget, takeaways, and a checkpoint quiz. The neuron only lights after you pass it. Try the perceptron below.`, meets: "Fundamental concepts" },
