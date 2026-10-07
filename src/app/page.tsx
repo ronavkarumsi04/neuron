@@ -4,43 +4,47 @@ import { MapCaption } from "@/components/map-caption";
 import { TIERS, modules, totalLessons } from "@/content/curriculum";
 import { labs, labsFor } from "@/content/labs";
 import { TONE_TEXT } from "@/lib/tone";
+import { Story } from "@/components/story/story";
 
 
 export default function Home() {
   return (
     <>
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 pt-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center md:pt-20">
-        <div>
-          <p className="label">An AI learning portal · Grades 9–12</p>
-          <h1 className="mt-5 font-display text-[clamp(2.75rem,6vw,4.75rem)] leading-[0.95] tracking-tight">
-            Learn how AI thinks <em className="text-signal-ink">by building one.</em>
-          </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-2">
-            Train a real model in your browser, write prompts that work, and learn where the ethical lines are.
-            Every lesson you finish lights up a neuron.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/modules/foundations/what-is-ai"
-              className="inline-flex h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
-            >
-              Start Module 01
-              <span aria-hidden>→</span>
-            </Link>
-            <Link
-              href="/map"
-              className="inline-flex h-11 items-center rounded-sm border border-rule-strong px-5 font-medium transition-colors duration-150 hover:bg-paper-sunk"
-            >
-              Open the brain map
-            </Link>
+      <section className="mx-auto max-w-6xl px-5 pb-10 pt-14 md:pt-24">
+        <p className="label">An AI learning portal · Grades 9–12</p>
+        <h1 className="mt-6 max-w-5xl font-display text-[clamp(3rem,8.5vw,7.25rem)] leading-[0.9] tracking-tight">
+          From one neuron <br className="hidden sm:block" />
+          <em className="text-signal-ink">to an AI agent.</em>
+        </h1>
+        <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-end">
+          <div>
+            <p className="max-w-xl text-lg leading-relaxed text-ink-2">
+              Train a real model in your browser, write prompts that work, learn where the ethical lines are,
+              then go all the way down to attention, model weights, and agents. Every lesson you finish lights up a neuron.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/modules/foundations/what-is-ai"
+                className="inline-flex h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
+              >
+                Start Module 01
+                <span aria-hidden>→</span>
+              </Link>
+              <Link
+                href="/map"
+                className="inline-flex h-11 items-center rounded-sm border border-rule-strong px-5 font-medium transition-colors duration-150 hover:bg-paper-sunk"
+              >
+                Open the brain map
+              </Link>
+            </div>
+            <p className="mt-5 text-sm text-ink-3">
+              New here?{" "}
+              <Link href="/assessment" className="text-ink-2 underline underline-offset-4 hover:text-ink">Take the baseline skill check</Link>
+              {" "}· Judging?{" "}
+              <Link href="/judge" className="text-ink-2 underline underline-offset-4 hover:text-ink">Start the guided tour</Link>
+            </p>
           </div>
-          <p className="mt-5 text-sm text-ink-3">
-            New here?{" "}
-            <Link href="/assessment" className="text-ink-2 underline underline-offset-4 hover:text-ink">Take the 5-minute baseline check</Link>
-            {" "}· Judging?{" "}
-            <Link href="/judge" className="text-ink-2 underline underline-offset-4 hover:text-ink">Start the guided tour</Link>
-          </p>
-          <dl className="mt-8 grid max-w-md grid-cols-3 border-t border-rule pt-5">
+          <dl className="grid grid-cols-3 border-t border-rule pt-5">
             {[
               [String(totalLessons), "lessons"],
               [String(labs.length), "hands-on labs"],
@@ -48,21 +52,21 @@ export default function Home() {
             ].map(([n, l]) => (
               <div key={l}>
                 <dt className="sr-only">{l}</dt>
-                <dd className="font-display text-4xl leading-none tabular">{n}</dd>
+                <dd className="font-display text-5xl leading-none tabular">{n}</dd>
                 <dd className="mt-1 text-sm text-ink-3">{l}</dd>
               </div>
             ))}
           </dl>
         </div>
+        <p className="label mt-14 flex items-center gap-3">
+          <span aria-hidden className="inline-block h-8 w-px bg-signal" />
+          Scroll · watch the course go from beginner to expert
+        </p>
+      </section>
 
-        <figure className="relative rounded-md border border-rule bg-paper-raised/70 p-3 sm:p-5">
-          <div className="flex items-center justify-between pb-2">
-            <span className="label">Fig. 1 — Your brain map</span>
-            <span className="label">Live</span>
-          </div>
-          <BrainMap className="w-full" />
-          <MapCaption />
-        </figure>
+      <section aria-labelledby="story-heading">
+        <h2 id="story-heading" className="sr-only">What you&apos;ll learn, from beginner to expert</h2>
+        <Story />
       </section>
 
       <section aria-labelledby="modules-heading" className="mx-auto max-w-6xl px-5">
@@ -95,6 +99,32 @@ export default function Home() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section aria-labelledby="map-heading" className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center">
+        <div>
+          <p className="label">Live · saved on this device</p>
+          <h2 id="map-heading" className="mt-4 font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[0.95] tracking-tight">
+            This one is <em className="text-signal-ink">yours.</em>
+          </h2>
+          <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-2">
+            Your real progress, right now. Finished lessons glow, lessons you haven&apos;t reviewed in a while fade, and locked modules stay dashed until you&apos;ve earned them.
+          </p>
+          <Link
+            href="/modules/foundations/what-is-ai"
+            className="mt-8 inline-flex h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
+          >
+            Light your first neuron <span aria-hidden>→</span>
+          </Link>
+        </div>
+        <figure className="relative rounded-md border border-rule bg-paper-raised/70 p-3 sm:p-5">
+          <div className="flex items-center justify-between pb-2">
+            <span className="label">Fig. 8 — Your brain map</span>
+            <span className="label">Live</span>
+          </div>
+          <BrainMap className="w-full" />
+          <MapCaption />
+        </figure>
       </section>
     </>
   );
