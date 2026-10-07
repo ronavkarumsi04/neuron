@@ -119,7 +119,7 @@ function ChapterText({ c, i }: { c: Chapter; i: number }) {
 export function Story() {
   const still = useStill();
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start center", "end center"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start center", "end end"] });
   const [pos, setPos] = useState(-0.5);
   const frame = useRef(0);
 
@@ -147,7 +147,7 @@ export function Story() {
   return (
     <div ref={ref} className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] px-5 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12">
       <div className="pointer-events-none col-start-1 row-start-1 md:col-start-2">
-        <div className="sticky top-14 flex h-[46svh] items-center py-3 md:h-[calc(100svh-3.5rem)] md:py-8">
+        <div className="sticky top-[6.25rem] flex h-[46svh] items-center py-3 md:top-14 md:h-[calc(100svh-3.5rem)] md:py-8">
           <div className="relative mx-auto h-full w-full md:aspect-square md:w-auto md:max-w-full">
             {CHAPTERS.map((c, i) =>
               Math.abs(i - active) > 1 ? null : (
