@@ -24,7 +24,8 @@ export function RankWatcher() {
   useEffect(() => {
     if (!hydrated) return;
     if (judging) {
-      prev.current = index;
+      // Compare against the pre-tour rank on exit, so restoring real progress isn't announced as a drop.
+      prev.current = null;
       return;
     }
     const stored = Number(localStorage.getItem(KEY) ?? index);
