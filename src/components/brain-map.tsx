@@ -2,30 +2,24 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { lessonKey, modules } from "@/content/curriculum";
-import { BRIDGES, buildMap, MAP_VIEWBOX, type MapNode } from "@/lib/map-layout";
+import { lessonKey, moduleUnlocked, modules } from "@/content/curriculum";
+import { BRIDGES, buildMap, MAP_VIEWBOX, TRACK_DIVIDER_Y, type MapNode } from "@/lib/map-layout";
 import { strengthOf, type Strength } from "@/lib/memory";
-import { coreComplete, useProgress } from "@/lib/progress";
+import { useProgress } from "@/lib/progress";
+import { toneVar } from "@/lib/tone";
 
 type NodeState = "done" | "next" | "open" | "locked";
 
-const TONE: Record<string, string> = {
-  cobalt: "var(--cobalt)",
-  green: "var(--green)",
-  plum: "var(--plum)",
-  gold: "var(--gold)",
-};
 
 export function useNodeStates() {
   const completed = useProgress((s) => s.completed);
   const memory = useProgress((s) => s.memory);
   return useMemo(() => {
     const done = new Set(completed);
-    const coreDone = coreComplete(completed);
     const states = new Map<string, NodeState>();
     let nextAssigned = false;
     for (const m of modules) {
-      const locked = m.bonus && !coreDone;
+      const locked = !moduleUnlocked(m, completed);
       m.lessons.forEach((l, i) => {
         const key = lessonKey(m.id, l.slug);
         if (done.has(key)) states.set(key, "done");
@@ -47,7 +41,7 @@ const FADE: Record<Strength, number> = { fresh: 1, fading: 0.55, faded: 0.28 };
 
 function Neuron({ node, state, strength = "fresh" }: { node: MapNode; state: NodeState; strength?: Strength }) {
   const lesson = node.module.lessons[node.lessonIndex];
-  const color = TONE[node.module.tone];
+  const color = toneVar(node.module.tone);
   const r = 9;
   const label = `${lesson.title}, module ${node.module.number}. ${
     { done: "Completed", next: "Up next", open: "Not started", locked: "Locked" }[state]
@@ -116,8 +110,16 @@ export function BrainMap({ className, showLabels = true }: { className?: string;
         })}
       </g>
 
+      {showLabels && (
+        <g fontFamily="var(--font-mono)" fontSize="9" letterSpacing="0.14em" fill="var(--ink-3)">
+          <line x1="16" x2={MAP_VIEWBOX.w - 16} y1={TRACK_DIVIDER_Y} y2={TRACK_DIVIDER_Y} stroke="var(--rule-strong)" strokeDasharray="6 4" />
+          <text x="16" y={TRACK_DIVIDER_Y - 8}>CORE · BEGINNER</text>
+          <text x="16" y={TRACK_DIVIDER_Y + 16}>ADVANCED TRACK · INTERMEDIATE → EXPERT</text>
+        </g>
+      )}
+
       {clusters.map(({ module, cx, cy, nodes }) => {
-        const color = TONE[module.tone];
+        const color = toneVar(module.tone);
         return (
           <g key={module.id}>
             {nodes.map((n, i) => {

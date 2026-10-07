@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BrainMap } from "@/components/brain-map";
-import { modules, totalLessons } from "@/content/curriculum";
+import { coreModules, totalLessons } from "@/content/curriculum";
 import { BADGES, coreComplete, levelFor, useProgress } from "@/lib/progress";
 
 const NAME_KEY = "neuron-cert-name";
@@ -18,12 +18,12 @@ export function CertificateView() {
   };
 
   const ready = coreComplete(s.completed);
-  const core = modules.filter((m) => !m.bonus);
+  const core = coreModules;
   const coreDone = core.flatMap((m) => m.lessons).length;
   const done = s.completed.filter((k) => core.some((m) => k.startsWith(`${m.id}/`))).length;
   const { level, name: levelName } = levelFor(s.xp);
   const date = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-  const gain = s.assessment.pre && s.assessment.post ? Math.round(((s.assessment.post.score - s.assessment.pre.score) / s.assessment.post.total) * 100) : null;
+  const gain = s.assessment.pre && s.assessment.post ? Math.round(((s.assessment.post.points - s.assessment.pre.points) / s.assessment.post.max) * 100) : null;
 
   if (!ready)
     return (

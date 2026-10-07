@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import { useEffect } from "react";
 import { AwardToasts } from "@/components/award-toasts";
 import { TourBar } from "@/components/judge/tour-bar";
+import { RankWatcher } from "@/components/rank-watcher";
 import { useJudge } from "@/lib/judge";
 import { lessonKey, modules } from "@/content/curriculum";
 import { labs } from "@/content/labs";
@@ -70,6 +71,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
       {children}
+      <RankWatcher />
       <AwardToasts />
       <TourBar />
     </MotionConfig>

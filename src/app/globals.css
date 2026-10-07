@@ -18,6 +18,10 @@
   --green: #0b6e4c;
   --plum: #9a2a66;
   --gold: #8a6100;
+  --teal: #0e6e7a;
+  --rust: #a3441b;
+  --olive: #5b6812;
+  --slate: #3e4c66;
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -43,6 +47,10 @@
   --green: #3fc596;
   --plum: #f07ab8;
   --gold: #e3b341;
+  --teal: #4cc6d4;
+  --rust: #f0905e;
+  --olive: #b8c95a;
+  --slate: #9fb0cc;
   --shadow-lift: 0 1px 0 rgb(0 0 0 / 0.4), 0 8px 20px -10px rgb(0 0 0 / 0.7);
 }
 
@@ -71,6 +79,10 @@
   --color-green: var(--green);
   --color-plum: var(--plum);
   --color-gold: var(--gold);
+  --color-teal: var(--teal);
+  --color-rust: var(--rust);
+  --color-olive: var(--olive);
+  --color-slate-ink: var(--slate);
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-instrument), Georgia, serif;

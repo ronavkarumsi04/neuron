@@ -9,7 +9,7 @@ export default function AssessmentPage() {
       <p className="label">Before &amp; after</p>
       <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">Skill check</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
-        One short check before you start and the same one after Module 03. It isn&apos;t graded. It shows you, and us, what Neuron actually teaches.
+        Thirty questions that climb from beginner to expert. Take it before you start and again later. It isn&apos;t graded. It shows you, and us, what Neuron actually teaches, and it counts toward your rank.
       </p>
       <AssessmentView />
     </div>

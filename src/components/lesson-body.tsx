@@ -40,6 +40,16 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
                 <pre className="whitespace-pre-wrap px-4 py-3 font-mono text-[0.85rem] leading-relaxed text-ink">{b.text}</pre>
               </figure>
             );
+          case "code":
+            return (
+              <figure key={i} className="not-prose my-6 overflow-hidden rounded-sm border border-rule-strong bg-paper-sunk/70">
+                <figcaption className="flex items-baseline justify-between gap-3 border-b border-rule px-4 py-2">
+                  <span className="label">{b.label}</span>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-wider text-ink-3">{b.lang}</span>
+                </figcaption>
+                <pre tabIndex={0} aria-label={`${b.label} (${b.lang} code)`} className="overflow-x-auto px-4 py-3 font-mono text-[0.8rem] leading-relaxed text-ink"><code>{b.text}</code></pre>
+              </figure>
+            );
           case "compare":
             return (
               <div key={i} className="not-prose my-8 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule sm:grid-cols-2">

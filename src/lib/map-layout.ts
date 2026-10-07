@@ -21,9 +21,15 @@ const CENTERS: Record<string, [number, number, number]> = {
   toolkit: [470, 145, -1.4],
   ethics: [320, 365, -0.6],
   future: [565, 375, -1.9],
+  "deep-learning": [165, 615, -1.7],
+  transformers: [455, 605, -1.1],
+  "model-building": [235, 835, -2.0],
+  agents: [515, 825, -0.9],
 };
 
-export const MAP_VIEWBOX = { w: 680, h: 500 };
+export const MAP_VIEWBOX = { w: 680, h: 930 };
+/** Horizontal rule on the map separating the core modules from the advanced track. */
+export const TRACK_DIVIDER_Y = 478;
 
 export function buildMap(): MapCluster[] {
   return modules.map((module) => {
@@ -52,4 +58,8 @@ export const BRIDGES: [string, string][] = [
   ["toolkit", "ethics"],
   ["ethics", "future"],
   ["toolkit", "future"],
+  ["ethics", "deep-learning"],
+  ["deep-learning", "transformers"],
+  ["transformers", "model-building"],
+  ["model-building", "agents"],
 ];

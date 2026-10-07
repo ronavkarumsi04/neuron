@@ -8,6 +8,7 @@ export type Block =
   | { t: "example"; label: string; text: string }
   | { t: "compare"; left: { title: string; items: Inline[] }; right: { title: string; items: Inline[] } }
   | { t: "terms"; items: { term: string; def: Inline }[] }
+  | { t: "code"; label: string; lang: string; text: string }
   | { t: "widget"; id: WidgetId; sort?: SortConfig };
 
 export type WidgetId =
@@ -17,7 +18,12 @@ export type WidgetId =
   | "next-word"
   | "prompt-builder"
   | "citation-builder"
-  | "redact";
+  | "redact"
+  | "backprop"
+  | "attention"
+  | "sampling"
+  | "model-builder"
+  | "agent-loop";
 
 export interface SortConfig {
   prompt: string;

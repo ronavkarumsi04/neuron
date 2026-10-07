@@ -3,10 +3,10 @@ import Link from "next/link";
 import { LabStatus } from "@/components/labs/lab-runner";
 import { getModule } from "@/content/curriculum";
 import { labs } from "@/content/labs";
+import { TONE_TEXT } from "@/lib/tone";
 
 export const metadata: Metadata = { title: "Labs" };
 
-const TONE_TEXT: Record<string, string> = { cobalt: "text-cobalt", green: "text-green", plum: "text-plum", gold: "text-gold" };
 
 export default function LabsPage() {
   return (

@@ -1,10 +1,11 @@
 "use client";
 
-import { modules, lessonKey, totalLessons } from "@/content/curriculum";
+import { modules, lessonKey, TIERS, totalLessons } from "@/content/curriculum";
 import Link from "next/link";
 import { BADGES, coreComplete, LEVELS, levelFor, useProgress } from "@/lib/progress";
+import { toneVar } from "@/lib/tone";
+import { RankCard } from "./rank-card";
 
-const TONE: Record<string, string> = { cobalt: "var(--cobalt)", green: "var(--green)", plum: "var(--plum)", gold: "var(--gold)" };
 
 export function ProfileView() {
   const { xp, completed, badges, streak, reset } = useProgress();
@@ -30,7 +31,7 @@ export function ProfileView() {
             {[
               [`${completed.length}/${totalLessons}`, "lessons"],
               [`${badges.length}/${BADGES.length}`, "badges"],
-              [`${streak.count}`, "day streak"],
+              [`${streak.count}`, `day streak${streak.best ? ` · best ${Math.max(streak.best, streak.count)}` : ""}`],
             ].map(([n, l]) => (
               <div key={l}>
                 <dt className="sr-only">{l}</dt>
@@ -48,11 +49,11 @@ export function ProfileView() {
               const n = m.lessons.filter((l) => completed.includes(lessonKey(m.id, l.slug))).length;
               return (
                 <li key={m.id} className="flex items-center gap-4 border-b border-rule py-3">
-                  <span className="w-6 font-mono text-xs" style={{ color: TONE[m.tone] }}>{m.number}</span>
-                  <span className="flex-1">{m.title}</span>
+                  <span className="w-6 font-mono text-xs" style={{ color: toneVar(m.tone) }}>{m.number}</span>
+                  <span className="flex-1">{m.title} <span className="label ml-1">{TIERS[m.tier].label}</span></span>
                   <span className="flex gap-1" role="img" aria-label={`${n} of ${m.lessons.length} complete`}>
                     {m.lessons.map((l, i) => (
-                      <span key={l.slug} className="size-2.5 rounded-full border" style={{ borderColor: TONE[m.tone], background: i < n ? TONE[m.tone] : "transparent" }} />
+                      <span key={l.slug} className="size-2.5 rounded-full border" style={{ borderColor: toneVar(m.tone), background: i < n ? toneVar(m.tone) : "transparent" }} />
                     ))}
                   </span>
                 </li>
@@ -61,6 +62,8 @@ export function ProfileView() {
           </ul>
         </section>
       </div>
+
+      <RankCard />
 
       <section aria-labelledby="badges" className="mt-14">
         <h2 id="badges" className="label border-b border-ink pb-2">Badge cabinet</h2>

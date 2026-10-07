@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { LabRunner, LabStatus } from "@/components/labs/lab-runner";
 import { getModule } from "@/content/curriculum";
 import { getLab, labs } from "@/content/labs";
+import { TONE_TEXT } from "@/lib/tone";
 
 type Params = Promise<{ lab: string }>;
 
@@ -16,7 +17,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return { title: lab ? `${lab.title} · Lab` : "Lab", description: lab?.blurb };
 }
 
-const TONE_TEXT: Record<string, string> = { cobalt: "text-cobalt", green: "text-green", plum: "text-plum", gold: "text-gold" };
 
 export default async function LabPage({ params }: { params: Params }) {
   const lab = getLab((await params).lab);

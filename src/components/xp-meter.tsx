@@ -2,18 +2,22 @@
 
 import Link from "next/link";
 import { levelFor, useProgress } from "@/lib/progress";
+import { useRank } from "@/lib/use-rank";
+import { RankEmblem } from "./rank-emblem";
 
 export function XpMeter() {
   const xp = useProgress((s) => s.xp);
   const streak = useProgress((s) => s.streak.count);
   const { level, name, next, progress } = levelFor(xp);
+  const { rank, division, rating } = useRank();
 
   return (
     <Link
       href="/profile"
       className="group flex items-center gap-3 rounded-sm px-2 py-1.5 transition-colors duration-150 hover:bg-paper-sunk"
-      aria-label={`Level ${level}, ${name}. ${xp} experience points.${streak ? ` ${streak} day streak.` : ""} View progress.`}
+      aria-label={`Rank ${rank.name}${division ? `, division ${division}` : ""}, rating ${rating}. Level ${level}, ${name}. ${xp} experience points.${streak ? ` ${streak} day streak.` : ""} View progress.`}
     >
+      <RankEmblem rank={rank} className="h-7 w-6 shrink-0" />
       <span className="hidden text-right sm:block">
         <span className="label block leading-none">Lv {level}</span>
         <span className="block text-xs leading-tight text-ink-2">{name}</span>

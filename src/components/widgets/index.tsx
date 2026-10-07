@@ -1,12 +1,17 @@
 "use client";
 
 import type { SortConfig, WidgetId } from "@/content/lesson-types";
+import { AgentLoop } from "./agent-loop";
+import { Attention } from "./attention";
+import { Backprop } from "./backprop";
 import { CitationBuilder } from "./citation-builder";
 import { LineFit } from "./line-fit";
+import { ModelBuilder } from "./model-builder";
 import { NextWord } from "./next-word";
 import { Perceptron } from "./perceptron";
 import { PromptBuilder } from "./prompt-builder";
 import { Redact } from "./redact";
+import { Sampling } from "./sampling";
 import { Sorter } from "./sorter";
 
 export function Widget({ id, sort }: { id: WidgetId; sort?: SortConfig }) {
@@ -25,6 +30,16 @@ export function Widget({ id, sort }: { id: WidgetId; sort?: SortConfig }) {
       return <CitationBuilder />;
     case "redact":
       return <Redact />;
+    case "backprop":
+      return <Backprop />;
+    case "attention":
+      return <Attention />;
+    case "sampling":
+      return <Sampling />;
+    case "model-builder":
+      return <ModelBuilder />;
+    case "agent-loop":
+      return <AgentLoop />;
   }
 }
 

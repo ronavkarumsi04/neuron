@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 import { RichText } from "./rich-text";
+import { toneVar } from "@/lib/tone";
 
 export interface Entry { term: string; def: string; lesson: string; href: string; module: string; tone: string }
 
-const TONE: Record<string, string> = { cobalt: "var(--cobalt)", green: "var(--green)", plum: "var(--plum)", gold: "var(--gold)" };
 const plain = (s: string) => s.replace(/[*_`]/g, "").toLowerCase();
 
 export function GlossaryList({ entries }: { entries: Entry[] }) {
@@ -42,7 +42,7 @@ export function GlossaryList({ entries }: { entries: Entry[] }) {
                 <dd className="text-ink-2">
                   <RichText text={e.def} />
                   <Link href={e.href} className="mt-1.5 block text-xs text-ink-3 hover:text-ink">
-                    <span className="font-mono" style={{ color: TONE[e.tone] }}>{e.module}</span> {e.lesson} →
+                    <span className="font-mono" style={{ color: toneVar(e.tone) }}>{e.module}</span> {e.lesson} →
                   </Link>
                 </dd>
               </div>

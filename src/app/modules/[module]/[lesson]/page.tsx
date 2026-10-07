@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CheckpointQuiz } from "@/components/checkpoint-quiz";
 import { CompleteLesson } from "@/components/complete-lesson";
 import { LessonBody } from "@/components/lesson-body";
+import { ModuleLock } from "@/components/module-lock";
 import { RichText } from "@/components/rich-text";
 import { getLessonContent } from "@/content/lessons";
 import { getModule, modules } from "@/content/curriculum";
@@ -38,6 +39,7 @@ export default async function LessonPage({ params }: { params: Params }) {
       </nav>
       <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] tracking-tight">{l.title}</h1>
       <p className="mt-3 font-mono text-xs uppercase tracking-wider text-ink-3">{l.minutes} min read</p>
+      <ModuleLock moduleId={m.id} />
 
       <p className="mt-8 border-l-2 border-signal pl-4 font-display text-[1.6rem] leading-snug text-ink"><RichText text={content.hook} /></p>
 
