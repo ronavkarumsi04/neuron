@@ -9,6 +9,7 @@ import { XpMeter } from "@/components/xp-meter";
 const NAV = [
   { href: "/map", label: "Brain map" },
   { href: "/modules/foundations", label: "Modules", match: "/modules" },
+  { href: "/labs", label: "Labs" },
   { href: "/profile", label: "Progress" },
 ];
 

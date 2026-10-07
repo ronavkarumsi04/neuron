@@ -49,7 +49,7 @@ export function AwardToasts() {
     <ol
       aria-live="polite"
       aria-label="Notifications"
-      className="pointer-events-none fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2"
+      className="pointer-events-none fixed bottom-4 right-4 z-50 print:hidden flex flex-col items-end gap-2"
     >
       <AnimatePresence initial={false}>
         {awards.slice(-3).map((a) => (

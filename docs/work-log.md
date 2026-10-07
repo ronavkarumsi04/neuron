@@ -1,0 +1,15 @@
+# Work log
+
+Fill in the hours and who did what. TSA judges compare this log against the interview.
+
+| Date | Milestone | What changed | Hours | Who |
+| --- | --- | --- | --- | --- |
+| 2026-10-06 | Concept & spec | Theme analysis, three concepts, chose the brain map + mission labs | | |
+| 2026-10-06 | Foundation (#1) | Design system (DESIGN.md), brain map, progress store, accessibility panel | | |
+| 2026-10-06 | Lessons (#2) | 18 lessons, 54 checkpoint questions, 7 interactive widgets | | |
+| 2026-10-06 | Labs (#3) | Teach the Machine, Prompt Lab, Spot the Hallucination, Bias Lab, Integrity Simulator, Capstone | | |
+| 2026-10-06 | Judge Mode (#4) | Guided tour, requirements map, pre/post skill check | | |
+| 2026-10-06 | Spaced review (#5) | Fading neurons, review sessions, Memory Keeper badge | | |
+| 2026-10-06 | Polish (#6) | Offline PWA, certificate, glossary, About and Educators pages, 2-word next-word model | | |
+| 2026-10-06 | Audit | axe and Lighthouse pass, contrast fixes, security headers, docs | | |
+| | User testing | Pre/post skill check with __ classmates | | |

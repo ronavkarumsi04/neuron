@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonStatus } from "@/components/lesson-status";
+import { LabStatus } from "@/components/labs/lab-runner";
 import { getModule, modules } from "@/content/curriculum";
+import { labsFor } from "@/content/labs";
 
 export function generateStaticParams() {
   return modules.map((m) => ({ module: m.id }));
@@ -56,13 +58,21 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
         </ol>
       </section>
 
-      <section aria-labelledby="lab" className="mt-10 grid gap-4 rounded-md border border-rule-strong p-6 sm:grid-cols-[1fr_auto] sm:items-center">
-        <div>
-          <p className="label">Hands-on lab</p>
-          <h2 id="lab" className="mt-1 font-display text-3xl">{m.lab.title}</h2>
-          <p className="mt-1 text-ink-2">{m.lab.blurb}</p>
-        </div>
-        <span className="font-mono text-xs uppercase tracking-wider text-ink-3">Opens in a later build</span>
+      <section aria-labelledby="labs" className="mt-10">
+        <h2 id="labs" className="label border-b border-ink pb-2">Hands-on {labsFor(m.id).length > 1 ? "labs" : "lab"}</h2>
+        <ul>
+          {labsFor(m.id).map((lab) => (
+            <li key={lab.id} className="border-b border-rule">
+              <Link href={`/labs/${lab.id}`} className="group grid gap-1 py-5 hover:bg-paper-sunk/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-2">
+                <span>
+                  <span className="block font-display text-2xl">{lab.title} <span aria-hidden className="inline-block text-ink-3 transition-transform duration-150 group-hover:translate-x-1">→</span></span>
+                  <span className="mt-1 block text-ink-2">{lab.blurb}</span>
+                </span>
+                <LabStatus id={lab.id} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );

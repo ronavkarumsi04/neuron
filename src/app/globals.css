@@ -7,7 +7,7 @@
   --paper-sunk: #ebe6db;
   --ink: #16150f;
   --ink-2: #4a473d;
-  --ink-3: #7a7668;
+  --ink-3: #686456;
   --rule: rgb(22 21 15 / 0.14);
   --rule-strong: rgb(22 21 15 / 0.32);
   --grid: rgb(22 21 15 / 0.045);
@@ -32,7 +32,7 @@
   --paper-sunk: #0b0c0a;
   --ink: #ece8de;
   --ink-2: #b9b4a7;
-  --ink-3: #868174;
+  --ink-3: #969184;
   --rule: rgb(236 232 222 / 0.13);
   --rule-strong: rgb(236 232 222 / 0.3);
   --grid: rgb(236 232 222 / 0.035);
@@ -155,3 +155,10 @@ p, li { text-wrap: pretty; }
 .lesson-prose > ol { list-style: decimal; }
 .lesson-prose > ol > li::marker { font-family: var(--font-mono); font-size: 0.8em; color: var(--ink-3); }
 .lesson-prose li + li { margin-top: 0.5rem; }
+
+@media print {
+  @page { size: landscape; margin: 0.4in; }
+  body > a, header, footer { display: none !important; }
+  body { background: #fff !important; }
+  .certificate { box-shadow: none !important; break-inside: avoid; }
+}
