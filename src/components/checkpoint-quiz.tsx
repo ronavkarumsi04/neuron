@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { lessonKey, type ModuleId } from "@/content/curriculum";
 import { passMark, type Question } from "@/content/lesson-types";
-import { useProgress, XP } from "@/lib/progress";
+import { useModuleLocked, useProgress, XP } from "@/lib/progress";
 
 const LETTERS = "ABCD";
 
@@ -22,6 +22,7 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
   const [checked, setChecked] = useState(false);
   const record = useProgress((s) => s.recordQuiz);
   const prior = useProgress((s) => s.quizzes[lessonKey(moduleId, slug)]);
+  const locked = useModuleLocked(moduleId);
   const need = needOverride ?? passMark(questions.length);
   const score = picks.filter((p, i) => p === questions[i].answer).length;
   const passed = score >= need;
@@ -43,7 +44,7 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
         <h2 id={`${slug}-quiz`} className="font-display text-3xl">{title}</h2>
         <p className="label">
           {need} of {questions.length} to pass
-          {!onResult && (
+          {!onResult && !locked && (
             <>
               {" "}· ace it first try <span className="text-signal-ink">+{XP.perfectQuiz} XP</span>
             </>
@@ -51,6 +52,9 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
         </p>
       </div>
       {note && !checked && <p className="mt-2 text-sm text-ink-3">{note}</p>}
+      {!onResult && locked && (
+        <p className="mt-2 text-sm text-ink-3">Practice run: this module is locked, so the result won&apos;t be saved and earns no XP. Your first-try bonus waits until it unlocks.</p>
+      )}
       {!onResult && prior?.passed && !checked && prior.total > 0 && (
         <p className="mt-2 text-sm text-ink-3">Already passed. Best score {prior.best}/{prior.total}. Retake it any time.</p>
       )}

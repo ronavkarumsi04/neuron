@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { BrainMap } from "@/components/brain-map";
 import { MapCaption } from "@/components/map-caption";
-import { modules, totalLessons } from "@/content/curriculum";
+import { TIERS, modules, totalLessons } from "@/content/curriculum";
 import { labs, labsFor } from "@/content/labs";
+import { TONE_TEXT } from "@/lib/tone";
 
-const TONE_TEXT: Record<string, string> = {
-  cobalt: "text-cobalt",
-  green: "text-green",
-  plum: "text-plum",
-  gold: "text-gold",
-};
 
 export default function Home() {
   return (
@@ -94,7 +89,7 @@ export default function Home() {
                   <span className="mt-2 block max-w-2xl text-ink-2">{m.summary}</span>
                 </span>
                 <span className="col-start-2 mt-2 text-sm text-ink-3 sm:col-start-3 sm:mt-0 sm:text-right">
-                  {m.lessons.length} lessons · {labsFor(m.id).length > 1 ? "Labs" : "Lab"}: {labsFor(m.id).map((l) => l.title).join(", ")}
+                  {m.lessons.length} lessons · {labsFor(m.id).length ? `${labsFor(m.id).length > 1 ? "Labs" : "Lab"}: ${labsFor(m.id).map((l) => l.title).join(", ")}` : `${TIERS[m.tier].label} · interactive demos`}
                 </span>
               </Link>
             </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import type { LabId } from "@/content/labs";
-import type { ModuleId } from "@/content/curriculum";
+import { getModule, lockReason, type ModuleId } from "@/content/curriculum";
 import { useModuleLocked, useProgress, XP } from "@/lib/progress";
 import { BiasLab } from "./bias-lab";
 import { Capstone } from "./capstone";
@@ -26,7 +26,7 @@ export function LabRunner({ id, moduleId }: { id: LabId; moduleId: ModuleId }) {
     return (
       <div className="mt-10 rounded-md border border-dashed border-rule-strong p-6 text-ink-2">
         <p className="label">Locked</p>
-        <p className="mt-2">Finish every lesson in modules 01–03 to open the Capstone.</p>
+        <p className="mt-2">{lockReason(getModule(moduleId)!)}</p>
       </div>
     );
   return <Lab />;

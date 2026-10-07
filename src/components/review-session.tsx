@@ -5,11 +5,11 @@ import { useMemo, useState } from "react";
 import type { Question } from "@/content/lesson-types";
 import { dueOn, retention, strengthOf, today, type Strength } from "@/lib/memory";
 import { useProgress, XP } from "@/lib/progress";
+import { toneVar } from "@/lib/tone";
 
 export type Bank = Record<string, { title: string; module: string; tone: string; href: string; quiz: Question[] }>;
 
 const LETTERS = "ABCD";
-const TONE: Record<string, string> = { cobalt: "var(--cobalt)", green: "var(--green)", plum: "var(--plum)", gold: "var(--gold)" };
 const LABEL: Record<Strength, string> = { fresh: "Fresh", fading: "Fading", faded: "Faded" };
 const ROUND = 5;
 
@@ -73,7 +73,7 @@ export function ReviewSession({ bank }: { bank: Bank }) {
       <section className="mt-10 rounded-md border border-rule-strong bg-paper-raised" aria-labelledby="rq">
         <header className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule px-5 py-3">
           <p className="text-sm">
-            <span className="font-mono text-xs" style={{ color: TONE[entry.tone] }}>{entry.module}</span>{" "}
+            <span className="font-mono text-xs" style={{ color: toneVar(entry.tone) }}>{entry.module}</span>{" "}
             <span className="text-ink">{entry.title}</span>
           </p>
           <span className="label">{i + 1} of {queue.length}</span>
@@ -157,11 +157,11 @@ export function ReviewSession({ bank }: { bank: Bank }) {
             return (
               <li key={r.key} className="grid grid-cols-[minmax(0,1fr)_6rem_4.5rem] items-center gap-3 border-b border-rule py-3 text-sm sm:grid-cols-[minmax(0,1fr)_10rem_5rem]">
                 <Link href={e.href} className="truncate hover:underline">
-                  <span className="mr-2 font-mono text-xs" style={{ color: TONE[e.tone] }}>{e.module}</span>
+                  <span className="mr-2 font-mono text-xs" style={{ color: toneVar(e.tone) }}>{e.module}</span>
                   {e.title}
                 </Link>
                 <span className="h-1.5 overflow-hidden rounded-full bg-paper-sunk" role="img" aria-label={`About ${Math.round(r.keep * 100)}% recall`}>
-                  <span className="block h-full rounded-full" style={{ width: `${r.keep * 100}%`, background: TONE[e.tone], opacity: r.strength === "fresh" ? 1 : r.strength === "fading" ? 0.6 : 0.35 }} />
+                  <span className="block h-full rounded-full" style={{ width: `${r.keep * 100}%`, background: toneVar(e.tone), opacity: r.strength === "fresh" ? 1 : r.strength === "fading" ? 0.6 : 0.35 }} />
                 </span>
                 <span className={`text-right font-mono text-xs uppercase ${r.strength === "fresh" ? "text-ink-3" : "text-signal-ink"}`}>{LABEL[r.strength]}</span>
               </li>

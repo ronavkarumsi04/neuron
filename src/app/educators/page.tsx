@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProsePage } from "@/components/prose-page";
 import { modules } from "@/content/curriculum";
+import { labsFor } from "@/content/labs";
 
 export const metadata: Metadata = { title: "For educators" };
 
@@ -14,19 +15,28 @@ export default function EducatorsPage() {
           <tr className="border-b border-ink"><th className="py-2 pr-4 font-medium">Week</th><th className="py-2 pr-4 font-medium">Students do</th><th className="py-2 font-medium">Lab</th></tr>
         </thead>
         <tbody>
-          {modules.filter((m) => !m.bonus).map((m, i) => (
+          {modules.filter((m) => m.tier === "beginner" && !m.bonus).map((m, i) => (
             <tr key={m.id} className="border-b border-rule align-top">
               <td className="py-3 pr-4 font-mono text-ink-3">{i + 1}</td>
               <td className="py-3 pr-4"><Link className="underline underline-offset-4" href={`/modules/${m.id}`}>{m.number} {m.title}</Link><span className="block text-ink-2">{m.lessons.length} lessons{i === 0 ? ", plus the baseline skill check on day 1" : i === 2 ? ", then the after-check" : ""}</span></td>
-              <td className="py-3 text-ink-2">{m.lab.title}</td>
+              <td className="py-3 text-ink-2">{labsFor(m.id).map((l) => l.title).join(", ")}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <p>Module 04, <em>AI & Your Future</em>, unlocks after the first three and works well as an extension or a careers-day activity.</p>
 
+      <h2>The advanced track</h2>
+      <p>Modules 05–08 continue past the core for students ready to go deeper, such as a CS elective, an AI club, or an independent study. Each one unlocks only after the one before it:</p>
+      <ul>
+        {modules.filter((m) => m.tier !== "beginner").map((m) => (
+          <li key={m.id}><Link href={`/modules/${m.id}`}>{m.number} {m.title}</Link>: {m.lessons.map((l) => l.title).join("; ")}.</li>
+        ))}
+      </ul>
+      <p>The advanced lessons use algebra and a little notation (sums, slopes, matrix shapes) but no calculus prerequisite. Every formula is worked through with real numbers, and each module has hands-on demos: backprop by hand, an attention heatmap, a sampling playground, a parameter calculator, and an agent simulator that shows prompt injection.</p>
+
       <h2>Measuring learning</h2>
-      <p>The <Link href="/assessment">skill check</Link> is the same 12 questions before Module 01 and after Module 03, split across the three topics. Students can copy an anonymous result line (no names) and paste it into a class form, so you can see the before/after gain for the whole class.</p>
+      <p>The <Link href="/assessment">skill check</Link> is the same 30 questions before and after, in four levels from beginner to expert. Harder questions are worth more points, so scores separate students who know the basics from those who understand how models are built. Students can copy an anonymous result line (no names) and paste it into a class form, so you can see the before/after gain for the whole class.</p>
 
       <h2>Discussion prompts</h2>
       <ul>

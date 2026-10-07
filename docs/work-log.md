@@ -12,4 +12,5 @@ Fill in the hours and who did what. TSA judges compare this log against the inte
 | 2026-10-06 | Spaced review (#5) | Fading neurons, review sessions, Memory Keeper badge | | |
 | 2026-10-06 | Polish (#6) | Offline PWA, certificate, glossary, About and Educators pages, 2-word next-word model | | |
 | 2026-10-06 | Audit | axe and Lighthouse pass, contrast fixes, security headers, docs | | |
+| 2026-10-06 | Advanced track | Modules 05–08 (deep learning, transformers, how models are made, agents), 20 new lessons, 5 new widgets, prerequisite locks, 30-question difficulty-weighted skill check, Bronze → Supersonic Legend rank ladder | | |
 | | User testing | Pre/post skill check with __ classmates | | |

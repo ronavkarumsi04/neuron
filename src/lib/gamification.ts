@@ -11,6 +11,9 @@ export const LEVELS = [
   { name: "Attention Head", xp: 1750 },
   { name: "Foundation Model", xp: 2200 },
   { name: "Neural Architect", xp: 2700 },
+  { name: "Mixture of Experts", xp: 3250 },
+  { name: "Agent Builder", xp: 3850 },
+  { name: "Frontier Model", xp: 4500 },
 ] as const;
 
 export function levelFor(xp: number) {
@@ -34,6 +37,10 @@ export const BADGES: Badge[] = [
   { id: "foundations-master", name: "Fundamentals Master", hint: "Finish every lesson in Module 01" },
   { id: "toolkit-master", name: "Tools Master", hint: "Finish every lesson in Module 02" },
   { id: "ethics-master", name: "Ethics Master", hint: "Finish every lesson in Module 03" },
+  { id: "deep-learning-master", name: "Gradient Tamer", hint: "Finish every lesson in Module 05" },
+  { id: "transformers-master", name: "Attention Span", hint: "Finish every lesson in Module 06" },
+  { id: "model-building-master", name: "Weight Lifter", hint: "Finish every lesson in Module 07" },
+  { id: "agents-master", name: "Agent Smith", hint: "Finish every lesson in Module 08" },
   { id: "on-fire", name: "On Fire", hint: "Keep a 7-day streak" },
   { id: "sharp-mind", name: "Sharp Mind", hint: "Ace five checkpoint quizzes on the first try" },
   { id: "memory-keeper", name: "Memory Keeper", hint: "Answer 10 spaced-review questions correctly" },
@@ -43,4 +50,7 @@ export const BADGES: Badge[] = [
   { id: "bias-lab", name: "Bias Buster", hint: "Close the fairness gap in the Bias Lab" },
   { id: "integrity-sim", name: "Straight Shooter", hint: "Finish every Integrity Simulator scenario" },
   { id: "capstone", name: "Neural Architect", hint: "Pass the Capstone challenge" },
+  { id: "rank-platinum", name: "Platinum Mind", hint: "Reach Platinum rank" },
+  { id: "rank-champion", name: "Champion", hint: "Reach Champion rank" },
+  { id: "rank-ssl", name: "Supersonic Legend", hint: "Reach the top rank" },
 ];

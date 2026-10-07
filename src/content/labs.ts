@@ -102,7 +102,7 @@ export const labs: Lab[] = [
     mission: "One last challenge covering how AI works, how to use it well, and how to use it responsibly. Most questions are scenarios, not definitions.",
     objectives: ["Score 9 of 12 or better"],
     minutes: 10,
-    underTheHood: ["Questions are drawn from all four modules and weighted toward applying ideas to new situations, which is the best test of real understanding."],
+    underTheHood: ["Questions are drawn from Modules 01–04 and weighted toward applying ideas to new situations, which is the best test of real understanding."],
   },
 ];
 

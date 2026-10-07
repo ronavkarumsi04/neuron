@@ -8,13 +8,13 @@ import { BADGES, LEVELS } from "@/lib/gamification";
 export const metadata: Metadata = { title: "For judges" };
 
 const ROWS: { req: string; where: { label: string; href: string }[]; how: string }[] = [
-  { req: "At least three distinct learning modules", how: `Three core modules plus a bonus module unlocked by finishing them. ${totalLessons} lessons in total, each with a checkpoint quiz.`, where: [{ label: "Module 01", href: "/modules/foundations" }, { label: "Module 02", href: "/modules/toolkit" }, { label: "Module 03", href: "/modules/ethics" }] },
+  { req: "At least three distinct learning modules", how: `Three core modules, a bonus careers module, and a four-module advanced track (deep learning, transformers, how models are made, AI agents). ${totalLessons} lessons in total, each with a checkpoint quiz.`, where: [{ label: "Module 01", href: "/modules/foundations" }, { label: "Module 02", href: "/modules/toolkit" }, { label: "Module 03", href: "/modules/ethics" }] },
   { req: "Fundamental AI concepts", how: "AI vs. ML, training data, neural networks, how LLMs predict words, limits. Students fit a line, tune a perceptron, and train a real network.", where: [{ label: "How AI Works", href: "/modules/foundations" }, { label: "Teach the Machine", href: "/labs/teach-the-machine" }] },
   { req: "Practical AI tools & techniques", how: "Choosing tools, the CRAFT prompting method, studying with AI, checking outputs, project workflows.", where: [{ label: "AI Tools & Techniques", href: "/modules/toolkit" }, { label: "Prompt Lab", href: "/labs/prompt-lab" }, { label: "Spot the Hallucination", href: "/labs/spot-the-hallucination" }] },
   { req: "Ethical AI usage in school", how: "Bias, hallucinations and deepfakes, academic integrity, MLA/APA AI citations, privacy.", where: [{ label: "Ethical AI", href: "/modules/ethics" }, { label: "Bias Lab", href: "/labs/bias-lab" }, { label: "Integrity Simulator", href: "/labs/integrity-sim" }] },
-  { req: "Gamified interface", how: `XP for lessons, perfect quizzes, labs, and skill checks. ${LEVELS.length} levels named after AI concepts, ${BADGES.length} badges, daily streaks, and a bonus module to unlock.`, where: [{ label: "Progress", href: "/profile" }] },
+  { req: "Gamified interface", how: `XP for lessons, perfect quizzes, labs, and skill checks. ${LEVELS.length} levels named after AI concepts, ${BADGES.length} badges, daily streaks, unlockable modules, and a 22-rank competitive ladder from Bronze I to Supersonic Legend.`, where: [{ label: "Progress", href: "/profile" }] },
   { req: "Visual progress tracking", how: "The brain map is the dashboard: each finished lesson lights a neuron and connects it to the rest. Neurons fade over days until reviewed, so the map shows what the student still remembers, not just what they clicked through.", where: [{ label: "Brain map", href: "/map" }, { label: "Spaced review", href: "/review" }] },
-  { req: "Evidence of learning", how: "The same 12-question check before Module 01 and after Module 03, broken down by topic.", where: [{ label: "Skill check", href: "/assessment" }] },
+  { req: "Evidence of learning", how: "The same 30-question check before and after, rising from beginner to expert and weighted by difficulty, broken down by level and topic.", where: [{ label: "Skill check", href: "/assessment" }] },
 ];
 
 export default function JudgePage() {
@@ -64,7 +64,7 @@ export default function JudgePage() {
           {[
             [String(totalLessons), "lessons with checkpoint quizzes"],
             [String(labs.length), "hands-on labs"],
-            ["7", "interactive lesson widgets"],
+            ["12", "interactive lesson widgets"],
             ["0", "accounts, trackers, or AI APIs"],
           ].map(([n, l]) => (
             <div key={l}>

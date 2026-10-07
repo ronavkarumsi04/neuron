@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ASSESSMENT, TOPICS } from "@/content/assessment";
+import { ASSESSMENT, LEVELS, MAX_POINTS, optionOrder, TOPICS } from "@/content/assessment";
 import { coreComplete, useProgress, XP, type Attempt } from "@/lib/progress";
 
 const LETTERS = "ABCD";
 const pct = (a?: [number, number]) => (a && a[1] ? Math.round((a[0] / a[1]) * 100) : 0);
+const weighted = (a: Attempt) => Math.round((a.points / a.max) * 100);
+/** Highest difficulty level where the student got at least 70% right, counting up without gaps. */
+function ceiling(a: Attempt) {
+  let reached = 0;
+  for (const l of LEVELS) {
+    const r = a.byLevel[l.n];
+    if (r && r[1] && r[0] / r[1] >= 0.7) reached = l.n;
+    else break;
+  }
+  return reached ? LEVELS[reached - 1].label : "Not yet beginner";
+}
 
 function Quiz({ kind, onDone }: { kind: "pre" | "post"; onDone: () => void }) {
   const record = useProgress((s) => s.recordAssessment);
@@ -15,16 +26,22 @@ function Quiz({ kind, onDone }: { kind: "pre" | "post"; onDone: () => void }) {
 
   const submit = () => {
     const byTopic: Record<string, [number, number]> = {};
+    const byLevel: Record<string, [number, number]> = {};
     let score = 0;
+    let points = 0;
     ASSESSMENT.forEach((q, i) => {
       const t = (byTopic[q.topic] ??= [0, 0]);
+      const l = (byLevel[q.level] ??= [0, 0]);
       t[1]++;
+      l[1]++;
       if (picks[i] === q.answer) {
         t[0]++;
+        l[0]++;
         score++;
+        points += q.level;
       }
     });
-    const attempt: Attempt = { score, total: ASSESSMENT.length, byTopic, at: new Date().toISOString().slice(0, 10) };
+    const attempt: Attempt = { score, total: ASSESSMENT.length, points, max: MAX_POINTS, byTopic, byLevel, at: new Date().toISOString().slice(0, 10) };
     record(kind, attempt);
     onDone();
     window.scrollTo({ top: 0 });
@@ -35,16 +52,22 @@ function Quiz({ kind, onDone }: { kind: "pre" | "post"; onDone: () => void }) {
       <ol className="space-y-8">
         {ASSESSMENT.map((q, qi) => (
           <li key={qi}>
+            {(qi === 0 || ASSESSMENT[qi - 1].level !== q.level) && (
+              <p className="mb-5 flex items-baseline justify-between gap-3 border-b border-ink pb-2">
+                <span className="font-display text-2xl">{LEVELS[q.level - 1].label}</span>
+                <span className="label">{q.level} {q.level > 1 ? "points" : "point"} each</span>
+              </p>
+            )}
             <fieldset>
               <legend className="font-medium text-ink">
                 <span className="mr-2 font-mono text-sm text-ink-3">{qi + 1}.</span>
                 {q.q}
               </legend>
               <div className="mt-3 grid gap-2">
-                {q.options.map((opt, oi) => (
+                {optionOrder(qi, q.options.length).map((oi, pos) => [q.options[oi], oi, pos] as const).map(([opt, oi, pos]) => (
                   <label key={oi} className={`flex min-h-11 cursor-pointer items-start gap-3 rounded-sm border px-3 py-2.5 text-[0.95rem] transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal ${picks[qi] === oi ? "border-ink bg-paper-sunk" : "border-rule hover:bg-paper-sunk/70"}`}>
                     <input type="radio" name={`a-${kind}-${qi}`} className="sr-only" checked={picks[qi] === oi} onChange={() => setPicks((p) => p.map((v, i) => (i === qi ? oi : v)))} />
-                    <span aria-hidden className="mt-px font-mono text-xs text-ink-3">{LETTERS[oi]}</span>
+                    <span aria-hidden className="mt-px font-mono text-xs text-ink-3">{LETTERS[pos]}</span>
                     <span className="flex-1 text-ink-2">{opt}</span>
                   </label>
                 ))}
@@ -67,8 +90,8 @@ function Compare({ pre, post }: { pre: Attempt; post?: Attempt }) {
   const [copied, setCopied] = useState(false);
   const line = [
     `Neuron skill check`,
-    `before ${pre.score}/${pre.total}`,
-    post ? `after ${post.score}/${post.total}` : null,
+    `before ${weighted(pre)}% (${pre.score}/${pre.total} right)`,
+    post ? `after ${weighted(post)}% (${post.score}/${post.total} right)` : null,
     ...TOPICS.map((t) => `${t.label} ${pct(pre.byTopic[t.id])}%${post ? `→${pct(post.byTopic[t.id])}%` : ""}`),
   ].filter(Boolean).join(" · ");
 
@@ -82,28 +105,30 @@ function Compare({ pre, post }: { pre: Attempt; post?: Attempt }) {
         <dl className="grid grid-cols-2 gap-4 sm:grid-cols-1">
           <div>
             <dt className="label">Before</dt>
-            <dd className="font-display text-5xl tabular">{Math.round((pre.score / pre.total) * 100)}%</dd>
+            <dd className="font-display text-5xl tabular">{weighted(pre)}%</dd>
+            <dd className="mt-1 text-xs text-ink-3">{pre.score}/{pre.total} right · {ceiling(pre)}</dd>
           </div>
           <div>
             <dt className="label">After</dt>
-            <dd className={`font-display text-5xl tabular ${post ? "text-green" : "text-ink-3"}`}>{post ? `${Math.round((post.score / post.total) * 100)}%` : "—"}</dd>
+            <dd className={`font-display text-5xl tabular ${post ? "text-green" : "text-ink-3"}`}>{post ? `${weighted(post)}%` : "—"}</dd>
+            {post && <dd className="mt-1 text-xs text-ink-3">{post.score}/{post.total} right · {ceiling(post)}</dd>}
           </div>
         </dl>
         <table className="w-full text-sm">
-          <caption className="sr-only">Score by topic, before and after</caption>
+          <caption className="sr-only">Percent correct by difficulty level and by topic, before and after</caption>
           <thead>
             <tr className="label text-left">
-              <th scope="col" className="pb-2 font-normal">Topic</th>
-              <th scope="col" className="pb-2 font-normal">Score</th>
+              <th scope="col" className="pb-2 font-normal">Group</th>
+              <th scope="col" className="pb-2 font-normal">Correct</th>
             </tr>
           </thead>
           <tbody>
-            {TOPICS.map((t) => {
-              const a = pct(pre.byTopic[t.id]);
-              const b = post ? pct(post.byTopic[t.id]) : null;
+            {[...LEVELS.map((l) => ({ id: `l${l.n}`, label: l.label, a: pre.byLevel[l.n], b: post?.byLevel[l.n], first: l.n === 1 })), ...TOPICS.map((t) => ({ id: t.id, label: t.label, a: pre.byTopic[t.id], b: post?.byTopic[t.id], first: t.id === TOPICS[0].id }))].map((t, ri) => {
+              const a = pct(t.a);
+              const b = post ? pct(t.b) : null;
               return (
-                <tr key={t.id} className="border-t border-rule">
-                  <th scope="row" className="w-36 py-3 pr-3 text-left font-normal text-ink-2">{t.label}</th>
+                <tr key={t.id} className={t.first ? "border-t border-ink" : "border-t border-rule"}>
+                  <th scope="row" className="w-36 py-3 pr-3 text-left font-normal text-ink-2">{t.first && <span className="label block pb-1">{ri === 0 ? "By difficulty" : "By topic"}</span>}{t.label}</th>
                   <td className="py-3">
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2">
@@ -153,7 +178,7 @@ export function AssessmentView() {
       <>
         <p className="mt-6 border-l-2 border-signal pl-4 text-ink-2">
           {taking === "pre"
-            ? "Answer honestly. Guessing is fine, and you won't see the answers yet, so the after-check stays fair."
+            ? "Answer honestly and skip nothing: guess if you have to. Questions get harder as you go, and harder ones are worth more. Very few people ace the expert section before the advanced modules."
             : "Same questions as your baseline. This time you'll see explanations at the end."}
         </p>
         <Quiz kind={taking} onDone={() => setTaking(null)} />
@@ -165,7 +190,7 @@ export function AssessmentView() {
     return (
       <div className="mt-10 rounded-md border border-rule-strong bg-paper-raised p-6">
         <h2 className="font-display text-3xl">Start with a baseline</h2>
-        <p className="mt-3 max-w-xl text-ink-2">Twelve questions, about five minutes. Take it before Module 01, then again after Module 03, and see how much you learned in each area.</p>
+        <p className="mt-3 max-w-xl text-ink-2">{ASSESSMENT.length} questions in four rising levels, from beginner to expert, about 20 minutes. Beginner questions are worth 1 point and expert questions 4, out of {MAX_POINTS}. Take it before Module 01, then again later to see how far you&apos;ve climbed.</p>
         <button type="button" onClick={() => setTaking("pre")} className="mt-6 inline-flex min-h-11 items-center rounded-sm bg-ink px-5 font-medium text-paper">Take the baseline</button>
       </div>
     );
@@ -176,7 +201,7 @@ export function AssessmentView() {
       <Compare pre={pre} post={post} />
       {!post && !unlocked && (
         <p className="mt-6 text-ink-2">
-          The after-check unlocks when you finish Modules 01–03.{" "}
+          The after-check unlocks when you finish Modules 01–03. The expert questions are covered in Modules 05–08.{" "}
           <Link href="/map" className="underline underline-offset-4 hover:text-ink">Back to the brain map</Link>
         </p>
       )}
@@ -194,7 +219,7 @@ export function AssessmentView() {
             {ASSESSMENT.map((q, i) => (
               <li key={i} className="border-b border-rule pb-4">
                 <p className="font-medium text-ink"><span className="mr-2 font-mono text-sm text-ink-3">{i + 1}.</span>{q.q}</p>
-                <p className="mt-1 text-sm text-green">{q.options[q.answer]}</p>
+                <p className="mt-1 text-sm text-green">{q.options[q.answer]} <span className="label ml-1">{LEVELS[q.level - 1].label}</span></p>
                 <p className="mt-1 text-sm text-ink-2">{q.why}</p>
               </li>
             ))}

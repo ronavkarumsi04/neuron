@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonStatus } from "@/components/lesson-status";
 import { LabStatus } from "@/components/labs/lab-runner";
-import { getModule, modules } from "@/content/curriculum";
+import { ModuleLock } from "@/components/module-lock";
+import { getModule, modules, TIERS } from "@/content/curriculum";
 import { labsFor } from "@/content/labs";
+import { TONE_TEXT } from "@/lib/tone";
 
 export function generateStaticParams() {
   return modules.map((m) => ({ module: m.id }));
@@ -15,7 +17,6 @@ export async function generateMetadata({ params }: { params: Promise<{ module: s
   return { title: m ? `${m.number} ${m.title}` : "Module" };
 }
 
-const TONE_TEXT: Record<string, string> = { cobalt: "text-cobalt", green: "text-green", plum: "text-plum", gold: "text-gold" };
 
 export default async function ModulePage({ params }: { params: Promise<{ module: string }> }) {
   const m = getModule((await params).module);
@@ -23,7 +24,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
 
   return (
     <div className="mx-auto max-w-4xl px-5 pt-10">
-      <nav aria-label="Modules" className="flex gap-1 overflow-x-auto border-b border-rule pb-px">
+      <nav aria-label="Modules" className="flex flex-wrap gap-x-1 border-b border-rule pb-px">
         {modules.map((x) => (
           <Link
             key={x.id}
@@ -37,9 +38,10 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
       </nav>
 
       <header className="pt-10">
-        <p className={`font-mono text-sm ${TONE_TEXT[m.tone]}`}>Module {m.number} · {m.kicker}</p>
+        <p className={`font-mono text-sm ${TONE_TEXT[m.tone]}`}>Module {m.number} · {m.kicker} · {TIERS[m.tier].label}</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">{m.title}</h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-2">{m.summary}</p>
+        <ModuleLock moduleId={m.id} />
       </header>
 
       <section aria-labelledby="lessons" className="mt-10">
@@ -58,6 +60,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
         </ol>
       </section>
 
+      {labsFor(m.id).length > 0 && (
       <section aria-labelledby="labs" className="mt-10">
         <h2 id="labs" className="label border-b border-ink pb-2">Hands-on {labsFor(m.id).length > 1 ? "labs" : "lab"}</h2>
         <ul>
@@ -74,6 +77,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
           ))}
         </ul>
       </section>
+      )}
     </div>
   );
 }

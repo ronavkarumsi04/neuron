@@ -2,7 +2,7 @@
 
 An interactive AI learning portal for high school students (grades 9–12). It was built for the 2026–27 TSA Webmaster theme, *Artificial Intelligence (AI) learning portal*.
 
-The brain map is the progress dashboard. Each of the 18 lessons is a neuron. A neuron lights up when you pass its checkpoint, connects to the rest of its module, and fades again if you don't review it.
+The brain map is the progress dashboard. Each of the 38 lessons is a neuron. A neuron lights up when you pass its checkpoint, connects to the rest of its module, and fades again if you don't review it.
 
 ## What's inside
 
@@ -11,12 +11,12 @@ The brain map is the progress dashboard. Each of the 18 lessons is a neuron. A n
 | Fundamental AI concepts | Module 01 *How AI Works*: 5 lessons, plus a line-fitting trainer, a perceptron, and a next-word model |
 | Practical tools & techniques | Module 02 *AI Tools & Techniques*: 5 lessons, plus the CRAFT prompt builder and Prompt Lab |
 | Ethical AI usage | Module 03 *Ethical AI*: 5 lessons, plus Bias Lab, Spot the Hallucination, the Integrity Simulator, and the citation builder |
-| Gamification & progress | XP, 10 levels, 13 badges, streaks, the brain map, spaced review, a progress page, and a certificate |
+| Gamification & progress | XP, 13 levels, 20 badges, a Bronze → Supersonic Legend rank ladder, streaks, the brain map, spaced review, a progress page, and a certificate |
 
 Also included:
 - 6 labs, including a neural network that trains in the browser on your own drawings
 - A bonus Module 04, *AI & Your Future*
-- A 12-question pre/post skill check
+- A 30-question pre/post skill check in four difficulty levels, weighted by difficulty
 - A glossary
 - An educator guide
 - Judge Mode at `/judge`: a 10-stop guided tour with sample progress

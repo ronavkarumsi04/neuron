@@ -20,7 +20,17 @@ function Toast({ award }: { award: Award }) {
       transition={{ type: "spring", stiffness: 420, damping: 32 }}
       className="pointer-events-auto flex min-w-64 items-center gap-3 rounded-md border border-rule-strong bg-paper-raised px-4 py-3 shadow-[var(--shadow-lift)]"
     >
-      {award.badge ? (
+      {award.rank ? (
+        <>
+          <svg aria-hidden viewBox="0 0 24 24" className={`size-6 shrink-0 ${award.rank.up ? "text-signal" : "text-ink-3"}`}>
+            <path d={award.rank.up ? "M5 15l7-7 7 7" : "M5 9l7 7 7-7"} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <div>
+            <p className={`label ${award.rank.up ? "!text-signal-ink" : ""}`}>{award.rank.up ? "Promoted" : "Rank dropped"}</p>
+            <p className="font-medium">{award.rank.name}{award.rank.up ? "" : ". Review fading neurons to climb back."}</p>
+          </div>
+        </>
+      ) : award.badge ? (
         <>
           <svg aria-hidden viewBox="0 0 24 24" className="size-6 shrink-0 text-signal">
             <path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.3 6.2 19.8l1.6-6.6L2.6 8.8l6.8-.5z" fill="currentColor" />
