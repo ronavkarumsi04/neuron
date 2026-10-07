@@ -133,6 +133,8 @@ export const useProgress = create<ProgressState>()(
       recordQuiz: (moduleId, lessonSlug, correct, total, passed) => {
         const key = lessonKey(moduleId, lessonSlug);
         const state = get();
+        const mod = getModule(moduleId);
+        if (!mod || !moduleUnlocked(mod, state.completed)) return;
         const prev = state.quizzes[key];
         const result: QuizResult = {
           best: Math.max(prev?.best ?? 0, correct),
