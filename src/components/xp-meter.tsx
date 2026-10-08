@@ -14,7 +14,7 @@ export function XpMeter() {
   return (
     <Link
       href="/profile"
-      className="group flex items-center gap-3 rounded-sm px-2 py-1.5 transition-colors duration-150 hover:bg-paper-sunk"
+      className="group flex items-center gap-2 rounded-sm px-2 py-1.5 sm:gap-3 transition-colors duration-150 hover:bg-paper-sunk"
       aria-label={`Rank ${rank.name}${division ? `, division ${division}` : ""}, rating ${rating}. Level ${level}, ${name}. ${xp} experience points.${streak ? ` ${streak} day streak.` : ""} View progress.`}
     >
       <RankEmblem rank={rank} className="h-7 w-6 shrink-0" />
@@ -22,8 +22,8 @@ export function XpMeter() {
         <span className="label block leading-none">Lv {level}</span>
         <span className="block text-xs leading-tight text-ink-2">{name}</span>
       </span>
-      <span className="flex flex-col gap-1">
-        <span className="relative block h-1.5 w-20 overflow-hidden rounded-full bg-paper-sunk ring-1 ring-rule">
+      <span className="xp-bar flex flex-col gap-1">
+        <span className="relative block h-1.5 w-14 sm:w-20 overflow-hidden rounded-full bg-paper-sunk ring-1 ring-rule">
           <span
             className="absolute inset-y-0 left-0 rounded-full bg-signal transition-[width] duration-500 ease-[var(--ease-out)]"
             style={{ width: `${Math.max(4, progress * 100)}%` }}

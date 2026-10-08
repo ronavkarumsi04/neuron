@@ -55,11 +55,11 @@ function Toggle({ label, hint, checked, onChange }: { label: string; hint: strin
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className="relative mt-0.5 h-6 w-10 shrink-0 rounded-full border border-rule-strong bg-paper-sunk transition-colors duration-150 aria-checked:border-ink aria-checked:bg-ink"
+        className="mt-0.5 flex h-6 w-10 shrink-0 items-center rounded-full border border-rule-strong bg-paper-sunk p-0.5 transition-colors duration-150 aria-checked:border-ink aria-checked:bg-ink"
       >
         <span
           aria-hidden
-          className={`absolute top-0.5 size-[18px] rounded-full bg-paper shadow-sm transition-transform duration-200 ease-[var(--ease-out)] ${checked ? "translate-x-[18px]" : "translate-x-0.5"} ${checked ? "" : "!bg-ink-3"}`}
+          className={`size-[1.125rem] rounded-full shadow-sm transition-transform duration-200 ease-[var(--ease-out)] ${checked ? "translate-x-[calc(100%-2px)] bg-paper" : "translate-x-0 bg-ink-3"}`}
         />
       </button>
     </div>
@@ -145,9 +145,9 @@ export function AccessibilityPanel() {
             exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
             transition={{ type: "spring", stiffness: 500, damping: 34 }}
             style={{ transformOrigin: "top right" }}
-            className="absolute right-0 top-12 z-50 w-80 max-w-[calc(100vw-2.5rem)] space-y-5 rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
+            className="fixed inset-x-4 top-[3.75rem] z-50 max-h-[calc(100svh-4.5rem)] space-y-5 overflow-y-auto overscroll-contain sm:absolute sm:inset-x-auto sm:right-0 sm:top-12 sm:w-80 rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
           >
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between gap-3">
               <h2 id={titleId} className="font-display text-2xl leading-none">
                 Display
               </h2>

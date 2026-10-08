@@ -64,6 +64,11 @@
 [data-scale="112"] { --text-scale: 1.125; }
 [data-scale="125"] { --text-scale: 1.25; }
 
+/* At the largest text size, a phone header has no room for the XP bar; the rank emblem still links to progress. */
+@media (max-width: 30rem) {
+  [data-scale="125"] .xp-bar { display: none; }
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-raised: var(--paper-raised);

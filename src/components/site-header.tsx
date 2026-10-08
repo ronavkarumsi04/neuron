@@ -17,12 +17,12 @@ export function SiteHeader() {
   const pathname = usePathname();
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/85 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-5">
-        <Link href="/" className="flex items-center gap-2 rounded-sm" aria-label="Neuron home">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:gap-6 sm:px-5">
+        <Link href="/" className="flex shrink-0 items-center gap-2 rounded-sm" aria-label="Neuron home">
           <NeuronMark className="size-6" />
           <span className="font-display text-[1.45rem] leading-none tracking-tight">Neuron</span>
         </Link>
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {NAV.map((item) => {
               const active = pathname.startsWith(item.match ?? item.href);
@@ -40,12 +40,12 @@ export function SiteHeader() {
             })}
           </ul>
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
           <XpMeter />
           <AccessibilityPanel />
         </div>
       </div>
-      <nav aria-label="Primary mobile" className="border-t border-rule md:hidden">
+      <nav aria-label="Primary mobile" className="border-t border-rule lg:hidden">
         <ul className="mx-auto flex max-w-6xl justify-around px-2">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.match ?? item.href);

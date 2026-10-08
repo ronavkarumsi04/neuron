@@ -72,8 +72,8 @@ export function BiasLab() {
                 >
                   <span className="flex items-center justify-between gap-2">
                     <span className="font-medium text-ink">{f.title}</span>
-                    <span aria-hidden className={`relative h-5 w-9 rounded-full border transition-colors ${fixes[f.key] ? "border-ink bg-ink" : "border-rule-strong"}`}>
-                      <span className={`absolute top-0.5 size-3.5 rounded-full transition-transform duration-150 ${fixes[f.key] ? "translate-x-4 bg-paper" : "translate-x-0.5 bg-ink-3"}`} />
+                    <span aria-hidden className={`flex h-5 w-9 shrink-0 items-center rounded-full border p-0.5 transition-colors ${fixes[f.key] ? "border-ink bg-ink" : "border-rule-strong"}`}>
+                      <span className={`size-3.5 rounded-full transition-transform duration-150 ${fixes[f.key] ? "translate-x-[calc(1.125rem-2px)] bg-paper" : "translate-x-0 bg-ink-3"}`} />
                     </span>
                   </span>
                   <span className="mt-1 block text-sm text-ink-2">{f.text}</span>
@@ -84,20 +84,20 @@ export function BiasLab() {
         </Panel>
 
         <Panel title="Test results: 300 new applicants" label={fair ? "Fair" : "Unfair"}>
-          <div className="grid grid-cols-3 gap-4 border-b border-rule pb-4">
+          <div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 sm:grid-cols-3">
             <div>
               <p className="label">Gap</p>
-              <p className={`font-display text-4xl tabular ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
+              <p className={`font-display text-2xl tabular sm:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
               <p className="text-xs text-ink-3">goal: under 5</p>
             </div>
             <div>
               <p className="label">Accuracy</p>
-              <p className={`font-display text-4xl tabular ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
+              <p className={`font-display text-2xl tabular sm:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
               <p className="text-xs text-ink-3">goal: 88%+</p>
             </div>
             <div>
               <p className="label">Trained on</p>
-              <p className="font-display text-4xl tabular">{r.trainCounts.north}/{r.trainCounts.south}</p>
+              <p className="font-display text-2xl tabular sm:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
               <p className="text-xs text-ink-3">North / South</p>
             </div>
           </div>
