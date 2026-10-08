@@ -145,9 +145,9 @@ export function AccessibilityPanel() {
             exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
             transition={{ type: "spring", stiffness: 500, damping: 34 }}
             style={{ transformOrigin: "top right" }}
-            className="absolute right-0 top-12 z-50 w-80 max-w-[calc(100vw-2.5rem)] space-y-5 rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
+            className="fixed inset-x-4 top-[3.75rem] z-50 max-h-[calc(100svh-4.5rem)] space-y-5 overflow-y-auto overscroll-contain sm:absolute sm:inset-x-auto sm:right-0 sm:top-12 sm:max-h-none sm:w-80 sm:overflow-visible rounded-md border border-rule-strong bg-paper-raised p-5 shadow-[var(--shadow-lift)]"
           >
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between gap-3">
               <h2 id={titleId} className="font-display text-2xl leading-none">
                 Display
               </h2>
