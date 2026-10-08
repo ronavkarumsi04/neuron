@@ -1,4 +1,4 @@
-const CACHE = "neuron-v1";
+const CACHE = `neuron-${new URL(location.href).searchParams.get("v") || "v1"}`;
 const ASSET = /\/_next\/static\/|\.(?:svg|woff2|png|ico)$/;
 
 self.addEventListener("install", () => self.skipWaiting());
@@ -55,7 +55,9 @@ self.addEventListener("fetch", (e) => {
           if (res.ok && req.mode === "navigate") caches.open(CACHE).then((c) => c.put(key, res.clone()));
           return res;
         })
-        .catch(async () => (await caches.match(key)) || (await caches.match(url.pathname)) || (await caches.match("/")) || Response.error()),
+        .catch(async () =>
+          req.mode === "navigate" ? (await caches.match(key)) || (await caches.match("/")) || Response.error() : Response.error(),
+        ),
     );
   }
 });

@@ -48,12 +48,15 @@ const OFFLINE_ROUTES = [
 function registerOffline() {
   if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
   navigator.serviceWorker
-    .register("/sw.js")
+    .register(`/sw.js?v=${process.env.NEXT_PUBLIC_BUILD_ID}`)
     .then(() => navigator.serviceWorker.ready)
     .then((reg) => {
       const run = () => reg.active?.postMessage({ type: "precache", urls: OFFLINE_ROUTES });
       if ("requestIdleCallback" in window) requestIdleCallback(run, { timeout: 5000 });
       else setTimeout(run, 3000);
+      navigator.serviceWorker.addEventListener("controllerchange", () =>
+        navigator.serviceWorker.controller?.postMessage({ type: "precache", urls: OFFLINE_ROUTES }),
+      );
     })
     .catch(() => {});
 }

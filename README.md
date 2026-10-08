@@ -14,12 +14,13 @@ The brain map is the progress dashboard. Each of the 38 lessons is a neuron. A n
 | Gamification & progress | XP, 13 levels, 20 badges, a Bronze → Supersonic Legend rank ladder, streaks, the brain map, spaced review, a progress page, and a certificate |
 
 Also included:
+- A scrollytelling homepage: one drawing that grows from a single neuron to an AI agent as you scroll, with a still version for reduced motion
 - 6 labs, including a neural network that trains in the browser on your own drawings
 - A bonus Module 04, *AI & Your Future*
 - A 30-question pre/post skill check in four difficulty levels, weighted by difficulty
 - A glossary
 - An educator guide
-- Judge Mode at `/judge`: a 10-stop guided tour with sample progress
+- Judge Mode at `/judge`: an 11-stop guided tour with sample progress
 
 ## Principles
 
