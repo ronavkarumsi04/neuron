@@ -55,11 +55,11 @@ function Toggle({ label, hint, checked, onChange }: { label: string; hint: strin
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className="relative mt-0.5 h-6 w-10 shrink-0 rounded-full border border-rule-strong bg-paper-sunk transition-colors duration-150 aria-checked:border-ink aria-checked:bg-ink"
+        className="mt-0.5 flex h-6 w-10 shrink-0 items-center rounded-full border border-rule-strong bg-paper-sunk p-0.5 transition-colors duration-150 aria-checked:border-ink aria-checked:bg-ink"
       >
         <span
           aria-hidden
-          className={`absolute top-0.5 size-[18px] rounded-full bg-paper shadow-sm transition-transform duration-200 ease-[var(--ease-out)] ${checked ? "translate-x-[18px]" : "translate-x-0.5"} ${checked ? "" : "!bg-ink-3"}`}
+          className={`size-[1.125rem] rounded-full shadow-sm transition-transform duration-200 ease-[var(--ease-out)] ${checked ? "translate-x-[calc(100%-2px)] bg-paper" : "translate-x-0 bg-ink-3"}`}
         />
       </button>
     </div>

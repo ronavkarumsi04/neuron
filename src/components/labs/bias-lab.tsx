@@ -72,8 +72,8 @@ export function BiasLab() {
                 >
                   <span className="flex items-center justify-between gap-2">
                     <span className="font-medium text-ink">{f.title}</span>
-                    <span aria-hidden className={`relative h-5 w-9 rounded-full border transition-colors ${fixes[f.key] ? "border-ink bg-ink" : "border-rule-strong"}`}>
-                      <span className={`absolute top-0.5 size-3.5 rounded-full transition-transform duration-150 ${fixes[f.key] ? "translate-x-4 bg-paper" : "translate-x-0.5 bg-ink-3"}`} />
+                    <span aria-hidden className={`flex h-5 w-9 shrink-0 items-center rounded-full border p-0.5 transition-colors ${fixes[f.key] ? "border-ink bg-ink" : "border-rule-strong"}`}>
+                      <span className={`size-3.5 rounded-full transition-transform duration-150 ${fixes[f.key] ? "translate-x-[calc(1.125rem-2px)] bg-paper" : "translate-x-0 bg-ink-3"}`} />
                     </span>
                   </span>
                   <span className="mt-1 block text-sm text-ink-2">{f.text}</span>
