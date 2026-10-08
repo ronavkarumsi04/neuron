@@ -84,20 +84,20 @@ export function BiasLab() {
         </Panel>
 
         <Panel title="Test results: 300 new applicants" label={fair ? "Fair" : "Unfair"}>
-          <div className="grid grid-cols-3 gap-4 border-b border-rule pb-4">
+          <div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 sm:grid-cols-3">
             <div>
               <p className="label">Gap</p>
-              <p className={`font-display text-4xl tabular ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
+              <p className={`font-display text-2xl tabular sm:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
               <p className="text-xs text-ink-3">goal: under 5</p>
             </div>
             <div>
               <p className="label">Accuracy</p>
-              <p className={`font-display text-4xl tabular ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
+              <p className={`font-display text-2xl tabular sm:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
               <p className="text-xs text-ink-3">goal: 88%+</p>
             </div>
             <div>
               <p className="label">Trained on</p>
-              <p className="font-display text-4xl tabular">{r.trainCounts.north}/{r.trainCounts.south}</p>
+              <p className="font-display text-2xl tabular sm:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
               <p className="text-xs text-ink-3">North / South</p>
             </div>
           </div>
