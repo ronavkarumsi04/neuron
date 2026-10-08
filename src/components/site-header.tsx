@@ -22,7 +22,7 @@ export function SiteHeader() {
           <NeuronMark className="size-6" />
           <span className="font-display text-[1.45rem] leading-none tracking-tight">Neuron</span>
         </Link>
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {NAV.map((item) => {
               const active = pathname.startsWith(item.match ?? item.href);
@@ -45,7 +45,7 @@ export function SiteHeader() {
           <AccessibilityPanel />
         </div>
       </div>
-      <nav aria-label="Primary mobile" className="border-t border-rule md:hidden">
+      <nav aria-label="Primary mobile" className="border-t border-rule lg:hidden">
         <ul className="mx-auto flex max-w-6xl justify-around px-2">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.match ?? item.href);
