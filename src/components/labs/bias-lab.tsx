@@ -103,10 +103,15 @@ export function BiasLab() {
           </div></div>
           <table className="mt-4 w-full table-fixed text-xs hyphens-auto sm:table-auto sm:text-sm">
             <caption className="sr-only">Outcomes by neighborhood</caption>
+            <colgroup>
+              <col className="w-[36%] sm:w-auto" />
+              <col className="w-[26%] sm:w-auto" />
+              <col className="w-[38%] sm:w-auto" />
+            </colgroup>
             <thead>
-              <tr className="label text-left tracking-normal sm:tracking-[0.08em] [&>th]:pr-2">
+              <tr className="label text-left !tracking-normal sm:!tracking-[0.08em] [&>th]:pr-2">
                 <th scope="col" className="pb-2 font-normal">Group</th>
-                <th scope="col" className="pb-2 font-normal">Accepted</th>
+                <th scope="col" className="pb-2 font-normal">Accept rate</th>
                 <th scope="col" className="pb-2 font-normal">Missed qualified</th>
               </tr>
             </thead>
