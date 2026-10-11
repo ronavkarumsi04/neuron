@@ -163,12 +163,13 @@ export function TeachTheMachine() {
             onPointerDown={(e) => {
               e.currentTarget.setPointerCapture(e.pointerId);
               drawing.current = true;
-              setStrokes((s) => [...s, [point(e)]]);
+              const p = point(e);
+              setStrokes((s) => [...s, [p]]);
             }}
             onPointerMove={(e) => {
               if (!drawing.current) return;
               const p = point(e);
-              setStrokes((s) => [...s.slice(0, -1), [...s[s.length - 1], p]]);
+              setStrokes((s) => (s.length ? [...s.slice(0, -1), [...s[s.length - 1], p]] : [[p]]));
             }}
             onPointerUp={() => {
               if (!drawing.current) return;
