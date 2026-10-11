@@ -17,7 +17,7 @@ export default function MapPage() {
         <BrainMap className="mx-auto w-full max-w-4xl" />
         <MapCaption />
       </figure>
-      <section aria-label="Lesson list" className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <section aria-label="Lesson list" className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {modules.map((m) => (
           <div key={m.id}>
             <h2 className="label">{m.number} {m.title}</h2>

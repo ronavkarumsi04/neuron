@@ -37,7 +37,7 @@ export default async function LessonPage({ params }: { params: Params }) {
         <span className="mx-2">/</span>
         <span>Lesson {index + 1} of {m.lessons.length}</span>
       </nav>
-      <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] tracking-tight">{l.title}</h1>
+      <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] tracking-tight hyphens-auto break-words">{l.title}</h1>
       <p className="mt-3 font-mono text-xs uppercase tracking-wider text-ink-3">{l.minutes} min read</p>
       <ModuleLock moduleId={m.id} />
 

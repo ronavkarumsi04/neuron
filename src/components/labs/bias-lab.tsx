@@ -59,7 +59,7 @@ export function BiasLab() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-[18rem_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[18rem_minmax(0,1fr)]">
         <Panel title="Interventions" label="Toggle any">
           <ul className="space-y-2">
             {FIXES.map((f) => (
@@ -84,23 +84,23 @@ export function BiasLab() {
         </Panel>
 
         <Panel title="Test results: 300 new applicants" label={fair ? "Fair" : "Unfair"}>
-          <div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 sm:grid-cols-3">
+          <div className="@container"><div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 @md:grid-cols-3">
             <div>
               <p className="label">Gap</p>
-              <p className={`font-display text-2xl tabular sm:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
+              <p className={`font-display text-2xl tabular @md:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
               <p className="text-xs text-ink-3">goal: under 5</p>
             </div>
             <div>
               <p className="label">Accuracy</p>
-              <p className={`font-display text-2xl tabular sm:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
+              <p className={`font-display text-2xl tabular @md:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
               <p className="text-xs text-ink-3">goal: 88%+</p>
             </div>
             <div>
               <p className="label">Trained on</p>
-              <p className="font-display text-2xl tabular sm:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
+              <p className="font-display text-2xl tabular @md:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
               <p className="text-xs text-ink-3">North / South</p>
             </div>
-          </div>
+          </div></div>
           <table className="mt-4 w-full text-sm">
             <caption className="sr-only">Outcomes by neighborhood</caption>
             <thead>

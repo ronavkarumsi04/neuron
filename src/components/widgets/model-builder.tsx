@@ -39,7 +39,7 @@ export function ModelBuilder() {
           <button key={p.name} type="button" onClick={() => setCfg(p.cfg)} aria-pressed={JSON.stringify(p.cfg) === JSON.stringify(cfg)} className="min-h-9 rounded-sm border border-rule-strong px-3 text-sm hover:bg-paper-sunk aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper">{p.name}</button>
         ))}
       </div>
-      <div className="mt-5 grid gap-6 md:grid-cols-[15rem_minmax(0,1fr)]">
+      <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[15rem_minmax(0,1fr)]">
         <div className="space-y-4 text-sm">
           <label className="block"><span className="flex justify-between text-ink-2"><span>Layers (L)</span><span className="font-mono tabular text-ink">{L}</span></span>
             <input type="range" min={1} max={128} value={L} onChange={(e) => set("layers", +e.target.value)} className="mt-1 w-full accent-[var(--signal)]" /></label>

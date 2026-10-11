@@ -18,7 +18,7 @@ export function Perceptron() {
 
   return (
     <Figure title="One artificial neuron: go to the game tonight?" label={`Challenge ${matches}/8`}>
-      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
         <div>
           <svg viewBox="0 0 300 180" className="w-full" role="img" aria-label={`Neuron output ${(y * 100).toFixed(0)} percent: ${y > 0.5 ? "go" : "stay home"}`}>
             {INPUTS.map((_, i) => {

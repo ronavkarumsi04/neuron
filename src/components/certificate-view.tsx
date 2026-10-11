@@ -53,7 +53,7 @@ export function CertificateView() {
 
       <article aria-label="Certificate of completion" className="certificate relative mt-8 overflow-hidden rounded-md border border-ink bg-paper-raised p-8 sm:p-12 print:mt-0 print:rounded-none">
         <div aria-hidden className="pointer-events-none absolute inset-3 rounded-sm border border-rule-strong" />
-        <div className="relative grid gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:items-center">
+        <div className="relative grid grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:items-center">
           <div>
             <p className="label">Neuron · AI learning portal · Certificate of completion</p>
             <p className="mt-8 text-ink-2">This certifies that</p>

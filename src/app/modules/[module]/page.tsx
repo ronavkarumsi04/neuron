@@ -39,7 +39,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
 
       <header className="pt-10">
         <p className={`font-mono text-sm ${TONE_TEXT[m.tone]}`}>Module {m.number} · {m.kicker} · {TIERS[m.tier].label}</p>
-        <h1 className="mt-3 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">{m.title}</h1>
+        <h1 className="mt-3 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">{m.title}</h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-2">{m.summary}</p>
         <ModuleLock moduleId={m.id} />
       </header>
@@ -66,7 +66,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
         <ul>
           {labsFor(m.id).map((lab) => (
             <li key={lab.id} className="border-b border-rule">
-              <Link href={`/labs/${lab.id}`} className="group grid gap-1 py-5 hover:bg-paper-sunk/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-2">
+              <Link href={`/labs/${lab.id}`} className="group grid grid-cols-[minmax(0,1fr)] gap-1 py-5 hover:bg-paper-sunk/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-2">
                 <span>
                   <span className="block font-display text-2xl">{lab.title} <span aria-hidden className="inline-block text-ink-3 transition-transform duration-150 group-hover:translate-x-1">→</span></span>
                   <span className="mt-1 block text-ink-2">{lab.blurb}</span>

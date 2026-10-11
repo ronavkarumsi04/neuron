@@ -15,7 +15,7 @@ export default function GlossaryPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 pt-10">
       <p className="label">Reference</p>
-      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">Glossary</h1>
+      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">Glossary</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
         {list.length} AI terms in plain language. Each one links to the lesson where it&apos;s explained.
       </p>

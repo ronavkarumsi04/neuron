@@ -21,7 +21,7 @@ export default function JudgePage() {
   return (
     <div className="mx-auto max-w-5xl px-5 pt-10">
       <p className="label">For judges</p>
-      <h1 className="mt-2 max-w-3xl font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">See all of Neuron in three minutes.</h1>
+      <h1 className="mt-2 max-w-3xl font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">See all of Neuron in three minutes.</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
         The tour loads a sample student who has finished Modules 01–03, then walks you through eleven stops. Ending the tour puts back whatever progress was on this device before.
       </p>

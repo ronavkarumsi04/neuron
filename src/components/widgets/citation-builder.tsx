@@ -46,7 +46,7 @@ export function CitationBuilder() {
 
   return (
     <Figure title="Citation builder" label="MLA 9 · APA 7">
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2">
         <div className="sm:col-span-2">{field("prompt", "Your prompt (shortened is fine)")}</div>
         {field("tool", "Tool")}
         {field("version", "Version or model")}

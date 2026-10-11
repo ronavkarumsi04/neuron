@@ -75,7 +75,7 @@ export function NextWord() {
         {!ended && <span aria-hidden className="ml-1 inline-block h-6 w-px translate-y-1 bg-signal" />}
       </p>
 
-      <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1fr)_14rem]">
+      <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_14rem]">
         <div>
           <p className="label">After “{seen}”, the model thinks the next word is…</p>
           {ctx === 2 && !usePair && !ended && <p className="mt-1 text-xs text-ink-3">Never saw “{pair}” in training, so it falls back to one word.</p>}

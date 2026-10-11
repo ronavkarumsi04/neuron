@@ -46,7 +46,7 @@ export function SiteHeader() {
         </div>
       </div>
       <nav aria-label="Primary mobile" className="border-t border-rule lg:hidden">
-        <ul className="mx-auto flex max-w-6xl justify-around px-2">
+        <ul className="mobile-nav mx-auto flex max-w-6xl justify-around px-1 sm:px-2">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.match ?? item.href);
             return (
@@ -54,7 +54,7 @@ export function SiteHeader() {
                 <Link
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className="block px-3 py-2.5 text-sm text-ink-2 aria-[current=page]:text-ink aria-[current=page]:font-medium"
+                  className="block px-1.5 py-2.5 text-sm whitespace-nowrap text-ink-2 min-[25rem]:px-3 aria-[current=page]:text-ink aria-[current=page]:font-medium"
                 >
                   {item.label}
                 </Link>

@@ -151,7 +151,7 @@ export function TeachTheMachine() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-[auto_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[auto_minmax(0,1fr)]">
         <Panel title="Drawing pad" label={net ? "Draw to test" : "Draw to collect"}>
           <canvas
             ref={canvas}
@@ -199,9 +199,9 @@ export function TeachTheMachine() {
                     value={c.name}
                     maxLength={14}
                     onChange={(e) => setClasses((cs) => cs.map((x, k) => (k === i ? { ...x, name: e.target.value } : x)))}
-                    className="min-h-10 w-36 rounded-sm border border-rule bg-paper px-2 font-medium text-ink"
+                    className="min-h-10 w-36 min-w-0 shrink rounded-sm border border-rule bg-paper px-2 font-medium text-ink"
                   />
-                  <span className={`font-mono text-xs tabular ${c.samples.length >= MIN * 3 ? "text-green" : "text-ink-3"}`}>
+                  <span className={`shrink-0 font-mono text-xs tabular ${c.samples.length >= MIN * 3 ? "text-green" : "text-ink-3"}`}>
                     {Math.round(c.samples.length / 3)} drawn
                   </span>
                 </div>
@@ -221,7 +221,7 @@ export function TeachTheMachine() {
       </div>
 
       <Panel title="Train" label={last ? `Epoch ${curve.length}/${EPOCHS} · loss ${last.loss.toFixed(3)} · accuracy ${(last.acc * 100).toFixed(0)}%` : "Not trained"}>
-        <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_14rem] md:items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-[minmax(0,1fr)_14rem] md:items-center">
           <svg viewBox="0 0 300 90" className="w-full" role="img" aria-label={last ? `Loss curve. Loss fell to ${last.loss.toFixed(2)} after ${curve.length} epochs.` : "Empty loss curve"}>
             <line x1="0" y1="85" x2="300" y2="85" stroke="var(--rule-strong)" />
             <text x="0" y="10" className="fill-ink-3 font-mono text-[8px]">LOSS</text>
@@ -246,7 +246,7 @@ export function TeachTheMachine() {
       </Panel>
 
       <Panel title="Test" label={net ? `${tests} tested` : "Train first"}>
-        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
           <div aria-live="polite">
             {!net ? (
               <p className="text-ink-3">After training, draw a new shape on the pad. The network will tell you what it thinks it is.</p>

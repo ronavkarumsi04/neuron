@@ -15,7 +15,7 @@ export function RankCard() {
         <h2 id="rank-h" className="label">Competitive rank</h2>
         <span className="font-mono text-xs text-ink-3 tabular">Rating {rating}</span>
       </header>
-      <div className="grid gap-8 p-5 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 p-5 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
         <div>
           <div className="flex items-center gap-4">
             <RankEmblem rank={rank} className="h-20 w-[4.25rem] shrink-0" />

@@ -63,10 +63,10 @@ export function Attention() {
         </fieldset>
         <label className="flex min-h-9 items-center gap-2"><input type="checkbox" checked={causal} onChange={(e) => setCausal(e.target.checked)} className="size-4 accent-[var(--signal)]" />Causal mask</label>
         <label className="flex items-center gap-2"><span className="text-ink-2">Sharpness</span>
-          <input type="range" min={0.3} max={3} step={0.1} value={sharp} onChange={(e) => setSharp(+e.target.value)} className="w-28 accent-[var(--signal)]" /><span className="w-8 font-mono tabular">{sharp.toFixed(1)}</span></label>
+          <input type="range" min={0.3} max={3} step={0.1} value={sharp} onChange={(e) => setSharp(+e.target.value)} className="w-24 accent-[var(--signal)] sm:w-28" /><span className="w-8 font-mono tabular">{sharp.toFixed(1)}</span></label>
       </div>
 
-      <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_15rem]">
         <div className="overflow-x-auto" tabIndex={0} aria-label="Attention heatmap. Rows are the token doing the looking; columns are the tokens it looks at.">
           <table className="border-collapse font-mono text-[0.68rem]">
             <thead>

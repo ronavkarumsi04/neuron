@@ -19,7 +19,7 @@ export function MapCaption() {
           </>
         )}
       </span>
-      <span className="flex items-center gap-4 text-xs text-ink-3">
+      <span className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-3">
         <span className="flex items-center gap-1.5"><svg aria-hidden className="size-2.5"><circle cx="5" cy="5" r="4" fill="var(--ink-2)" /></svg>Done</span>
         <span className="flex items-center gap-1.5"><svg aria-hidden className="size-2.5"><circle cx="5" cy="5" r="4" fill="var(--ink-2)" fillOpacity="0.3" /></svg>Fading</span>
         <span className="flex items-center gap-1.5"><svg aria-hidden className="size-2.5"><circle cx="5" cy="5" r="4" fill="none" stroke="var(--signal)" strokeWidth="2" /></svg>Up next</span>

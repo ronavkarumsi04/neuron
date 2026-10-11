@@ -16,7 +16,7 @@ export default function ReviewPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 pt-10">
       <p className="label">Spaced review</p>
-      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">Keep your neurons lit</h1>
+      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">Keep your neurons lit</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
         Memories fade, and so do neurons. A finished lesson starts to dim after 3 days. Answer one question to relight it, and the next review comes later: 7 days, then 14, 30, and 60.
       </p>

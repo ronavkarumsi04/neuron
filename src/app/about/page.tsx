@@ -58,7 +58,7 @@ export default function AboutPage() {
       <p>Neuron uses no stock photos or third-party images. Open-source software and fonts:</p>
       <dl className="not-prose mt-4 border-t border-rule text-sm">
         {CREDITS.map(([a, b]) => (
-          <div key={a} className="grid gap-1 border-b border-rule py-3 sm:grid-cols-[minmax(0,1fr)_16rem]">
+          <div key={a} className="grid grid-cols-[minmax(0,1fr)] gap-1 border-b border-rule py-3 sm:grid-cols-[minmax(0,1fr)_16rem]">
             <dt className="text-ink">{a}</dt>
             <dd className="text-ink-2">{b}</dd>
           </div>

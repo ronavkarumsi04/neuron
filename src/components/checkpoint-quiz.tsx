@@ -4,6 +4,7 @@ import { useState } from "react";
 import { lessonKey, type ModuleId } from "@/content/curriculum";
 import { passMark, type Question } from "@/content/lesson-types";
 import { useModuleLocked, useProgress, XP } from "@/lib/progress";
+import { RichText } from "@/components/rich-text";
 
 const LETTERS = "ABCD";
 
@@ -68,7 +69,7 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
               <fieldset disabled={checked}>
                 <legend className="font-medium text-ink">
                   <span className="mr-2 font-mono text-sm text-ink-3">{qi + 1}.</span>
-                  {q.q}
+                  <RichText text={q.q} />
                 </legend>
                 <div className="mt-3 grid gap-2">
                   {q.options.map((opt, oi) => {
@@ -95,7 +96,7 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
                           onChange={() => setPicks((p) => p.map((v, i) => (i === qi ? oi : v)))}
                         />
                         <span aria-hidden className="mt-px font-mono text-xs text-ink-3">{LETTERS[oi]}</span>
-                        <span className="flex-1 text-ink-2">{opt}</span>
+                        <span className="min-w-0 flex-1 text-ink-2 [overflow-wrap:anywhere]"><RichText text={opt} /></span>
                         {state === "right" && <span className="font-mono text-xs uppercase text-green">Correct</span>}
                         {state === "wrong" && <span className="font-mono text-xs uppercase text-signal-ink">Your pick</span>}
                       </label>
@@ -105,7 +106,7 @@ export function CheckpointQuiz({ moduleId, slug, questions, title = "Checkpoint"
                 {checked && (
                   <p className={`mt-3 border-l-2 pl-3 text-sm leading-relaxed ${right ? "border-green" : "border-signal"} text-ink-2`}>
                     <span className="sr-only">{right ? "Correct. " : "Incorrect. "}</span>
-                    {q.why}
+                    <RichText text={q.why} />
                   </p>
                 )}
               </fieldset>
