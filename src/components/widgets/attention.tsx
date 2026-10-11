@@ -62,8 +62,8 @@ export function Attention() {
           ))}
         </fieldset>
         <label className="flex min-h-9 items-center gap-2"><input type="checkbox" checked={causal} onChange={(e) => setCausal(e.target.checked)} className="size-4 accent-[var(--signal)]" />Causal mask</label>
-        <label className="flex items-center gap-2"><span className="text-ink-2">Sharpness</span>
-          <input type="range" min={0.3} max={3} step={0.1} value={sharp} onChange={(e) => setSharp(+e.target.value)} className="w-24 accent-[var(--signal)] sm:w-28" /><span className="w-8 font-mono tabular">{sharp.toFixed(1)}</span></label>
+        <label className="flex min-w-0 items-center gap-2"><span className="text-ink-2">Sharpness</span>
+          <input type="range" min={0.3} max={3} step={0.1} value={sharp} onChange={(e) => setSharp(+e.target.value)} className="w-20 min-w-0 accent-[var(--signal)] sm:w-28" /><span className="w-8 shrink-0 font-mono tabular">{sharp.toFixed(1)}</span></label>
       </div>
 
       <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_15rem]">

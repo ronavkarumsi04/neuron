@@ -101,10 +101,10 @@ export function BiasLab() {
               <p className="text-xs text-ink-3">North / South</p>
             </div>
           </div></div>
-          <table className="mt-4 w-full text-sm">
+          <table className="mt-4 w-full table-fixed text-xs hyphens-auto sm:table-auto sm:text-sm">
             <caption className="sr-only">Outcomes by neighborhood</caption>
             <thead>
-              <tr className="label text-left">
+              <tr className="label text-left tracking-normal sm:tracking-[0.08em] [&>th]:pr-2">
                 <th scope="col" className="pb-2 font-normal">Group</th>
                 <th scope="col" className="pb-2 font-normal">Accepted</th>
                 <th scope="col" className="pb-2 font-normal">Missed qualified</th>
@@ -113,8 +113,8 @@ export function BiasLab() {
             <tbody className="tabular">
               {([["Northside", r.north], ["Southside", r.south]] as const).map(([name, g]) => (
                 <tr key={name} className="border-t border-rule align-top">
-                  <th scope="row" className="py-2 pr-3 text-left font-medium text-ink">{name}</th>
-                  <td className="py-2 pr-3 font-mono">{pct(g.acceptRate)}</td>
+                  <th scope="row" className="py-2 pr-2 text-left font-medium text-ink sm:pr-3">{name}</th>
+                  <td className="py-2 pr-2 font-mono sm:pr-3">{pct(g.acceptRate)}</td>
                   <td className={`py-2 font-mono ${g.missed > 0.15 ? "text-signal-ink" : "text-ink"}`}>{pct(g.missed)}</td>
                 </tr>
               ))}
