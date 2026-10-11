@@ -29,6 +29,20 @@ Issues found and fixed:
 | `/labs/teach-the-machine` | 96 | 100 | 100 | 100 | 0 |
 | `/judge` | 97 | 100 | 100 | 100 | 0 |
 
+## Responsive layout sweep (Chromium, WebKit, Firefox)
+
+Every one of the 63 user-facing routes was loaded at 320×640, 360×780, 390×844, 844×390, 768×1024, 1024×768 and 1280×900, at text sizes A, A+, A++ and A++ with the readable font: 1,764 page loads per engine. Each load checks that the page does not scroll sideways and that no text runs outside the viewport or outside a box that clips it. Code and diagram blocks that scroll on purpose are allowed.
+
+| Engine | Page loads | Layout problems |
+| --- | --- | --- |
+| Chromium | 1,764 | 0 |
+| WebKit (Safari's engine) | 1,764 | 0 |
+| Firefox | 1,764 | 0 |
+
+Before the fixes in this pass, Chromium found 173 problem loads. Most came from grids whose implicit column grew to fit a long word, the Teach the Machine and Bias Lab layouts at tablet widths with large text, ASCII diagrams that wrapped out of alignment, and quiz text that showed raw backticks around long identifiers.
+
+Known issue: Firefox reports a recoverable React hydration warning (#418) on about 1–4% of production page loads, on random routes. It does not reproduce in the dev build or in Chromium/WebKit. React recovers by re-rendering on the client and the page works normally.
+
 ## Robustness checks
 
 - **No hydration errors with non-US locales.** With the browser set to German, the parameter-counter widget crashed hydration (React error #418), because the server printed `50,257` and the browser printed `50.257`. Numbers are now always formatted as `en-US`. Re-checked in `de-DE` and in a UTC+14 time zone: no console errors.
