@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ASSESSMENT, LEVELS, MAX_POINTS, optionOrder, TOPICS } from "@/content/assessment";
 import { coreComplete, useProgress, XP, type Attempt } from "@/lib/progress";
+import { RichText } from "@/components/rich-text";
 
 const LETTERS = "ABCD";
 const pct = (a?: [number, number]) => (a && a[1] ? Math.round((a[0] / a[1]) * 100) : 0);
@@ -61,14 +62,14 @@ function Quiz({ kind, onDone }: { kind: "pre" | "post"; onDone: () => void }) {
             <fieldset>
               <legend className="font-medium text-ink">
                 <span className="mr-2 font-mono text-sm text-ink-3">{qi + 1}.</span>
-                {q.q}
+                <RichText text={q.q} />
               </legend>
               <div className="mt-3 grid gap-2">
                 {optionOrder(qi, q.options.length).map((oi, pos) => [q.options[oi], oi, pos] as const).map(([opt, oi, pos]) => (
                   <label key={oi} className={`flex min-h-11 cursor-pointer items-start gap-3 rounded-sm border px-3 py-2.5 text-[0.95rem] transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal ${picks[qi] === oi ? "border-ink bg-paper-sunk" : "border-rule hover:bg-paper-sunk/70"}`}>
                     <input type="radio" name={`a-${kind}-${qi}`} className="sr-only" checked={picks[qi] === oi} onChange={() => setPicks((p) => p.map((v, i) => (i === qi ? oi : v)))} />
                     <span aria-hidden className="mt-px font-mono text-xs text-ink-3">{LETTERS[pos]}</span>
-                    <span className="flex-1 text-ink-2">{opt}</span>
+                    <span className="min-w-0 flex-1 text-ink-2 [overflow-wrap:anywhere]"><RichText text={opt} /></span>
                   </label>
                 ))}
               </div>
@@ -101,7 +102,7 @@ function Compare({ pre, post }: { pre: Attempt; post?: Attempt }) {
         <h2 id="results" className="font-medium">Your results</h2>
         <span className="label">{post ? "Before → after" : "Baseline"}</span>
       </header>
-      <div className="grid gap-6 p-5 sm:grid-cols-[12rem_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 p-5 sm:grid-cols-[12rem_minmax(0,1fr)]">
         <dl className="grid grid-cols-2 gap-4 sm:grid-cols-1">
           <div>
             <dt className="label">Before</dt>
@@ -218,9 +219,9 @@ export function AssessmentView() {
           <ol className="mt-4 space-y-5">
             {ASSESSMENT.map((q, i) => (
               <li key={i} className="border-b border-rule pb-4">
-                <p className="font-medium text-ink"><span className="mr-2 font-mono text-sm text-ink-3">{i + 1}.</span>{q.q}</p>
-                <p className="mt-1 text-sm text-green">{q.options[q.answer]} <span className="label ml-1">{LEVELS[q.level - 1].label}</span></p>
-                <p className="mt-1 text-sm text-ink-2">{q.why}</p>
+                <p className="font-medium text-ink"><span className="mr-2 font-mono text-sm text-ink-3">{i + 1}.</span><RichText text={q.q} /></p>
+                <p className="mt-1 text-sm text-green"><RichText text={q.options[q.answer]} /> <span className="label ml-1">{LEVELS[q.level - 1].label}</span></p>
+                <p className="mt-1 text-sm text-ink-2"><RichText text={q.why} /></p>
               </li>
             ))}
           </ol>

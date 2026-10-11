@@ -8,6 +8,9 @@ const NOTE: Record<string, { label: string; cls: string }> = {
   warn: { label: "Watch out", cls: "border-signal" },
 };
 
+// Box-drawing art and column-aligned math must keep their spacing, so they scroll instead of wrapping.
+const isDiagram = (text: string) => /[\u2190-\u21FF\u2500-\u257F\u25B2-\u25C4]|\S {2,}\S|^ {2,}\S/m.test(text);
+
 export function LessonBody({ blocks }: { blocks: Block[] }) {
   return (
     <div className="lesson-prose">
@@ -37,7 +40,11 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
             return (
               <figure key={i} className="not-prose my-6 rounded-sm border border-rule bg-paper-sunk/60">
                 <figcaption className="label border-b border-rule px-4 py-2">{b.label}</figcaption>
-                <pre className="whitespace-pre-wrap px-4 py-3 font-mono text-[0.85rem] leading-relaxed text-ink">{b.text}</pre>
+                {isDiagram(b.text) ? (
+                  <pre tabIndex={0} aria-label={b.label} className="overflow-x-auto px-4 py-3 font-mono text-[0.85rem] leading-relaxed text-ink">{b.text}</pre>
+                ) : (
+                  <pre className="whitespace-pre-wrap px-4 py-3 font-mono text-[0.85rem] leading-relaxed text-ink [overflow-wrap:anywhere]">{b.text}</pre>
+                )}
               </figure>
             );
           case "code":
@@ -52,7 +59,7 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
             );
           case "compare":
             return (
-              <div key={i} className="not-prose my-8 grid gap-px overflow-hidden rounded-sm border border-rule bg-rule sm:grid-cols-2">
+              <div key={i} className="not-prose my-8 grid grid-cols-[minmax(0,1fr)] gap-px overflow-hidden rounded-sm border border-rule bg-rule sm:grid-cols-2">
                 {[b.left, b.right].map((side, j) => (
                   <div key={j} className="bg-paper-raised p-4">
                     <p className={`label ${j === 0 ? "text-signal-ink" : "text-green"}`}>{side.title}</p>
@@ -67,7 +74,7 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
             return (
               <dl key={i} className="not-prose my-8 divide-y divide-rule border-y border-rule">
                 {b.items.map((it) => (
-                  <div key={it.term} className="grid gap-1 py-3 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-4">
+                  <div key={it.term} className="grid grid-cols-[minmax(0,1fr)] gap-1 py-3 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-4">
                     <dt className="font-mono text-sm text-ink">{it.term}</dt>
                     <dd className="text-[0.95rem] leading-relaxed text-ink-2"><RichText text={it.def} /></dd>
                   </div>

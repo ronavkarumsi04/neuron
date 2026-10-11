@@ -37,7 +37,7 @@ export function GlossaryList({ entries }: { entries: Entry[] }) {
           <h2 id={`g-${L}`} className="border-b border-ink pb-1 font-display text-3xl">{L}</h2>
           <dl>
             {shown.filter((e) => e.term[0].toUpperCase() === L).map((e) => (
-              <div key={e.term} className="grid gap-1 border-b border-rule py-4 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-6">
+              <div key={e.term} className="grid grid-cols-[minmax(0,1fr)] gap-1 border-b border-rule py-4 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-6">
                 <dt className="font-medium text-ink">{e.term}</dt>
                 <dd className="text-ink-2">
                   <RichText text={e.def} />

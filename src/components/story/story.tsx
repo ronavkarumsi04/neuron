@@ -132,7 +132,7 @@ export function Story() {
     return (
       <ol className="mx-auto max-w-6xl space-y-16 px-5 py-10">
         {CHAPTERS.map((c, i) => (
-          <li key={c.fig} className="grid items-center gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+          <li key={c.fig} className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
             <div><ChapterText c={c} i={i} /></div>
             <div className="aspect-square max-h-[34rem] w-full"><Frame i={i}><c.Scene t={1} /></Frame></div>
           </li>

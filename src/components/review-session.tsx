@@ -6,6 +6,7 @@ import type { Question } from "@/content/lesson-types";
 import { dueOn, retention, strengthOf, today, type Strength } from "@/lib/memory";
 import { useProgress, XP } from "@/lib/progress";
 import { toneVar } from "@/lib/tone";
+import { RichText } from "@/components/rich-text";
 
 export type Bank = Record<string, { title: string; module: string; tone: string; href: string; quiz: Question[] }>;
 
@@ -79,7 +80,7 @@ export function ReviewSession({ bank }: { bank: Bank }) {
           <span className="label">{i + 1} of {queue.length}</span>
         </header>
         <fieldset className="p-5" disabled={answered}>
-          <legend id="rq" className="float-left mb-4 w-full font-medium text-ink">{q.q}</legend>
+          <legend id="rq" className="float-left mb-4 w-full font-medium text-ink"><RichText text={q.q} /></legend>
           <div className="clear-left grid gap-2">
             {q.options.map((opt, oi) => {
               const state = answered ? (oi === q.answer ? "right" : oi === pick ? "wrong" : "idle") : "idle";
@@ -98,7 +99,7 @@ export function ReviewSession({ bank }: { bank: Bank }) {
                     }}
                   />
                   <span aria-hidden className="mt-px font-mono text-xs text-ink-3">{LETTERS[oi]}</span>
-                  <span className="flex-1 text-ink-2">{opt}</span>
+                  <span className="min-w-0 flex-1 text-ink-2 [overflow-wrap:anywhere]"><RichText text={opt} /></span>
                 </label>
               );
             })}
@@ -109,7 +110,7 @@ export function ReviewSession({ bank }: { bank: Bank }) {
             <>
               <p className={`text-sm ${right ? "text-green" : "text-signal-ink"}`}>
                 {right ? `Relit · +${XP.review} XP. ` : "Not quite. "}
-                <span className="text-ink-2">{q.why}</span>
+                <span className="text-ink-2"><RichText text={q.why} /></span>
               </p>
               <button type="button" onClick={() => { setI(i + 1); setPick(null); }} className="ml-auto inline-flex min-h-10 items-center rounded-sm bg-ink px-4 text-sm font-medium text-paper">
                 {i + 1 < queue.length ? "Next" : "Finish"}

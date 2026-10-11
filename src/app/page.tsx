@@ -16,7 +16,7 @@ export default function Home() {
           From one neuron <br className="hidden sm:block" />
           <em className="text-signal-ink">to an AI agent.</em>
         </h1>
-        <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-end">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-end">
           <div>
             <p className="max-w-xl text-lg leading-relaxed text-ink-2">
               Train a real model in your browser, write prompts that work, learn where the ethical lines are,
@@ -101,7 +101,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section aria-labelledby="map-heading" className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center">
+      <section aria-labelledby="map-heading" className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 px-5 py-20 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center">
         <div>
           <p className="label">Live · saved on this device</p>
           <h2 id="map-heading" className="mt-4 font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[0.95] tracking-tight">
@@ -118,7 +118,7 @@ export default function Home() {
           </Link>
         </div>
         <figure className="relative rounded-md border border-rule bg-paper-raised/70 p-3 sm:p-5">
-          <div className="flex items-center justify-between pb-2">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 pb-2">
             <span className="label">Fig. 8 — Your brain map</span>
             <span className="label">Live</span>
           </div>

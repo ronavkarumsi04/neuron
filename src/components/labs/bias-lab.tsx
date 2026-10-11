@@ -59,7 +59,7 @@ export function BiasLab() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-[18rem_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[18rem_minmax(0,1fr)]">
         <Panel title="Interventions" label="Toggle any">
           <ul className="space-y-2">
             {FIXES.map((f) => (
@@ -84,37 +84,42 @@ export function BiasLab() {
         </Panel>
 
         <Panel title="Test results: 300 new applicants" label={fair ? "Fair" : "Unfair"}>
-          <div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 sm:grid-cols-3">
+          <div className="@container"><div className="grid grid-cols-2 gap-4 border-b border-rule pb-4 @md:grid-cols-3">
             <div>
               <p className="label">Gap</p>
-              <p className={`font-display text-2xl tabular sm:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
+              <p className={`font-display text-2xl tabular @md:text-4xl ${r.gap < GAP ? "text-green" : "text-signal-ink"}`}>{Math.round(r.gap * 100)} pts</p>
               <p className="text-xs text-ink-3">goal: under 5</p>
             </div>
             <div>
               <p className="label">Accuracy</p>
-              <p className={`font-display text-2xl tabular sm:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
+              <p className={`font-display text-2xl tabular @md:text-4xl ${r.accuracy >= ACC ? "text-green" : "text-signal-ink"}`}>{pct(r.accuracy)}</p>
               <p className="text-xs text-ink-3">goal: 88%+</p>
             </div>
             <div>
               <p className="label">Trained on</p>
-              <p className="font-display text-2xl tabular sm:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
+              <p className="font-display text-2xl tabular @md:text-4xl">{r.trainCounts.north}/{r.trainCounts.south}</p>
               <p className="text-xs text-ink-3">North / South</p>
             </div>
-          </div>
-          <table className="mt-4 w-full text-sm">
+          </div></div>
+          <table className="mt-4 w-full table-fixed text-xs hyphens-auto sm:table-auto sm:text-sm">
             <caption className="sr-only">Outcomes by neighborhood</caption>
+            <colgroup>
+              <col className="w-[36%] sm:w-auto" />
+              <col className="w-[26%] sm:w-auto" />
+              <col className="w-[38%] sm:w-auto" />
+            </colgroup>
             <thead>
-              <tr className="label text-left">
+              <tr className="label text-left !tracking-normal sm:!tracking-[0.08em] [&>th]:pr-2">
                 <th scope="col" className="pb-2 font-normal">Group</th>
-                <th scope="col" className="pb-2 font-normal">Accepted</th>
+                <th scope="col" className="pb-2 font-normal">Accept rate</th>
                 <th scope="col" className="pb-2 font-normal">Missed qualified</th>
               </tr>
             </thead>
             <tbody className="tabular">
               {([["Northside", r.north], ["Southside", r.south]] as const).map(([name, g]) => (
                 <tr key={name} className="border-t border-rule align-top">
-                  <th scope="row" className="py-2 pr-3 text-left font-medium text-ink">{name}</th>
-                  <td className="py-2 pr-3 font-mono">{pct(g.acceptRate)}</td>
+                  <th scope="row" className="py-2 pr-2 text-left font-medium text-ink sm:pr-3">{name}</th>
+                  <td className="py-2 pr-2 font-mono sm:pr-3">{pct(g.acceptRate)}</td>
                   <td className={`py-2 font-mono ${g.missed > 0.15 ? "text-signal-ink" : "text-ink"}`}>{pct(g.missed)}</td>
                 </tr>
               ))}

@@ -18,7 +18,7 @@ function Toast({ award }: { award: Award }) {
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       exit={{ opacity: 0, y: 6, transition: { duration: 0.15 } }}
       transition={{ type: "spring", stiffness: 420, damping: 32 }}
-      className="pointer-events-auto flex min-w-64 items-center gap-3 rounded-md border border-rule-strong bg-paper-raised px-4 py-3 shadow-[var(--shadow-lift)]"
+      className="pointer-events-auto flex max-w-full min-w-0 items-center sm:min-w-64 gap-3 rounded-md border border-rule-strong bg-paper-raised px-4 py-3 shadow-[var(--shadow-lift)]"
     >
       {award.rank ? (
         <>
@@ -59,7 +59,7 @@ export function AwardToasts() {
     <ol
       aria-live="polite"
       aria-label="Notifications"
-      className="pointer-events-none fixed bottom-4 right-4 z-50 print:hidden flex flex-col items-end gap-2"
+      className="pointer-events-none fixed bottom-4 left-4 right-4 z-50 sm:left-auto print:hidden flex flex-col items-end gap-2"
     >
       <AnimatePresence initial={false}>
         {awards.slice(-3).map((a) => (

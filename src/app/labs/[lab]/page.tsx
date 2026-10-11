@@ -30,10 +30,10 @@ export default async function LabPage({ params }: { params: Params }) {
         <span aria-hidden className="mx-2">/</span>
         <Link href={`/modules/${m.id}`} className="hover:text-ink">Module {m.number}</Link>
       </nav>
-      <header className="mt-4 grid gap-6 border-b border-ink pb-8 md:grid-cols-[minmax(0,1fr)_16rem]">
+      <header className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-6 border-b border-ink pb-8 md:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <p className={`font-mono text-sm ${TONE_TEXT[m.tone]}`}>Lab {lab.number} · {lab.minutes} min</p>
-          <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">{lab.title}</h1>
+          <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">{lab.title}</h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-2">{lab.mission}</p>
         </div>
         <div className="self-end">

@@ -14,7 +14,7 @@ export function ProfileView() {
   return (
     <div className="mx-auto max-w-5xl px-5 pt-10">
       <p className="label">Progress</p>
-      <div className="mt-3 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <section aria-labelledby="level">
           <h1 id="level" className="font-display text-5xl tracking-tight">
             Level {level} <span className="text-ink-3">·</span> <em>{name}</em>

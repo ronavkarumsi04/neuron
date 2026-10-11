@@ -120,7 +120,7 @@ export function IntegritySim() {
   };
 
   return (
-    <div className="grid gap-6 md:grid-cols-[13rem_minmax(0,1fr)]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[13rem_minmax(0,1fr)]">
       <nav aria-label="Scenarios">
         <ol className="border-t border-ink">
           {SCENARIOS.map((x, i) => (

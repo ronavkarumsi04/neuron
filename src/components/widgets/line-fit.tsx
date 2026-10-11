@@ -71,7 +71,7 @@ export function LineFit() {
 
   return (
     <Figure title="Fit a line: hours studied → test score" label={`Epoch ${epochs} · error ${loss.toFixed(1)}`}>
-      <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_14rem]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-[minmax(0,1fr)_14rem]">
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`Scatter plot of 16 students. Current line: score equals ${w.toFixed(1)} times hours plus ${b.toFixed(0)}. Average squared error ${loss.toFixed(0)}.`}>
           {[0, 25, 50, 75, 100].map((y) => (
             <g key={y}>

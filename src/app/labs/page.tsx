@@ -12,7 +12,7 @@ export default function LabsPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 pt-10">
       <p className="label">Hands-on</p>
-      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight">Labs</h1>
+      <h1 className="mt-2 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none tracking-tight hyphens-auto break-words">Labs</h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-2">
         Reading about AI only gets you so far. In the labs you train a network, write prompts, catch hallucinations, fix a biased model, and make hard calls. Every lab runs on your device.
       </p>

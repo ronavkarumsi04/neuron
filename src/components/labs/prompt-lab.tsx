@@ -115,7 +115,7 @@ export function PromptLab() {
         ))}
       </div>
 
-      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="grid gap-6 md:grid-cols-[minmax(0,1fr)_17rem]">
+      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_17rem]">
         <div>
           <p className="label">Brief {active + 1} of {BRIEFS.length}</p>
           <p className="mt-2 font-display text-2xl leading-snug">{brief.situation}</p>

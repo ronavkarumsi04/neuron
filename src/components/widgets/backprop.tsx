@@ -48,7 +48,7 @@ export function Backprop() {
 
   return (
     <Figure title="Backprop, one step at a time" label="x → hidden ReLU → ŷ">
-      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3 font-mono text-sm sm:grid-cols-4">
             {[["z = w₁x + b₁", r.z], ["h = relu(z)", r.h], ["ŷ = w₂h + b₂", r.yhat], ["L = (ŷ − y)²", r.loss]].map(([k, v]) => (

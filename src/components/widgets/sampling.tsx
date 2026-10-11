@@ -44,10 +44,10 @@ export function Sampling() {
   return (
     <Figure title="Pick the next token" label="temperature · top-k · top-p">
       <p className="rounded-sm border border-rule bg-paper px-4 py-3 font-display text-xl">The best way to study for a test is to<span aria-hidden className="ml-1 inline-block h-5 w-px translate-y-0.5 bg-signal" /></p>
-      <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
+      <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,1fr)_15rem]">
         <ul aria-label="Next-token probabilities" className="space-y-1">
           {dist.map((d) => (
-            <li key={d.t} className={`grid grid-cols-[6.5rem_minmax(0,1fr)_3rem_3rem] items-center gap-2 text-sm ${d.kept ? "" : "text-ink-3"}`}>
+            <li key={d.t} className={`grid grid-cols-[4.5rem_minmax(0,1fr)_auto_auto] items-center gap-2 sm:grid-cols-[6.5rem_minmax(0,1fr)_3rem_3rem] text-sm ${d.kept ? "" : "text-ink-3"}`}>
               <span className="font-mono">{d.t.trim()}{!d.kept && <span className="sr-only"> (filtered out)</span>}</span>
               <span className="relative h-2.5 rounded-[1px] bg-paper-sunk">
                 <span className="absolute inset-y-0 left-0 rounded-[1px] bg-ink/15" style={{ width: `${d.p * 100}%` }} />
