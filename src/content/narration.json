@@ -1,0 +1,120 @@
+{
+ "lessons": {
+  "deep-learning/backprop-by-hand": {
+   "d": 129.225,
+   "h": "44cc569a1e",
+   "src": "df091f3436728d3b8519e25de28f641cbdef7b55"
+  },
+  "deep-learning/generalization": {
+   "d": 206.3,
+   "h": "4eb77c8087",
+   "src": "8b8ef7a2ed21a690f49f2b6ccd47e350d9dce42c"
+  },
+  "deep-learning/loss-and-gradients": {
+   "d": 221.575,
+   "h": "de60eb33ea",
+   "src": "2860a0872859aafca15c217bad507234721a61ba"
+  },
+  "deep-learning/optimizers": {
+   "d": 229.8,
+   "h": "6b25f56d27",
+   "src": "3d2830776113b4ceaa944da65a159f4766c06593"
+  },
+  "deep-learning/tensors": {
+   "d": 232.65,
+   "h": "1a5c65fd83",
+   "src": "55be802e773325a4b331283b148f1ae3402e3b7f"
+  },
+  "ethics/academic-integrity": {
+   "d": 107.025,
+   "h": "a3239a5f5e",
+   "src": "282e84a4a162743d47a3596bcc73791ecef8847b"
+  },
+  "ethics/bias-in-ai": {
+   "d": 167.075,
+   "h": "3ed5cd1a33",
+   "src": "19f0c0a4d460fef6630d7837b3d1f69bc9bba278"
+  },
+  "ethics/citing-ai": {
+   "d": 107.725,
+   "h": "52a4201ceb",
+   "src": "76cceab6db994da5bda5b5df48713194440c14e1"
+  },
+  "ethics/hallucinations": {
+   "d": 144.7,
+   "h": "69367675a7",
+   "src": "0d8f579289a417bb7f4870f399ba3f309d29a3df"
+  },
+  "ethics/privacy": {
+   "d": 108.625,
+   "h": "c8185f5f57",
+   "src": "1db0b7d1e7e93005f2826e58a2bbc3c46f9a31f5"
+  },
+  "foundations/how-llms-work": {
+   "d": 189.075,
+   "h": "6dae1f579c",
+   "src": "f67169610e8cdca97c324f8a9e532fac59207791"
+  },
+  "foundations/learning-from-data": {
+   "d": 174.375,
+   "h": "634c8323bc",
+   "src": "4474985d912926a395155b98ac8cae3af98e4a5a"
+  },
+  "foundations/limits-of-ai": {
+   "d": 161.5,
+   "h": "f06f74b7de",
+   "src": "e0803bd3ea432f5891b0c1f58d6626140139b409"
+  },
+  "foundations/neural-networks": {
+   "d": 142.025,
+   "h": "9c4d78177c",
+   "src": "7ff694cdf24b1ea807ca5648b03d4e3ecf68a3b6"
+  },
+  "foundations/what-is-ai": {
+   "d": 184.025,
+   "h": "4322323f2b",
+   "src": "7b73522a1a171a4c72c1e1786822ed838be6158b"
+  },
+  "future/ai-across-fields": {
+   "d": 131.025,
+   "h": "24b4ba86c1",
+   "src": "97d75403a173ad657e9ac74d48ec3d9e32c77361"
+  },
+  "future/careers": {
+   "d": 119.275,
+   "h": "ea56a3ec0f",
+   "src": "aa9af974cec45358a03753d194efeb65c17adcd1"
+  },
+  "future/keep-learning": {
+   "d": 97.05,
+   "h": "a2f35f3c37",
+   "src": "1f5221ebc9480ee519d17b4046843d83e970a0a2"
+  },
+  "toolkit/ai-for-projects": {
+   "d": 139.975,
+   "h": "5e32425de3",
+   "src": "dbeb0841c334b5d9523d5fc5d5936939c233a765"
+  },
+  "toolkit/prompting-101": {
+   "d": 144.625,
+   "h": "66385ea3cc",
+   "src": "e8910e9e01917288b62a518740096ab28f363a7e"
+  },
+  "toolkit/studying-with-ai": {
+   "d": 116.375,
+   "h": "8a97ee0ae6",
+   "src": "7e8e2d53a58c16fbbba6ab1dcb1e1edfb7a76ed0"
+  },
+  "toolkit/the-ai-toolbox": {
+   "d": 150.3,
+   "h": "675ecc5923",
+   "src": "0fb95e4ba46afa165c46d2cf2fee0cbd8836d12a"
+  },
+  "toolkit/verifying-outputs": {
+   "d": 140.425,
+   "h": "8d7986c873",
+   "src": "1cb2d57cc6ad1f864f449c139a38833e0df66514"
+  }
+ },
+ "voice": "af_heart"
+}

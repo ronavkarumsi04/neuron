@@ -18,7 +18,7 @@ export function TourBar() {
 
   if (minimized)
     return (
-      <button type="button" onClick={() => setMinimized(false)} className="fixed bottom-4 left-4 z-40 print:hidden inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink bg-paper-raised px-4 font-mono text-xs uppercase tracking-wide text-ink shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)]">
+      <button type="button" data-judge-chip onClick={() => setMinimized(false)} className="fixed bottom-4 left-4 z-40 print:hidden inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink bg-paper-raised px-4 font-mono text-xs uppercase tracking-wide text-ink shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)]">
         <span className="size-2 rounded-full bg-signal" aria-hidden />
         Judge tour · {step + 1}/{TOUR.length}
       </button>

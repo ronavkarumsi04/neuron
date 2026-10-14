@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "narration:export": "npx -y tsx scripts/narration/export.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
