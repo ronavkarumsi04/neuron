@@ -51,7 +51,7 @@ export default function AboutPage() {
       </ul>
       <p>Everything works with a keyboard, including the brain map, quizzes, and labs. Visualizations have text descriptions, and the drawing lab offers buttons as an alternative to drawing. Works offline after your first visit, and can be installed like an app.</p>
 
-      <h2 id="sources">Works cited</h2>
+      <h2 id="sources" className="scroll-mt-28 lg:scroll-mt-20">Works cited</h2>
       <p>All lesson text, quiz questions, lab scenarios, and illustrations are original to this project. Lab datasets are synthetic and made up for teaching. Facts and studies mentioned in lessons come from:</p>
       <ol className="text-[0.95rem]">
         {SOURCES.map((s) => <li key={s}>{s}</li>)}
