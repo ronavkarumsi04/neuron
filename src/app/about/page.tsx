@@ -8,9 +8,12 @@ const SOURCES = [
   "Buolamwini, Joy, and Timnit Gebru. “Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification.” Proceedings of the 1st Conference on Fairness, Accountability and Transparency, PMLR 81, 2018, pp. 77–91.",
   "Cepeda, Nicholas J., et al. “Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis.” Psychological Bulletin, vol. 132, no. 3, 2006, pp. 354–380.",
   "Dastin, Jeffrey. “Amazon Scraps Secret AI Recruiting Tool That Showed Bias against Women.” Reuters, 10 Oct. 2018.",
+  "Common Sense Media. The Dawn of the AI Era: Teens, Parents, and the Adoption of Generative AI at Home and School. Common Sense Media, 2024.",
   "Ebbinghaus, Hermann. Über das Gedächtnis [Memory: A Contribution to Experimental Psychology]. Duncker & Humblot, 1885.",
+  "Bellan, Rebecca. “Sam Altman Says ChatGPT Has Hit 800M Weekly Active Users.” TechCrunch, 6 Oct. 2025.",
   "McAdoo, Timothy. “How to Cite ChatGPT.” APA Style Blog, American Psychological Association, 7 Apr. 2023.",
   "“How Do I Cite Generative AI in MLA Style?” MLA Style Center, Modern Language Association, 17 Mar. 2023.",
+  "United Nations, Department of Economic and Social Affairs, Population Division. World Population Prospects 2024. United Nations, 2024.",
 ];
 
 const CREDITS = [

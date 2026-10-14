@@ -184,3 +184,6 @@ p, li { text-wrap: pretty; }
   body { background: #fff !important; }
   .certificate { box-shadow: none !important; break-inside: avoid; }
 }
+
+@keyframes literacy-you { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.literacy-you { animation: literacy-you 1.6s var(--ease-out) infinite; }
