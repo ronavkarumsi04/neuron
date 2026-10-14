@@ -5,6 +5,7 @@ import { TIERS, modules, totalLessons } from "@/content/curriculum";
 import { labs, labsFor } from "@/content/labs";
 import { TONE_TEXT } from "@/lib/tone";
 import { Story } from "@/components/story/story";
+import { LiteracyChart } from "@/components/literacy-chart";
 
 
 export default function Home() {
@@ -62,6 +63,19 @@ export default function Home() {
           <span aria-hidden className="inline-block h-8 w-px bg-signal" />
           Scroll · watch the course go from beginner to expert
         </p>
+      </section>
+
+      <section aria-labelledby="why-heading" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+        <div className="flex items-end justify-between border-b border-ink pb-3">
+          <h2 id="why-heading" className="font-display text-3xl">Why this matters</h2>
+          <span className="label">The AI literacy gap</span>
+        </div>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-2">
+          Most students already use AI. Far fewer know when it&apos;s wrong, or where the line is between help and cheating. Click through the findings.
+        </p>
+        <div className="mt-10">
+          <LiteracyChart />
+        </div>
       </section>
 
       <section aria-labelledby="story-heading">
