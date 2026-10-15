@@ -49,14 +49,18 @@ async function ranged(res, req) {
   });
 }
 
+// Online, the browser streams ranges straight from the network as if there were no worker;
+// the full file is cached on the side and only used when the network is gone.
 function narration(e, req, url) {
-  const work = caches.match(url.pathname).then(async (hit) => {
-    if (hit) return { res: await ranged(hit, req), fill: null };
-    const fill = caches.open(CACHE).then((c) => c.add(url.pathname)).catch(() => {});
-    return { res: await fetch(req), fill };
-  });
-  e.respondWith(work.then((w) => w.res).catch(() => Response.error()));
-  e.waitUntil(work.then((w) => w.fill).catch(() => {}));
+  e.respondWith(
+    fetch(req).catch(() => caches.match(url.pathname).then((hit) => (hit ? ranged(hit, req) : Response.error()))),
+  );
+  e.waitUntil(
+    caches
+      .match(url.pathname)
+      .then((hit) => hit || caches.open(CACHE).then((c) => c.add(url.pathname)))
+      .catch(() => {}),
+  );
 }
 
 self.addEventListener("fetch", (e) => {

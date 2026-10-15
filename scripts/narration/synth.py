@@ -33,7 +33,7 @@ WORDS = {
     "(0.95²⁰).": "(0.95 to the 20th power).", "Q·K,": "Q dot K,", "−∞": "minus infinity", "T−1": "T minus 1",
     "η∇L.": "eta times grad L.", "∇L.": "grad L.", "Wx": "W x", "4-D": "4 D", "n²": "n squared", "n²,": "n squared,",
     "12d²": "12 d squared", "4096²": "4,096 squared", "C2PA": "C 2 P A", "AI-writing": "AI writing",
-    "∂L/∂a": "dee L by dee a", "∂L/∂b": "dee L by dee b", "∂b/∂a.": "dee b by dee a.", "∂L/∂ŷ": "dee L by dee y hat",
+    "∂L/∂a": "dee L by dee A", "∂L/∂b": "dee L by dee B", "∂b/∂a.": "dee B by dee A.", "∂L/∂ŷ": "dee L by dee y hat",
     "4d": "4 d", "70B": "70 billion", "280B": "280 billion", "float32's": "float 32's", "GGUF": "G G U F",
     "model-00001-of-00002.safetensors,": "model, part 1 of 2, dot safe-tensors,", "(L2):": "(L 2):", "T5):": "T 5):",
     "KV": "K V", "LoRA": "Laura", "QLoRA": "Q Laura", "UX": "U X", "ML": "M L", "LM": "L M", "AWQ": "A W Q",

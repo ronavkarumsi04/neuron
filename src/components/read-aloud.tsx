@@ -141,8 +141,7 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
     if (!el) return;
     const r = el.getBoundingClientRect();
     const top = headerOffset();
-    const dockH = dock.current?.getBoundingClientRect().height ?? 0;
-    const bottom = window.innerHeight - dockH - 24;
+    const bottom = (dock.current?.getBoundingClientRect().top ?? window.innerHeight) - 24;
     const band = bottom - top;
     if (!force && r.top >= top + band * 0.15 && r.bottom <= top + band * 0.7) return;
     autoUntil.current = performance.now() + (reduceRef.current ? 150 : 1000);
@@ -317,9 +316,9 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
       const el = words.current.get(t.s[seg][0])?.[Math.max(0, word)]?.[0];
       if (!el) return null;
       const r = el.getBoundingClientRect();
-      const dockH = dock.current?.getBoundingClientRect().height ?? 0;
+      const dockTop = dock.current?.getBoundingClientRect().top ?? window.innerHeight;
       if (r.bottom < headerOffset()) return "up";
-      if (r.top > window.innerHeight - dockH - 16) return "down";
+      if (r.top > dockTop - 16) return "down";
       return "in";
     };
     const userScroll = () => {
@@ -449,7 +448,7 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
             ref={dock}
             aria-label="Read aloud player"
             style={{ bottom: `calc(${lift}px + max(0.75rem, env(safe-area-inset-bottom)))` }}
-            className="narration-dock fixed inset-x-3 z-40 mx-auto max-w-[40rem] rounded-md border border-ink bg-paper-raised text-ink shadow-[0_18px_44px_-22px_rgb(0_0_0/0.5)] print:hidden"
+            className="narration-dock fixed inset-x-3 z-30 mx-auto max-w-[40rem] rounded-md border border-ink bg-paper-raised text-ink shadow-[0_18px_44px_-22px_rgb(0_0_0/0.5)] print:hidden"
           >
             {detached && (
               <button

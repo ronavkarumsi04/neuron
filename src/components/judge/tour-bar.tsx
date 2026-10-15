@@ -46,17 +46,17 @@ export function TourBar() {
         )}
       </div>
       <div className="flex items-center gap-2 border-t border-rule px-4 py-2.5">
-        <div className="mr-auto flex gap-1" aria-hidden>
+        <div className="mr-auto flex min-w-0 flex-1 gap-1" aria-hidden>
           {TOUR.map((_, i) => (
-            <span key={i} className={`h-1 w-3 rounded-full ${i <= step ? "bg-ink" : "bg-rule-strong"}`} />
+            <span key={i} className={`h-1 w-3 min-w-0.5 shrink rounded-full ${i <= step ? "bg-ink" : "bg-rule-strong"}`} />
           ))}
         </div>
-        <button type="button" onClick={exit} className="min-h-9 whitespace-nowrap px-1.5 text-sm text-ink-3 hover:text-ink">End tour</button>
-        <button type="button" disabled={step === 0} onClick={() => move(step - 1)} className="min-h-9 rounded-sm border border-rule-strong px-3 text-sm disabled:opacity-40">Back</button>
+        <button type="button" onClick={exit} className="min-h-9 shrink-0 whitespace-nowrap px-1.5 text-sm text-ink-3 hover:text-ink">End tour</button>
+        <button type="button" disabled={step === 0} onClick={() => move(step - 1)} className="min-h-9 shrink-0 rounded-sm border border-rule-strong px-3 text-sm disabled:opacity-40">Back</button>
         {step < TOUR.length - 1 ? (
-          <button type="button" onClick={() => move(step + 1)} className="min-h-9 rounded-sm bg-ink px-3 text-sm font-medium text-paper">Next</button>
+          <button type="button" onClick={() => move(step + 1)} className="min-h-9 shrink-0 rounded-sm bg-ink px-3 text-sm font-medium text-paper">Next</button>
         ) : (
-          <button type="button" onClick={exit} className="min-h-9 rounded-sm bg-ink px-3 text-sm font-medium text-paper">Finish</button>
+          <button type="button" onClick={exit} className="min-h-9 shrink-0 rounded-sm bg-ink px-3 text-sm font-medium text-paper">Finish</button>
         )}
       </div>
     </section>
