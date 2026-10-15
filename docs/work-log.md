@@ -15,4 +15,5 @@ Fill in the hours and who did what. TSA judges compare this log against the inte
 | 2026-10-06 | Advanced track | Modules 05–08 (deep learning, transformers, how models are made, agents), 20 new lessons, 5 new widgets, prerequisite locks, 30-question difficulty-weighted skill check, Bronze → Supersonic Legend rank ladder | | |
 | 2026-10-07 | Scrollytelling home | Seven-scene scroll story from one neuron to an AI agent, still version for reduced motion | | |
 | 2026-10-07 | Audit refresh | axe across all 63 routes, Lighthouse re-run, attention-widget contrast fix, locale hydration fix, versioned offline cache, Judge tour update | | |
+| 2026-10-14 | Read aloud | Pre-recorded narration for all 38 lessons (Kokoro-82M, open-source), word-level highlight synced to the voice, tap-to-jump, speed, keyboard and lock-screen controls, offline playback | | |
 | | User testing | Pre/post skill check with __ classmates | | |

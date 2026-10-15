@@ -5,9 +5,13 @@ import { CheckpointQuiz } from "@/components/checkpoint-quiz";
 import { CompleteLesson } from "@/components/complete-lesson";
 import { LessonBody } from "@/components/lesson-body";
 import { ModuleLock } from "@/components/module-lock";
+import { ReadAloud } from "@/components/read-aloud";
 import { RichText } from "@/components/rich-text";
 import { getLessonContent } from "@/content/lessons";
 import { getModule, modules } from "@/content/curriculum";
+import narration from "@/content/narration.json";
+
+const recordings: Record<string, { h: string; d: number } | undefined> = narration.lessons;
 
 type Params = Promise<{ module: string; lesson: string }>;
 
@@ -29,29 +33,34 @@ export default async function LessonPage({ params }: { params: Params }) {
   const next = m.lessons[index + 1];
   const content = getLessonContent(m.id, l.slug);
   if (!content) notFound();
+  const key = `${m.id}/${l.slug}`;
+  const voice = recordings[key];
 
   return (
-    <article className="mx-auto max-w-2xl px-5 pt-10">
+    <article className="relative mx-auto max-w-2xl px-5 pt-10">
       <nav aria-label="Breadcrumb" className="label">
         <Link href={`/modules/${m.id}`} className="hover:text-ink">{m.number} {m.title}</Link>
         <span className="mx-2">/</span>
         <span>Lesson {index + 1} of {m.lessons.length}</span>
       </nav>
-      <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] tracking-tight hyphens-auto break-words">{l.title}</h1>
-      <p className="mt-3 font-mono text-xs uppercase tracking-wider text-ink-3">{l.minutes} min read</p>
+      <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] tracking-tight hyphens-auto break-words"><RichText text={l.title} seg="title" /></h1>
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p className="font-mono text-xs uppercase tracking-wider text-ink-3">{l.minutes} min read</p>
+        {voice && <ReadAloud src={`/audio/${key}.${voice.h}`} duration={voice.d} title={l.title} moduleTitle={`${m.number} ${m.title}`} />}
+      </div>
       <ModuleLock moduleId={m.id} />
 
-      <p className="mt-8 border-l-2 border-signal pl-4 font-display text-[1.6rem] leading-snug text-ink"><RichText text={content.hook} /></p>
+      <p className="mt-8 border-l-2 border-signal pl-4 font-display text-[1.6rem] leading-snug text-ink"><RichText text={content.hook} seg="hook" /></p>
 
       <div className="mt-8"><LessonBody blocks={content.blocks} /></div>
 
       <section aria-labelledby="takeaways" className="mt-12 border-t border-ink pt-5">
-        <h2 id="takeaways" className="label">Takeaways</h2>
+        <h2 id="takeaways" className="label"><RichText text="Takeaways" seg="kh" /></h2>
         <ul className="mt-3 space-y-2">
           {content.takeaways.map((t, i) => (
             <li key={i} className="grid grid-cols-[1.75rem_minmax(0,1fr)] text-ink-2">
               <span className="font-mono text-sm text-ink-3">{String(i + 1).padStart(2, "0")}</span>
-              <span><RichText text={t} /></span>
+              <span><RichText text={t} seg={`k${i}`} /></span>
             </li>
           ))}
         </ul>

@@ -1,0 +1,195 @@
+{
+ "lessons": {
+  "agents/agent-safety": {
+   "d": 244.85,
+   "h": "8192fe60b8",
+   "src": "544d3da8803698c617e7b4bf78390c1209f548f7"
+  },
+  "agents/building-an-agent": {
+   "d": 179.75,
+   "h": "0acd277935",
+   "src": "fa165490378d6c6efb81b5a89a65f1a50676a84e"
+  },
+  "agents/memory-and-rag": {
+   "d": 227.05,
+   "h": "4d31c40ad3",
+   "src": "957d61a21cd0e0fbd24dde8d74fa3348f6b33505"
+  },
+  "agents/tool-calling": {
+   "d": 188.525,
+   "h": "71365e4cbd",
+   "src": "690d6d1bcc8461e8efb7e7fe4a8810b1a00aa823"
+  },
+  "agents/what-is-an-agent": {
+   "d": 193.35,
+   "h": "1954f9fecd",
+   "src": "e878c5f0d74099d93689590c561da57005af7e3e"
+  },
+  "deep-learning/backprop-by-hand": {
+   "d": 129.5,
+   "h": "1aada19eb1",
+   "src": "df091f3436728d3b8519e25de28f641cbdef7b55"
+  },
+  "deep-learning/generalization": {
+   "d": 206.3,
+   "h": "30ffb41434",
+   "src": "8b8ef7a2ed21a690f49f2b6ccd47e350d9dce42c"
+  },
+  "deep-learning/loss-and-gradients": {
+   "d": 221.575,
+   "h": "5a1b66586c",
+   "src": "2860a0872859aafca15c217bad507234721a61ba"
+  },
+  "deep-learning/optimizers": {
+   "d": 229.8,
+   "h": "8814f145d0",
+   "src": "3d2830776113b4ceaa944da65a159f4766c06593"
+  },
+  "deep-learning/tensors": {
+   "d": 232.6,
+   "h": "126aba8085",
+   "src": "55be802e773325a4b331283b148f1ae3402e3b7f"
+  },
+  "ethics/academic-integrity": {
+   "d": 107.025,
+   "h": "3ff1aea010",
+   "src": "282e84a4a162743d47a3596bcc73791ecef8847b"
+  },
+  "ethics/bias-in-ai": {
+   "d": 167.075,
+   "h": "be0de2288e",
+   "src": "19f0c0a4d460fef6630d7837b3d1f69bc9bba278"
+  },
+  "ethics/citing-ai": {
+   "d": 107.725,
+   "h": "931cd4c2d2",
+   "src": "76cceab6db994da5bda5b5df48713194440c14e1"
+  },
+  "ethics/hallucinations": {
+   "d": 144.7,
+   "h": "2e40574372",
+   "src": "0d8f579289a417bb7f4870f399ba3f309d29a3df"
+  },
+  "ethics/privacy": {
+   "d": 108.625,
+   "h": "cff0f751fd",
+   "src": "1db0b7d1e7e93005f2826e58a2bbc3c46f9a31f5"
+  },
+  "foundations/how-llms-work": {
+   "d": 189.075,
+   "h": "18d01c6d09",
+   "src": "f67169610e8cdca97c324f8a9e532fac59207791"
+  },
+  "foundations/learning-from-data": {
+   "d": 174.375,
+   "h": "32109acde8",
+   "src": "4474985d912926a395155b98ac8cae3af98e4a5a"
+  },
+  "foundations/limits-of-ai": {
+   "d": 161.5,
+   "h": "6149a41bae",
+   "src": "e0803bd3ea432f5891b0c1f58d6626140139b409"
+  },
+  "foundations/neural-networks": {
+   "d": 142.025,
+   "h": "8755d67ddf",
+   "src": "7ff694cdf24b1ea807ca5648b03d4e3ecf68a3b6"
+  },
+  "foundations/what-is-ai": {
+   "d": 184.025,
+   "h": "5ec46cf6c7",
+   "src": "7b73522a1a171a4c72c1e1786822ed838be6158b"
+  },
+  "future/ai-across-fields": {
+   "d": 131.025,
+   "h": "5532e23374",
+   "src": "97d75403a173ad657e9ac74d48ec3d9e32c77361"
+  },
+  "future/careers": {
+   "d": 119.4,
+   "h": "e2b6bb6a9e",
+   "src": "aa9af974cec45358a03753d194efeb65c17adcd1"
+  },
+  "future/keep-learning": {
+   "d": 97.175,
+   "h": "143a6777cd",
+   "src": "1f5221ebc9480ee519d17b4046843d83e970a0a2"
+  },
+  "model-building/parameters": {
+   "d": 172.0,
+   "h": "667e1312c6",
+   "src": "70dd9251beb0cb17f8e8955808d2331251c2f458"
+  },
+  "model-building/post-training": {
+   "d": 229.925,
+   "h": "841894d537",
+   "src": "265dfa8af2d7320a277ec562cb5015e0c3a3d5f1"
+  },
+  "model-building/pretraining": {
+   "d": 226.4,
+   "h": "c8ce72ac2a",
+   "src": "5ae26062fcb8e1d50f42686cda7b0956fe4a6701"
+  },
+  "model-building/quantization": {
+   "d": 201.55,
+   "h": "49c31702c3",
+   "src": "c2ea90c36c17ce7824e2fd05f6ce964bb65ba05e"
+  },
+  "model-building/weights-on-disk": {
+   "d": 203.375,
+   "h": "9598bcc99a",
+   "src": "d360009a3467febd45ec0e7c04da602809a17a95"
+  },
+  "toolkit/ai-for-projects": {
+   "d": 139.975,
+   "h": "1870c2f70a",
+   "src": "dbeb0841c334b5d9523d5fc5d5936939c233a765"
+  },
+  "toolkit/prompting-101": {
+   "d": 144.625,
+   "h": "45bf83dfdf",
+   "src": "e8910e9e01917288b62a518740096ab28f363a7e"
+  },
+  "toolkit/studying-with-ai": {
+   "d": 116.375,
+   "h": "c7bbd85f2c",
+   "src": "7e8e2d53a58c16fbbba6ab1dcb1e1edfb7a76ed0"
+  },
+  "toolkit/the-ai-toolbox": {
+   "d": 150.3,
+   "h": "05103c6bac",
+   "src": "0fb95e4ba46afa165c46d2cf2fee0cbd8836d12a"
+  },
+  "toolkit/verifying-outputs": {
+   "d": 140.425,
+   "h": "8fc0e0cb7a",
+   "src": "1cb2d57cc6ad1f864f449c139a38833e0df66514"
+  },
+  "transformers/attention": {
+   "d": 206.1,
+   "h": "0a30c453ba",
+   "src": "dc1da93176f5ccf7170ad7a0b361b7e234b8aea7"
+  },
+  "transformers/decoding": {
+   "d": 191.3,
+   "h": "2356f19d6c",
+   "src": "64a2c9030dfe60f3da589c76fc219263c91823d6"
+  },
+  "transformers/embeddings": {
+   "d": 233.725,
+   "h": "806a1f6d65",
+   "src": "bb610aedd7af08f3085699972bc5f88c617b6670"
+  },
+  "transformers/scaling": {
+   "d": 201.125,
+   "h": "2a2da1fc5a",
+   "src": "6474986c7ad60c5e57bd6436e9d23495f4211711"
+  },
+  "transformers/transformer-block": {
+   "d": 214.075,
+   "h": "5345931ad1",
+   "src": "6759d067687b119bb1a73a82b791cdcf3cc29a6a"
+  }
+ },
+ "voice": "af_heart"
+}

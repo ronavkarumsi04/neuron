@@ -1,12 +1,9 @@
 import type { Block } from "@/content/lesson-types";
+import { NOTE_LABEL } from "@/lib/narration";
 import { RichText } from "./rich-text";
 import { Widget } from "./widgets";
 
-const NOTE: Record<string, { label: string; cls: string }> = {
-  key: { label: "Key idea", cls: "border-ink" },
-  try: { label: "Try it", cls: "border-green" },
-  warn: { label: "Watch out", cls: "border-signal" },
-};
+const NOTE_BORDER = { key: "border-ink", try: "border-green", warn: "border-signal" } as const;
 
 // Box-drawing art and column-aligned math must keep their spacing, so they scroll instead of wrapping.
 const isDiagram = (text: string) => /[\u2190-\u21FF\u2500-\u257F\u25B2-\u25C4]|\S {2,}\S|^ {2,}\S/m.test(text);
@@ -17,23 +14,23 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
       {blocks.map((b, i) => {
         switch (b.t) {
           case "p":
-            return <p key={i}><RichText text={b.text} /></p>;
+            return <p key={i}><RichText text={b.text} seg={`b${i}`} /></p>;
           case "h":
-            return <h2 key={i}>{b.text}</h2>;
+            return <h2 key={i}><RichText text={b.text} seg={`b${i}`} /></h2>;
           case "list": {
             const Tag = b.ordered ? "ol" : "ul";
             return (
               <Tag key={i}>
-                {b.items.map((item, j) => <li key={j}><RichText text={item} /></li>)}
+                {b.items.map((item, j) => <li key={j}><RichText text={item} seg={`b${i}.${j}`} /></li>)}
               </Tag>
             );
           }
           case "note":
             return (
-              <div role="note" key={i} className={`not-prose my-8 border-l-2 ${NOTE[b.kind].cls} bg-paper-raised py-4 pl-5 pr-4`}>
-                <p className="label">{NOTE[b.kind].label}</p>
-                <p className="mt-1 font-medium text-ink">{b.title}</p>
-                <p className="mt-1 leading-relaxed text-ink-2"><RichText text={b.text} /></p>
+              <div role="note" key={i} className={`not-prose my-8 border-l-2 ${NOTE_BORDER[b.kind]} bg-paper-raised py-4 pl-5 pr-4`}>
+                <p className="label"><RichText text={NOTE_LABEL[b.kind]} seg={`b${i}.k`} /></p>
+                <p className="mt-1 font-medium text-ink"><RichText text={b.title} seg={`b${i}.t`} /></p>
+                <p className="mt-1 leading-relaxed text-ink-2"><RichText text={b.text} seg={`b${i}.x`} /></p>
               </div>
             );
           case "example":
@@ -62,9 +59,9 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
               <div key={i} className="not-prose my-8 grid grid-cols-[minmax(0,1fr)] gap-px overflow-hidden rounded-sm border border-rule bg-rule sm:grid-cols-2">
                 {[b.left, b.right].map((side, j) => (
                   <div key={j} className="bg-paper-raised p-4">
-                    <p className={`label ${j === 0 ? "text-signal-ink" : "text-green"}`}>{side.title}</p>
+                    <p className={`label ${j === 0 ? "text-signal-ink" : "text-green"}`}><RichText text={side.title} seg={`b${i}.${j}`} /></p>
                     <ul className="mt-2 space-y-2 text-[0.95rem] leading-relaxed text-ink-2">
-                      {side.items.map((item, k) => <li key={k}><RichText text={item} /></li>)}
+                      {side.items.map((item, k) => <li key={k}><RichText text={item} seg={`b${i}.${j}.${k}`} /></li>)}
                     </ul>
                   </div>
                 ))}
@@ -73,10 +70,10 @@ export function LessonBody({ blocks }: { blocks: Block[] }) {
           case "terms":
             return (
               <dl key={i} className="not-prose my-8 divide-y divide-rule border-y border-rule">
-                {b.items.map((it) => (
+                {b.items.map((it, j) => (
                   <div key={it.term} className="grid grid-cols-[minmax(0,1fr)] gap-1 py-3 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-4">
-                    <dt className="font-mono text-sm text-ink">{it.term}</dt>
-                    <dd className="text-[0.95rem] leading-relaxed text-ink-2"><RichText text={it.def} /></dd>
+                    <dt className="font-mono text-sm text-ink"><RichText text={it.term} seg={`b${i}.${j}.t`} /></dt>
+                    <dd className="text-[0.95rem] leading-relaxed text-ink-2"><RichText text={it.def} seg={`b${i}.${j}.d`} /></dd>
                   </div>
                 ))}
               </dl>
