@@ -35,7 +35,7 @@ export function XpMeter() {
         </span>
       </span>
       {streak > 0 && (
-        <span className="font-mono text-xs text-signal-ink tabular" aria-hidden>
+        <span className="hidden font-mono text-xs text-signal-ink tabular min-[22.5rem]:inline" aria-hidden>
           {streak}d
         </span>
       )}

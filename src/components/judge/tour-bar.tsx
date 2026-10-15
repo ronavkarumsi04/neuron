@@ -46,7 +46,7 @@ export function TourBar() {
         )}
       </div>
       <div className="flex items-center gap-2 border-t border-rule px-4 py-2.5">
-        <div className="mr-auto flex min-w-0 flex-1 gap-1" aria-hidden>
+        <div className="mr-auto hidden min-w-0 flex-1 gap-1 min-[22.5rem]:flex" aria-hidden>
           {TOUR.map((_, i) => (
             <span key={i} className={`h-1 w-3 min-w-0.5 shrink rounded-full ${i <= step ? "bg-ink" : "bg-rule-strong"}`} />
           ))}
