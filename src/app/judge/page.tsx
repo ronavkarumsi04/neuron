@@ -28,6 +28,7 @@ export default function JudgePage() {
       <div className="mt-7 flex flex-wrap items-center gap-3">
         <StartTour className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-ink px-5 font-medium text-paper transition-transform duration-150 active:scale-[0.97]" />
         <Link href="/modules/foundations/what-is-ai" className="inline-flex min-h-11 items-center rounded-sm border border-rule-strong px-5 font-medium hover:bg-paper-sunk">Explore as a new student</Link>
+        <Link href="/judge/simulation" className="inline-flex min-h-11 items-center rounded-sm border border-rule-strong px-5 font-medium hover:bg-paper-sunk">Explore synthetic cohort (demo)</Link>
       </div>
 
       <section aria-labelledby="map-h" className="mt-16">
