@@ -51,9 +51,9 @@ for(const s of a){
 }
 const page=require(root+"/src/app/judge/simulation/page.tsx");
 const html=renderToString(React.createElement(page.default));
-assert(html.includes("Synthetic demo"));
-assert(html.includes("these students do not exist"));
-assert(html.includes("SIM-001"));
-assert(html.includes("Explore all") && html.includes("sample journeys"));
+assert(html.includes("DEMO COHORT") && html.includes("SIMULATED DATA"));
+assert(html.includes("not collected from actual users"));
+assert(html.includes("Learner <!-- -->001") || html.includes("Learner 001"));
+assert(html.includes("Explore all") && html.includes("learner journeys"));
 console.log("PASS: 120 deterministic profiles; honest labels; prereqs; chronological actions; varied outcomes; React SSR rendered "+html.length+" bytes");
 console.log(JSON.stringify(m));

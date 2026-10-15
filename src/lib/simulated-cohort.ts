@@ -154,9 +154,9 @@ export function generateDemoCohort(size = 120, seed = 20261015): DemoLearner[] {
     const hasPost = !!pre && chosen.length >= 8 && random() < 0.72;
     let post: DemoScore | null = null;
     if (hasPost) {
-      const improvement = chosen.length * (0.008 + random() * 0.007);
-      // Modest variability can cause a lower result, as with real assessment retakes.
-      const noise = (random() - 0.5) * 0.105;
+      const improvement = chosen.length * (0.004 + random() * 0.005);
+      // Individual variation may offset learning gains, including flat or lower retest scores.
+      const noise = (random() - 0.5) * 0.16;
       post = scoreFromDraws(draws, ability, improvement + noise);
       const postDay = Math.min(30, lastLessonDay + 1);
       days.add(postDay);
