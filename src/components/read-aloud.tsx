@@ -539,8 +539,10 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
                   type="button"
                   onClick={() => {
                     const q = document.querySelector<HTMLElement>('section[aria-labelledby$="-quiz"]');
-                    q?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-                    q?.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
+                    if (!q) return;
+                    const top = document.querySelector("body > header, header.sticky")?.getBoundingClientRect().bottom ?? 0;
+                    window.scrollTo({ top: q.getBoundingClientRect().top + window.scrollY - Math.max(top, 0) - 20, behavior: reduce ? "auto" : "smooth" });
+                    q.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
                   }}
                   className="shrink-0 font-mono text-xs uppercase tracking-wider text-signal-ink hover:underline"
                 >
