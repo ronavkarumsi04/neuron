@@ -179,15 +179,12 @@ p, li { text-wrap: pretty; }
 }
 [data-theme="dark"] .narration-marker { mix-blend-mode: screen; background: color-mix(in srgb, var(--signal) 24%, transparent); }
 .narration-marker[data-on="true"] { opacity: 1; }
-article[data-reading] [data-seg] { opacity: 0.74; transition: opacity 600ms var(--ease-out); }
-article[data-reading] [data-seg] [data-w] { transition: color 200ms var(--ease-out), opacity 200ms var(--ease-out); }
-article[data-reading] [data-seg][data-state="past"] { opacity: 0.5; }
-article[data-reading] [data-seg][data-state="now"] { opacity: 1; }
-article[data-reading] [data-seg][data-state="now"] [data-w]:not([data-read]) { opacity: 0.74; }
+/* Read passages fade to --ink-3 (still WCAG AA), the live passage fills in word by word. */
+article[data-reading] [data-seg],
+article[data-reading] [data-seg] * { transition: color 500ms var(--ease-out); }
+article[data-reading] [data-seg][data-state="past"],
+article[data-reading] [data-seg][data-state="past"] * { color: var(--ink-3); }
 article[data-reading] [data-seg][data-state="now"] [data-w][data-read] { color: var(--ink); }
-[data-contrast="high"] article[data-reading] [data-seg],
-[data-contrast="high"] article[data-reading] [data-seg][data-state="now"] [data-w]:not([data-read]) { opacity: 0.9; }
-[data-contrast="high"] article[data-reading] [data-seg][data-state="past"] { opacity: 0.75; }
 @media (hover: hover) {
   article[data-reading] [data-seg] [data-w] { cursor: pointer; }
   article[data-reading] [data-seg] [data-w]:hover { text-decoration: underline dotted var(--signal); text-underline-offset: 0.3em; }

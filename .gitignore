@@ -42,3 +42,4 @@ next-env.d.ts
 
 # narration: derived from lesson text by `pnpm narration:export`
 /scripts/narration/script.json
+__pycache__/

@@ -460,9 +460,9 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
                 <span aria-hidden>{detached === "up" ? "↑" : "↓"}</span> Back to reading
               </button>
             )}
-            <header className="flex items-center gap-3 border-b border-rule px-3.5 py-2">
+            <header className="flex items-center gap-3 border-b border-rule px-3.5 py-2 [@media(max-height:30rem)]:hidden">
               <span className={`size-2 shrink-0 rounded-full ${playing ? "bg-signal pulse" : "bg-ink-3"}`} aria-hidden />
-              <p className="label min-w-0 flex-1 truncate !text-ink" aria-live="polite">
+              <p className="label line-clamp-1 min-w-0 flex-1 break-all !text-ink" aria-live="polite">
                 {status === "error" ? "Audio didn’t load. Check your connection." : status === "ended" ? "Finished" : <>§ <span className="normal-case tracking-normal">{sectionName}</span></>}
               </p>
               <span className="label hidden shrink-0 sm:inline">Read aloud</span>
@@ -471,14 +471,14 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
               </button>
             </header>
 
-            <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 gap-y-1.5 px-3.5 pb-3 pt-3">
+            <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 gap-y-1.5 px-3.5 pb-3 pt-3 [@media(max-height:30rem)]:py-2">
               <button
                 type="button"
                 onClick={toggle}
                 disabled={busy && !audio.current}
                 aria-label={playing ? "Pause" : status === "ended" ? "Replay" : "Play"}
                 title={`${playing ? "Pause" : "Play"} (K)`}
-                className="row-span-2 grid size-12 place-items-center rounded-full bg-ink text-paper transition-transform active:scale-95"
+                className="row-span-2 grid size-12 [@media(max-height:30rem)]:size-10 place-items-center rounded-full bg-ink text-paper transition-transform active:scale-95"
               >
                 {busy ? <span className="size-4 animate-spin rounded-full border-2 border-paper/40 border-t-paper" aria-hidden /> : playing ? <PauseGlyph big /> : <PlayGlyph big />}
               </button>
@@ -528,6 +528,9 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
                 <p className="ml-auto font-mono text-xs tabular-nums text-ink-3">
                   <span ref={elapsed} className="text-ink">0:00</span> / {clock(total)}
                 </p>
+                <button type="button" onClick={close} aria-label="Close read aloud" className={`hidden size-8 shrink-0 place-items-center rounded-sm text-ink-3 hover:bg-paper-sunk hover:text-ink [@media(max-height:30rem)]:grid`}>
+                  <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                </button>
               </div>
             </div>
             {status === "ended" && (
