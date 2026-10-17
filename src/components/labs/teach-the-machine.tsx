@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { forward, GRID, hiddenWeights, makeNet, rasterize, sampleShape, shift, trainEpoch, type Net, type Pt, type ShapeKind } from "@/lib/mlp";
 import { useProgress } from "@/lib/progress";
 import { btn, Done, Panel } from "./ui";
@@ -53,30 +53,11 @@ export function TeachTheMachine() {
   const [training, setTraining] = useState(false);
   const [tests, setTests] = useState(0);
   const [done, setDone] = useState(false);
-  const canvas = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
 
   const input = rasterize(strokes);
   const prediction = net && input ? forward(net.net, input).p : null;
   const ready = classes.filter((c) => c.samples.length >= MIN * 3).length >= 2;
-
-  const paint = useCallback(() => {
-    const ctx = canvas.current?.getContext("2d");
-    if (!ctx) return;
-    ctx.clearRect(0, 0, CANVAS, CANVAS);
-    ctx.lineCap = ctx.lineJoin = "round";
-    ctx.lineWidth = 9;
-    ctx.strokeStyle = cssVar("--ink");
-    for (const s of strokes) {
-      if (!s.length) continue;
-      ctx.beginPath();
-      ctx.moveTo(...s[0]);
-      for (const p of s.slice(1)) ctx.lineTo(...p);
-      if (s.length === 1) ctx.lineTo(s[0][0] + 0.1, s[0][1]);
-      ctx.stroke();
-    }
-  }, [strokes]);
-  useEffect(paint, [paint]);
 
   const point = (e: React.PointerEvent): Pt => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -153,10 +134,8 @@ export function TeachTheMachine() {
     <div className="space-y-6">
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[auto_minmax(0,1fr)]">
         <Panel title="Drawing pad" label={net ? "Draw to test" : "Draw to collect"}>
-          <canvas
-            ref={canvas}
-            width={CANVAS}
-            height={CANVAS}
+          <svg
+            viewBox="0 0 240 240"
             aria-label="Drawing pad. Draw a shape with a mouse, finger, or stylus. Keyboard users can use the sample drawing buttons."
             role="img"
             className="aspect-square w-full max-w-[240px] touch-none rounded-sm border border-rule-strong bg-paper [background-image:radial-gradient(var(--rule)_1px,transparent_1px)] [background-size:20px_20px]"
@@ -176,7 +155,22 @@ export function TeachTheMachine() {
               drawing.current = false;
               if (net && !net.stale) countTest(true);
             }}
-          />
+          >
+            {strokes.map((stroke, i) =>
+              stroke.length ? (
+                <path
+                  key={i}
+                  d={stroke.map(([x, y], j) => (j === 0 ? "M" : "L") + x + " " + y).join(" ") + (stroke.length === 1 ? " l0.1 0" : "")}
+                  fill="none"
+                  stroke="var(--ink)"
+                  strokeWidth={9}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  pointerEvents="none"
+                />
+              ) : null,
+            )}
+          </svg>
           <div className="mt-3 flex flex-wrap gap-2">
             {classes.map((c, i) => (
               <button key={i} type="button" disabled={!input} onClick={() => add(i)} className={btn.secondary}>
