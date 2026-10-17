@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "narration:export": "npx -y tsx scripts/narration/export.ts"
+    "narration:export": "npx -y tsx scripts/narration/export.ts",
+    "test:artwork": "node scripts/verify-artwork.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
