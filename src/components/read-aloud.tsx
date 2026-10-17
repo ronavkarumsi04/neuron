@@ -389,7 +389,15 @@ export function ReadAloud({ src, duration, title, moduleTitle }: { src: string; 
   useEffect(() => {
     if (!open || !("mediaSession" in navigator)) return;
     const ms = navigator.mediaSession;
-    ms.metadata = new MediaMetadata({ title, artist: "Neuron", album: moduleTitle, artwork: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }] });
+    // iOS Now Playing / lock-screen artwork needs a large raster source.
+    // The icon stays vector-native everywhere else; this 1024px PNG was
+    // rasterized from the SVG at full output resolution, not upscaled.
+    ms.metadata = new MediaMetadata({
+      title,
+      artist: "Neuron",
+      album: moduleTitle,
+      artwork: [{ src: "/neuron-media-artwork-1024.png", sizes: "1024x1024", type: "image/png" }],
+    });
     const set = (a: MediaSessionAction, h: MediaSessionActionHandler | null) => { try { ms.setActionHandler(a, h); } catch {} };
     set("play", () => toggle());
     set("pause", () => toggle());
